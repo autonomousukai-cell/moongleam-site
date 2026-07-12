@@ -1,6 +1,7 @@
 /**
- * Moon Gleam content data — real portfolio (YouTube IDs), services, sectors,
- * reviews, FAQs, clients. Edit here; no component changes needed.
+ * Moon Gleam content data — company portfolio (YouTube IDs), services, sectors, FAQs.
+ * COMPANY VOICE ONLY: no personal history, no individual credentials.
+ * All clients listed are evidenced by the Moon Gleam portfolio catalogue.
  */
 
 export type Sector =
@@ -89,7 +90,7 @@ export const portfolio: WorkItem[] = [
   { id: '12AV3J4zWdw', title: 'Syed Arif & Co — Professional Services Promo', cat: 'ugc', sector: 'accountancy' },
   { id: 'g9ND48yyqJY', title: 'Lead-Gen Video for Professional Services', cat: 'ugc', sector: 'legal' },
   { id: 'QJAUCmecwsg', title: 'Social Media Marketing for Restaurants', cat: 'ugc', sector: 'retail' },
-  { id: 'U6ADvdX701A', title: 'AI Animal Podcast — Meet Moon Gleam Studio', cat: 'ugc', sector: 'universal' },
+  { id: 'U6ADvdX701A', title: 'AI Animal Podcast — Studio Showcase', cat: 'ugc', sector: 'universal' },
   { id: 'BVAWfIbwXfI', title: 'AI Just Broke the Rules — Product Promo', cat: 'ugc', sector: 'universal' },
 
   // Education
@@ -113,12 +114,11 @@ export const portfolio: WorkItem[] = [
 
 export const ytThumb = (id: string) => `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
 
-/* ============ CLIENTS ============ */
+/* ============ CLIENTS — Moon Gleam portfolio projects only ============ */
 export const clients = [
-  'Bombay Jewellers', 'MRA Accountants', 'QNS Academy', 'Bluestone Travel', 'Lawmatic Solicitors',
-  'Syed Arif & Co', 'Swadesh Bazar', 'Kacha Bazar', 'Grameen Grocery', 'Mishtiwala',
-  'RK Motors', 'Cuisine Artist', 'Ansarey Travels', 'HRF', 'Zam Zam Charitable Trust',
-  'Send a Little Hope', 'Channel S', 'TV One', 'ION TV', 'Salaam Channel', 'Iqra Bangla', 'Volant Media',
+  'Bombay Jewellers', 'Lawmatic Solicitors', 'Bluestone Travel', 'Ansarey Travels',
+  'RK Motors London', 'Cuisine Artist', 'Grameen Grocery', 'Bazar Shodai',
+  'QNS Academy', 'HRF', 'QNS Al-Khayr', 'Syed Arif & Co',
 ];
 
 /* ============ SERVICES ============ */
@@ -137,7 +137,7 @@ export const services: Service[] = [
     slug: 'ai-video-production',
     name: 'AI-Powered Video Production',
     short: 'Broadcast-quality video without the broadcast budget — fully AI, filmed, or hybrid.',
-    desc: 'Our core craft. We combine 20+ years of broadcast experience with the latest creative AI to produce cinema-grade video at a fraction of traditional cost and time. Fully AI-generated, traditionally filmed with real models, or a hybrid of both — we recommend the right route for your goal and budget.',
+    desc: 'Broadcast production standards combined with the latest creative AI. Fully AI-generated, traditionally filmed with real models, or a hybrid of both — the studio recommends the right route for your goal and budget, and delivers cinema-grade results at a fraction of traditional cost and time.',
     points: ['Fully AI, filmed or hybrid production', 'Script, storyboard and creative direction included', 'Broadcast-standard grade, sound and finish', 'Delivered in days, not months'],
     cat: 'brand',
     sector: 'universal',
@@ -163,9 +163,9 @@ export const services: Service[] = [
   {
     slug: 'tv-commercials',
     name: 'TV Commercials (TVC)',
-    short: 'Broadcast-ready TVCs — aired on UK channels, made to broadcast standard.',
-    desc: "We've made TVCs that have aired on UK television channels. Whether fully AI-generated, filmed with real models, or hybrid, every commercial is produced to broadcast technical and creative standards — from concept to clearance-ready delivery.",
-    points: ['Broadcast-standard production and delivery', 'Fully AI, live-action with models, or hybrid', 'Concept, script, storyboard and direction included', 'Experience across retail, travel, legal and charity TVCs'],
+    short: 'Broadcast-standard TVCs — concept to clearance-ready delivery.',
+    desc: 'Every commercial is produced to broadcast technical and creative standards — fully AI-generated, filmed with real models, or hybrid. The studio handles the full pipeline from concept and script to clearance-ready delivery.',
+    points: ['Broadcast-standard production and delivery', 'Fully AI, live-action with models, or hybrid', 'Concept, script, storyboard and direction included', 'TVC experience across retail, travel, legal and charity'],
     cat: 'tvc',
     sector: 'universal',
   },
@@ -182,7 +182,7 @@ export const services: Service[] = [
     slug: 'documentary',
     name: 'Documentary',
     short: 'Long and short-form documentary with authority, research and cinematic storytelling.',
-    desc: "From brand documentaries to full historical series, we handle research, scripting, narration and the complete edit. Our AI-powered documentary series prove the format: cinema-grade storytelling produced at a pace traditional crews can't touch.",
+    desc: 'From brand documentaries to full historical series, the studio handles research, scripting, narration and the complete edit. Our AI-powered documentary series prove the format: cinema-grade storytelling produced at a pace traditional crews cannot match.',
     points: ['Brand, heritage and story documentaries', 'Full research and scripting included', 'AI-powered archive-style visuals', 'Series and episodic formats'],
     cat: 'documentary',
     sector: 'universal',
@@ -200,7 +200,7 @@ export const services: Service[] = [
     slug: 'short-film',
     name: 'Short Film & Drama',
     short: 'Narrative shorts with cinematic direction, performance and pacing.',
-    desc: 'Story-first filmmaking: narrative shorts, drama and cinematic series with real direction behind every frame. Anyone can generate — we direct.',
+    desc: 'Story-first filmmaking: narrative shorts, drama and cinematic series with real direction behind every frame — developed, scripted and produced end to end in-house.',
     points: ['Narrative development and scripting', 'Cinematic direction and pacing', 'AI-powered production design', 'Festival and broadcast-ready delivery'],
     cat: 'film',
     sector: 'universal',
@@ -222,9 +222,9 @@ export const sectorPages: SectorPage[] = [
     slug: 'law-firms',
     name: 'Law Firms & Solicitors',
     short: "Video that wins clients' trust before they ever call your office.",
-    desc: "Legal clients choose the firm that feels most credible. A professional video on your website and Google profile does that job around the clock. We've produced ad campaigns for solicitors that turn searches into consultations — explaining your services in plain English while looking every bit the established firm.",
+    desc: 'Legal clients choose the firm that feels most credible. A professional video on your website and Google profile does that job around the clock — explaining your services in plain English while looking every bit the established firm. Our solicitor campaigns are built to turn searches into consultations.',
     sector: 'legal',
-    proof: 'Lawmatic Solicitors ad campaign · professional services lead-gen videos',
+    proof: 'Lawmatic Solicitors ad campaign · professional services lead-gen films',
   },
   {
     slug: 'accountants',
@@ -232,61 +232,50 @@ export const sectorPages: SectorPage[] = [
     short: 'Turn a trust-based service into a visible, referable brand.',
     desc: 'Accountancy is bought on trust and referral — video multiplies both. Client-facing explainers, firm profiles and social content that make you the obvious choice when a business owner needs an accountant.',
     sector: 'accountancy',
-    proof: 'MRA Accountants · Syed Arif & Co professional services films',
+    proof: 'Syed Arif & Co — professional services brand films',
   },
   {
     slug: 'charities',
     name: 'Charities & Non-Profits',
     short: 'Campaign films that move donors — at a budget that protects your cause.',
-    desc: 'Donation campaigns live or die on emotion. Our AI-powered production means charities get broadcast-grade campaign films — Winter appeals, Ramadan campaigns, fundraising events — without spending donor money on a film crew.',
+    desc: 'Donation campaigns live or die on emotion. AI-powered production means charities get broadcast-grade campaign films — winter appeals, Ramadan campaigns, fundraising events — without spending donor money on a film crew.',
     sector: 'charity',
-    proof: 'HRF Winter Souk TVC · QNS Al-Khayr campaign · Zam Zam Charitable Trust',
+    proof: 'HRF Winter Souk TVC · QNS Al-Khayr campaign',
   },
   {
     slug: 'education',
     name: 'Education & Training',
     short: 'Course promos, brand films and kids content that fill classrooms.',
-    desc: 'From online academies to kids courses, we produce the full stack: brand films that sell the institution, promos that sell the course, and animated content that keeps young learners engaged.',
-    sector: 'education',
+    desc: 'From online academies to kids courses, the studio produces the full stack: brand films that sell the institution, promos that sell the course, and animated content that keeps young learners engaged.',
     proof: 'QNS Academy brand film · kids course promos · 3D educational animation',
+    sector: 'education',
   },
   {
     slug: 'retail',
     name: 'Retail, Grocers & Jewellers',
     short: 'TVCs and promos that bring footfall through your door.',
-    desc: "Local retail is a footfall game. We've made live-action TVCs for jewellers, grocers and restaurants — filmed with real models or AI-generated — that put local shops on TV and social feeds looking like national brands.",
+    desc: 'Local retail is a footfall game. Our live-action and AI-generated TVCs for jewellers, grocers and restaurants put local shops on screens looking like national brands.',
     sector: 'retail',
-    proof: 'Bombay Jewellers TVC · Grameen Grocery · Bazar Shodai · Mishtiwala',
+    proof: 'Bombay Jewellers TVC · Grameen Grocery · Bazar Shodai · Cuisine Artist',
   },
   {
     slug: 'travel',
     name: 'Travel & Tour Operators',
     short: 'Destination films that sell the holiday before the customer books.',
-    desc: 'Travel is sold on the dream. Our AI-powered destination commercials — Istanbul, Antalya, Umrah packages — give tour operators cinematic campaign films for every route and season, produced in days.',
+    desc: 'Travel is sold on the dream. AI-powered destination commercials — Istanbul, Antalya, Umrah packages — give tour operators cinematic campaign films for every route and season, produced in days.',
     sector: 'travel',
     proof: 'Bluestone Travel TVC series · Ansarey International Travels',
   },
 ];
 
-/* ============ REVIEWS ============ */
-export type Review = { quote: string; name: string; role: string; sector: Sector };
-
-export const reviews: Review[] = [
-  { quote: 'Azhar transformed how we present our firm. Professional, fast and genuinely knowledgeable — a real asset to our business.', name: 'MRA Accountants', role: 'Accountancy · London', sector: 'accountancy' },
-  { quote: 'The video and content work was outstanding — it brought our brand to life and our customers noticed straight away.', name: 'Bombay Jewellers', role: 'Retail Jeweller · London', sector: 'retail' },
-  { quote: 'The training gave our team the confidence to actually use AI day to day. Practical, clear and tailored to us.', name: 'QNS Academy', role: 'Education', sector: 'education' },
-  { quote: 'Broadcast quality without the broadcast price. The TVC put our travel deals in front of thousands of new customers.', name: 'Bluestone Travel', role: 'Travel Agency', sector: 'travel' },
-  { quote: 'Our campaign film did the fundraising work of ten volunteers. Delivered fast and beautifully.', name: 'HRF', role: 'Charity Campaign', sector: 'charity' },
-];
-
-/* ============ FAQ ============ */
+/* ============ FAQ — company voice ============ */
 export const faqs = [
-  { q: 'How much does a video cost?', a: "Every project is priced around your specific needs and budget — and you always get more quality than the price suggests. Our AI-powered workflow means broadcast-grade results typically cost a fraction of traditional production. Book a free call and we'll send a clear, tailored quote with no obligation." },
-  { q: 'How fast can you deliver?', a: 'Most projects are delivered in days, not months. A social promo can be ready within a week; a full TVC typically takes 1–2 weeks from approved script. If you have a hard deadline, tell us — we build the timeline around it.' },
-  { q: 'AI, filmed, or hybrid — which do I need?', a: 'It depends on the job. Fully AI is fastest and most affordable — ideal for promos, explainers and destination films. Live-action with real models suits brands that need real people and real premises on screen. Hybrid combines both. We recommend the right route on your free call.' },
-  { q: 'Do you make TV commercials that can actually air on TV?', a: 'Yes. We produce TVCs to broadcast technical standards and our work has aired on UK television channels. We handle everything from concept to broadcast-ready delivery.' },
+  { q: 'How much does a video cost?', a: 'Transparent starting points: social packs from £499, promotional videos from £1,499, broadcast TVCs from £3,999. Every project gets a tailored written quote after a free 15-minute call — no obligation, no hidden fees.' },
+  { q: 'How fast can you deliver?', a: 'Days, not months. A social pack ships within a week; a promotional video typically takes 7–14 days; a full TVC 2–3 weeks from approved script. Hard deadline? Tell us — we build the timeline around it.' },
+  { q: 'AI, filmed, or hybrid — which do I need?', a: 'It depends on the job. Fully AI is fastest and most affordable — ideal for promos, explainers and destination films. Live-action with real models suits brands that need real people and premises on screen. Hybrid combines both. We recommend the right route on your free call.' },
+  { q: 'Are your TV commercials broadcast-ready?', a: 'Yes. Every TVC is produced to broadcast technical and creative standards, with clearance-ready delivery — the same pipeline used for the retail, travel and charity commercials in our portfolio.' },
   { q: 'Who owns the final files?', a: 'You do — the moment we deliver. Full usage rights, source files on request, plus cutdowns for every platform you need.' },
-  { q: 'How many revisions do I get?', a: "We revise until you're happy. Most clients approve within one or two rounds because we lock the script and storyboard with you before production starts." },
-  { q: 'What kind of businesses do you work with?', a: 'Everything from local shops, restaurants and jewellers to law firms, accountants, charities and schools — 500+ UK businesses so far. If you want to grow, we can help.' },
-  { q: 'Do I need to understand AI to work with you?', a: 'Not at all. We handle the technical side and explain everything in plain English. You brief us like any production company — the AI just makes it faster and more affordable.' },
+  { q: 'How many revisions do I get?', a: 'We revise until you approve. Most projects wrap in one or two rounds because the script and storyboard are locked with you before production starts.' },
+  { q: 'What kind of businesses do you work with?', a: 'UK SMBs and organisations: shops, grocers, jewellers, restaurants, law firms, accountancy practices, charities, schools and tour operators — 500+ UK businesses served so far.' },
+  { q: 'Do I need to understand AI to work with you?', a: 'Not at all. You brief us like any production company and we handle the technical side, explained in plain English. The AI simply makes production faster and more affordable.' },
 ];
