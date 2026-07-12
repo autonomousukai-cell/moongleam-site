@@ -1,8 +1,6 @@
 import Link from 'next/link';
 import Hero from '@/components/Hero';
 import LogoMarquee from '@/components/LogoMarquee';
-import Showreel from '@/components/Showreel';
-import TestimonialMarquee from '@/components/TestimonialMarquee';
 import WorkGrid from '@/components/WorkGrid';
 import Pricing from '@/components/Pricing';
 import FAQ from '@/components/FAQ';
@@ -11,49 +9,19 @@ import Section from '@/components/Section';
 import SectionHeading from '@/components/SectionHeading';
 import { FaqJsonLd } from '@/lib/seo';
 import { faqs } from '@/lib/data';
-import { site } from '@/lib/site';
 
 export default function Home() {
   return (
     <main>
       <FaqJsonLd items={faqs} />
 
-      {/* 1–3. Nav (layout) + trust strip + hero */}
+      {/* Hero (split, with showreel) */}
       <Hero />
 
-      {/* 4. Client marquee */}
+      {/* Client project marquee — Moon Gleam portfolio clients */}
       <LogoMarquee />
 
-      {/* 5. Featured showreel */}
-      <section className="py-20 md:py-28">
-        <div className="container-content">
-          <SectionHeading
-            center
-            eyebrow="Showreel"
-            title="See what Creative AI can do"
-            lead="Broadcast-grade video, produced at AI speed. This is the standard every project ships at."
-          />
-          <Showreel
-            videoId={site.showreelId}
-            caption="Moon Gleam — The Future of Media is Powered by AI"
-          />
-        </div>
-      </section>
-
-      {/* 6. Testimonial marquee */}
-      <section className="border-t border-ink-line/60 py-20 md:py-28">
-        <div className="container-content">
-          <SectionHeading
-            center
-            eyebrow="Reviews"
-            title="Don't take our word for it"
-            lead="Named owners, real businesses, every sector we serve."
-          />
-        </div>
-        <TestimonialMarquee />
-      </section>
-
-      {/* 7. Method: Hook / Story / Conversion */}
+      {/* Method: Hook / Story / Conversion */}
       <Section
         id="method"
         eyebrow="The Method"
@@ -66,8 +34,8 @@ export default function Home() {
           },
           {
             tag: '02 — Story',
-            title: 'Anyone can generate. We direct.',
-            body: 'Twenty years of broadcast storytelling behind every frame. Clear, cinematic and interesting from the first shot to the last.',
+            title: 'Structure that holds',
+            body: 'Clear, cinematic storytelling from the first frame to the last — so viewers stay to the end and remember who you are.',
           },
           {
             tag: '03 — Conversion',
@@ -77,7 +45,7 @@ export default function Home() {
         ]}
       />
 
-      {/* 8. Work grid filtered by sector */}
+      {/* Work grid filtered by sector */}
       <section id="work" className="border-t border-ink-line/60 py-20 md:py-28">
         <div className="container-content">
           <SectionHeading
@@ -98,7 +66,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 9. Framework */}
+      {/* Framework */}
       <Section
         id="framework"
         eyebrow="The Framework"
@@ -123,7 +91,7 @@ export default function Home() {
         ]}
       />
 
-      {/* 10. Pricing */}
+      {/* Pricing */}
       <section id="pricing" className="border-t border-ink-line/60 py-20 md:py-28">
         <div className="container-content">
           <SectionHeading
@@ -136,7 +104,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 11. Process promise */}
+      {/* Studio promise */}
       <section className="border-t border-ink-line/60 py-20 md:py-28">
         <div className="container-content grid items-center gap-10 md:grid-cols-2">
           <SectionHeading
@@ -147,7 +115,7 @@ export default function Home() {
           <div className="grid grid-cols-2 gap-4">
             {[
               ['500+', 'UK businesses served'],
-              ['20+ yrs', 'broadcast experience'],
+              ['8 formats', 'produced in-house'],
               ['Days', 'not months, to deliver'],
               ['1 team', 'brief to broadcast'],
             ].map(([stat, label]) => (
@@ -163,7 +131,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 12. FAQ */}
+      {/* FAQ */}
       <section id="faq" className="border-t border-ink-line/60 py-20 md:py-28">
         <div className="container-content">
           <SectionHeading center eyebrow="Questions" title="Frequently asked" />
@@ -194,7 +162,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 13. CTA band → footer (layout) */}
+      {/* CTA band */}
       <CTABand />
     </main>
   );
