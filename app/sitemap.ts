@@ -1,11 +1,11 @@
 import type { MetadataRoute } from 'next';
 import { site } from '@/lib/site';
 import { services, sectorPages } from '@/lib/data';
+import { posts } from '@/lib/posts';
 
 /**
- * Sitemap for moongleam.co.uk pages. The GHL blog has its own sitemap at
- * https://blog.moongleam.co.uk/sitemap.xml — submit both in Google Search Console.
- * /blog itself is included here since it's served on-domain via reverse proxy.
+ * Sitemap for moongleam.co.uk pages. The blog is now native (app/blog) so its
+ * index and every post are listed here — no external blog sitemap to submit.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -29,6 +29,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: 'monthly' as const,
       priority: 0.7,
+    })),
+    ...posts.map((p) => ({
+      url: `${site.url}/blog/${p.slug}`,
+      lastModified: new Date(p.date),
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
     })),
   ];
 }
