@@ -44,6 +44,64 @@ export function ServiceJsonLd({ name, description, slug }: { name: string; descr
   );
 }
 
+export function BlogPostingJsonLd({
+  title,
+  description,
+  slug,
+  cover,
+  date,
+}: {
+  title: string;
+  description: string;
+  slug: string;
+  cover: string;
+  date: string;
+}) {
+  const url = `${site.url}/blog/${slug}`;
+  return (
+    <JsonLd
+      data={{
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        headline: title,
+        description,
+        image: cover,
+        datePublished: date,
+        dateModified: date,
+        url,
+        mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+        author: { '@id': `${site.url}/#organization` },
+        publisher: { '@id': `${site.url}/#organization` },
+      }}
+    />
+  );
+}
+
+export function BlogListJsonLd({
+  items,
+}: {
+  items: { title: string; slug: string }[];
+}) {
+  return (
+    <JsonLd
+      data={{
+        '@context': 'https://schema.org',
+        '@type': 'Blog',
+        '@id': `${site.url}/blog`,
+        url: `${site.url}/blog`,
+        name: 'Moon Gleam AI Studio — Blog',
+        publisher: { '@id': `${site.url}/#organization` },
+        blogPost: items.map((it, i) => ({
+          '@type': 'BlogPosting',
+          position: i + 1,
+          headline: it.title,
+          url: `${site.url}/blog/${it.slug}`,
+        })),
+      }}
+    />
+  );
+}
+
 export function BreadcrumbJsonLd({ trail }: { trail: { name: string; path: string }[] }) {
   return (
     <JsonLd
