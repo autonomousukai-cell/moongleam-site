@@ -237,3 +237,48 @@ body {
 .blog-prose tbody tr:nth-child(even) td {
   background: rgba(17, 18, 20, 0.5);
 }
+
+/* ---------------------------------------------------------------------------
+   /experience — cinematic scroll-driven "AI studio walkthrough" (Gleam host).
+   The whole scene is driven by one scrollProgress value (see StudioExperience).
+   Only transform/opacity animate here — everything else is inline style so the
+   scrubbed timeline stays 60fps.
+--------------------------------------------------------------------------- */
+/* Hide the native cursor while the custom gold cursor is active (desktop only). */
+.exp-cursor-none,
+.exp-cursor-none * {
+  cursor: none !important;
+}
+@media (hover: none), (pointer: coarse) {
+  .exp-cursor-none,
+  .exp-cursor-none * {
+    cursor: auto !important;
+  }
+}
+
+/* Pulsing "scroll to see how" arrow. */
+@keyframes exp-bob {
+  0%, 100% { transform: translateY(0); opacity: 0.9; }
+  50% { transform: translateY(8px); opacity: 0.4; }
+}
+.exp-bob {
+  animation: exp-bob 1.8s ease-in-out infinite;
+}
+
+/* Gentle idle float for Gleam speech bubbles / chips. */
+@keyframes exp-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.exp-float {
+  animation: exp-float 4s ease-in-out infinite;
+}
+
+/* Clapperboard top-stripe accent for CTA buttons. */
+.exp-clap {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    #0a0a0b 0 10px,
+    #e9c46a 10px 20px
+  );
+}
