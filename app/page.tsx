@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import StudioDoorIntro from '@/components/StudioDoorIntro';
 import Hero from '@/components/Hero';
 import LogoMarquee from '@/components/LogoMarquee';
 import AIBuildsSection from '@/components/AIBuildsSection';
@@ -14,6 +15,9 @@ export default function Home() {
   return (
     <main>
       <FaqJsonLd items={faqs} />
+
+      {/* Cinematic entrance — AI studio doors open to reveal the site */}
+      <StudioDoorIntro />
 
       {/* Hero (split, with showreel) */}
       <Hero />
