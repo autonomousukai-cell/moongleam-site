@@ -2,7 +2,8 @@ import type { Config } from 'tailwindcss';
 
 /**
  * Moon Gleam design tokens.
- * Dark base + gleam-gold primary accent + moon-silver neutral + electric-blue glow.
+ * Matched to the chrome-silver + gold MG logo: dark base + gleam-gold primary
+ * accent + moon-silver neutral + a brushed-chrome `glow` secondary. No blue.
  * Do NOT hardcode hex values in components — use these tokens.
  */
 const config: Config = {
@@ -31,10 +32,12 @@ const config: Config = {
           soft: '#8A9099',
           faint: '#5A5F66',
         },
-        // Glow accent — electric blue
+        // Secondary accent — brushed chrome (repurposed from the old blue "glow").
+        // Kept the `glow` token name so every existing text-glow/border-glow/
+        // shadow-glow usage now renders silver instead of blue.
         glow: {
-          DEFAULT: '#4CC9F0',
-          deep: '#2A9DC4',
+          DEFAULT: '#D7DBE0',
+          deep: '#AEB4BB',
         },
       },
       fontFamily: {
@@ -48,8 +51,10 @@ const config: Config = {
         'heading': ['clamp(1.5rem, 3vw, 2.25rem)', { lineHeight: '1.15', letterSpacing: '-0.01em' }],
       },
       boxShadow: {
-        glow: '0 0 60px -12px rgba(76, 201, 240, 0.35)',
+        // Warm gold glow (was electric-blue). Silver variant for chrome surfaces.
+        glow: '0 0 60px -12px rgba(233, 196, 106, 0.30)',
         'gleam-glow': '0 0 50px -12px rgba(233, 196, 106, 0.35)',
+        'chrome-glow': '0 0 50px -12px rgba(199, 204, 209, 0.25)',
       },
       maxWidth: {
         content: '1200px',
