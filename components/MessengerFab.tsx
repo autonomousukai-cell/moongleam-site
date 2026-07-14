@@ -15,7 +15,7 @@ export default function MessengerFab() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Message Moon Gleam on Facebook Messenger"
-      className="group fixed bottom-5 right-5 z-[90] flex items-center gap-0 overflow-hidden rounded-full border border-gleam/40 bg-ink-soft/95 shadow-gleam-glow backdrop-blur-md transition-all duration-300 hover:gap-2 hover:pr-5 md:bottom-6 md:right-6"
+      className="group fixed bottom-24 right-5 z-[2147483000] flex items-center gap-0 overflow-hidden rounded-full border border-gleam/40 bg-ink-soft/95 shadow-gleam-glow backdrop-blur-md transition-all duration-300 hover:gap-2 hover:pr-5 md:bottom-28 md:right-6"
     >
       <span className="dot-pulse grid h-14 w-14 shrink-0 place-items-center rounded-full bg-gleam text-ink">
         <svg viewBox="0 0 24 24" fill="currentColor" className="h-7 w-7" aria-hidden>
