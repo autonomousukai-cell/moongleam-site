@@ -58,9 +58,24 @@ function Stage() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const pinRef = useRef<HTMLDivElement>(null);
   const [p, setP] = useState(0);
-  const [lightbox, setLightbox] = useState(false);
+  const [soundOn, setSoundOn] = useState(false);
   const target = useRef({ x: 0, y: 0 });
   const [m, setM] = useState({ x: 0, y: 0 });
+
+  // Sound autoplay is blocked by browsers until the user interacts — so we
+  // unmute the welcome film the instant they first click / tap / press a key.
+  useEffect(() => {
+    const on = () => setSoundOn(true);
+    const opts: AddEventListenerOptions = { once: true };
+    window.addEventListener('pointerdown', on, opts);
+    window.addEventListener('keydown', on, opts);
+    window.addEventListener('touchstart', on, opts);
+    return () => {
+      window.removeEventListener('pointerdown', on);
+      window.removeEventListener('keydown', on);
+      window.removeEventListener('touchstart', on);
+    };
+  }, []);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -150,21 +165,22 @@ function Stage() {
               <HoloFrame>
                 <div className="relative aspect-video w-full overflow-hidden rounded-md bg-black">
                   <iframe
+                    key={soundOn ? 'sound' : 'muted'}
                     className="pointer-events-none absolute inset-0 h-full w-full"
-                    src={`https://www.youtube-nocookie.com/embed/${WELCOME_ID}?autoplay=1&mute=1&loop=1&playlist=${WELCOME_ID}&controls=0&modestbranding=1&playsinline=1&rel=0`}
+                    src={`https://www.youtube-nocookie.com/embed/${WELCOME_ID}?autoplay=1&${soundOn ? '' : 'mute=1&'}loop=1&playlist=${WELCOME_ID}&controls=0&modestbranding=1&playsinline=1&rel=0`}
                     title="Moon Gleam welcome film"
                     allow="autoplay; encrypted-media"
                   />
-                  {/* Tap the holo screen to watch with sound */}
+                  {/* Sound toggle — sound also auto-enables on first interaction */}
                   <button
-                    onClick={() => setLightbox(true)}
-                    aria-label="Play the welcome film with sound"
-                    className="group absolute inset-0 flex items-end justify-between gap-3 p-4"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSoundOn((s) => !s);
+                    }}
+                    aria-label={soundOn ? 'Mute the film' : 'Unmute the film'}
+                    className="absolute bottom-3 left-3 flex items-center gap-2 rounded-full border border-cyan-300/40 bg-[#05070c]/80 px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.15em] text-cyan-200 backdrop-blur transition-colors hover:border-cyan-300"
                   >
-                    <span className="rounded-full border border-cyan-300/40 bg-[#05070c]/80 px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.15em] text-cyan-200 backdrop-blur">
-                      🔊 Tap for sound
-                    </span>
-                    <span className="grid h-12 w-12 place-items-center rounded-full bg-gleam text-ink shadow-lg transition-transform group-hover:scale-110">▶</span>
+                    {soundOn ? '🔊 Sound on' : '🔇 Tap to unmute'}
                   </button>
                 </div>
                 <div className="absolute -top-3 left-4 rounded-full border border-cyan-300/40 bg-[#05070c] px-3 py-1 text-[10px] font-medium uppercase tracking-[0.2em] text-cyan-300">
@@ -270,9 +286,6 @@ function Stage() {
             <Link href="/blog" className="rounded-full border border-cyan-300/40 px-8 py-3.5 text-sm font-semibold text-cyan-100 transition-colors hover:border-cyan-300">From the studio — blog</Link>
           </div>
         </Centre>
-
-        {/* Welcome film with sound */}
-        {lightbox && <SoundLightbox onClose={() => setLightbox(false)} />}
 
         {/* Progress + chapter rail */}
         <div className="absolute left-0 top-0 z-30 h-0.5 w-full bg-cyan-300/10">
