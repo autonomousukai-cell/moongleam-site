@@ -5,11 +5,22 @@ import { motion } from 'framer-motion';
 import { fadeUp, stagger } from '@/lib/motion';
 import { cta, site } from '@/lib/site';
 import Showreel from '@/components/Showreel';
+import AITyper from '@/components/AITyper';
 
 /**
- * Split hero — 21st.dev marketing-hero pattern (badge + display headline +
- * dual CTA + inline stats, media panel right), adapted to Moon Gleam tokens.
+ * AI Creative Studio hero. Static hook headline + a dark "studio display" panel
+ * in which an AI types out rotating, pain-point-led headlines with a blinking
+ * caret. Dual CTA with a pulsing gold accent, showreel and stats below.
  */
+const headlines = [
+  'Turn your service into a broadcast-quality advert — in days, not months.',
+  'A TV-ready commercial for your law firm, without the agency price tag.',
+  'Make your product sell itself — AI-crafted, human-directed.',
+  'A charity story that moves people to give.',
+  'From brief to broadcast, produced at AI speed.',
+  '500+ UK businesses. One studio. Powered by Creative AI.',
+];
+
 const stats = [
   ['500+', 'UK businesses'],
   ['8', 'video formats in-house'],
@@ -27,35 +38,61 @@ export default function Hero() {
             className="inline-flex items-center gap-2 rounded-full border border-ink-line bg-ink-soft/60 px-4 py-1.5 text-xs font-medium text-moon-soft"
           >
             <span className="h-2 w-2 rounded-full bg-gleam" />
-            London · AI Video Production Studio
+            London · AI Creative Studio
           </motion.span>
 
           <motion.h1
             variants={fadeUp}
             className="mt-6 font-display text-display-lg font-semibold text-moon"
           >
-            AI-powered videos that{' '}
-            <span className="text-gleam">grow UK businesses</span>.
+            Creative AI that makes your business{' '}
+            <span className="text-gleam">impossible to scroll past</span>.
           </motion.h1>
 
           <motion.p
             variants={fadeUp}
             className="mt-6 max-w-xl text-lg leading-relaxed text-moon-soft"
           >
-            Full production — brief to delivery — for 500+ UK businesses. TVCs, promos,
-            documentaries and animation, produced at AI speed to broadcast standard.
+            Broadcast-quality video — TVCs, promos, documentaries, animation — for 500+ UK
+            businesses. Brief to delivery, in days.
           </motion.p>
 
-          <motion.div variants={fadeUp} className="mt-8 flex flex-wrap gap-4">
+          {/* Studio display / terminal — AI types rotating headlines */}
+          <motion.div
+            variants={fadeUp}
+            className="relative mt-8 overflow-hidden rounded-2xl border border-gleam/25 bg-ink-soft/80 shadow-glow"
+          >
+            <div className="pointer-events-none absolute inset-0 studio-grid" />
+            <div className="pointer-events-none absolute inset-0 studio-scan" />
+            <div className="relative flex items-center gap-2 border-b border-ink-line/70 px-4 py-2.5">
+              <span className="h-2.5 w-2.5 rounded-full bg-gleam/70" />
+              <span className="h-2.5 w-2.5 rounded-full bg-moon/40" />
+              <span className="h-2.5 w-2.5 rounded-full bg-moon/20" />
+              <span className="ml-2 text-[10px] font-medium uppercase tracking-[0.2em] text-glow">
+                ▍ AI Creative Studio
+              </span>
+            </div>
+            <div className="relative min-h-[112px] px-5 py-5 sm:min-h-[96px]">
+              <p className="mb-2 text-[11px] font-medium uppercase tracking-[0.18em] text-moon-faint">
+                &gt; generating…
+              </p>
+              <p className="font-display text-lg font-semibold leading-snug sm:text-xl">
+                <AITyper lines={headlines} />
+              </p>
+            </div>
+          </motion.div>
+
+          <motion.div variants={fadeUp} className="mt-8 flex flex-wrap items-center gap-4">
             <Link
               href={cta.href}
-              className="rounded-full bg-gleam px-7 py-3 font-semibold text-ink shadow-gleam-glow transition-transform duration-200 hover:scale-[1.03] hover:bg-gleam-bright"
+              className="relative inline-flex items-center gap-2 rounded-full bg-gleam px-7 py-3 font-semibold text-ink shadow-gleam-glow transition-transform duration-200 hover:scale-[1.03] hover:bg-gleam-bright"
             >
-              {cta.label}
+              <span className="dot-pulse h-2 w-2 rounded-full bg-ink/70" />
+              Book a demo
             </Link>
             <Link
               href="/pricing"
-              className="rounded-full border border-ink-line px-7 py-3 font-medium text-moon transition-colors duration-200 hover:border-glow hover:text-glow"
+              className="rounded-full border border-ink-line px-7 py-3 font-medium text-moon transition-colors duration-200 hover:border-gleam/60 hover:text-gleam"
             >
               See pricing
             </Link>

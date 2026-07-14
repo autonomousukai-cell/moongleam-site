@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { nav, cta } from '@/lib/site';
 
@@ -16,9 +17,19 @@ export default function Nav() {
       className="sticky top-0 z-50 border-b border-ink-line/70 bg-ink/70 backdrop-blur-md"
     >
       <nav className="container-content flex h-16 items-center justify-between">
-        <Link href="/" className="font-display text-lg font-semibold tracking-tight text-moon">
-          Moon<span className="text-gleam">Gleam</span>
-          <span className="ml-3 hidden text-[10px] font-medium uppercase tracking-[0.2em] text-moon-faint lg:inline">
+        <Link href="/" aria-label="Moon Gleam — home" className="flex items-center gap-3">
+          <Image
+            src="/mg-logo.png"
+            alt="Moon Gleam logo"
+            width={40}
+            height={40}
+            priority
+            className="h-9 w-9 object-contain"
+          />
+          <span className="font-display text-lg font-semibold tracking-tight text-moon">
+            Moon <span className="text-gleam">Gleam</span>
+          </span>
+          <span className="ml-1 hidden text-[10px] font-medium uppercase tracking-[0.2em] text-moon-faint lg:inline">
             Powered by Creative AI
           </span>
         </Link>
