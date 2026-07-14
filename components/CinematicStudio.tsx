@@ -64,14 +64,19 @@ function Stage() {
 
   // Sound autoplay is blocked by browsers until the user interacts — so we
   // unmute the welcome film the instant they first click / tap / press a key.
+  // (Ignoring the dedicated mute button so it can still toggle.)
   useEffect(() => {
-    const on = () => setSoundOn(true);
+    const on = (e: Event) => {
+      const t = e.target as HTMLElement | null;
+      if (t && t.closest('[data-sound-btn]')) return;
+      setSoundOn(true);
+    };
     const opts: AddEventListenerOptions = { once: true };
-    window.addEventListener('pointerdown', on, opts);
+    window.addEventListener('click', on, opts);
     window.addEventListener('keydown', on, opts);
     window.addEventListener('touchstart', on, opts);
     return () => {
-      window.removeEventListener('pointerdown', on);
+      window.removeEventListener('click', on);
       window.removeEventListener('keydown', on);
       window.removeEventListener('touchstart', on);
     };
@@ -173,6 +178,7 @@ function Stage() {
                   />
                   {/* Sound toggle — sound also auto-enables on first interaction */}
                   <button
+                    data-sound-btn
                     onClick={(e) => {
                       e.stopPropagation();
                       setSoundOn((s) => !s);
