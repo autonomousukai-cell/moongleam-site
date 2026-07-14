@@ -58,6 +58,7 @@ function Stage() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const pinRef = useRef<HTMLDivElement>(null);
   const [p, setP] = useState(0);
+  const [lightbox, setLightbox] = useState(false);
   const target = useRef({ x: 0, y: 0 });
   const [m, setM] = useState({ x: 0, y: 0 });
 
@@ -142,7 +143,10 @@ function Stage() {
         </div>
         {videoActive && (
           <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-            <div className="relative w-[88%] max-w-4xl" style={{ transform: `scale(${videoScale}) ${px(8)}`, opacity: videoOp }}>
+            <div
+              className="relative w-[88%] max-w-4xl"
+              style={{ transform: `scale(${videoScale}) ${px(8)}`, opacity: videoOp, pointerEvents: videoOp > 0.6 ? 'auto' : 'none' }}
+            >
               <HoloFrame>
                 <div className="relative aspect-video w-full overflow-hidden rounded-md bg-black">
                   <iframe
@@ -151,6 +155,17 @@ function Stage() {
                     title="Moon Gleam welcome film"
                     allow="autoplay; encrypted-media"
                   />
+                  {/* Tap the holo screen to watch with sound */}
+                  <button
+                    onClick={() => setLightbox(true)}
+                    aria-label="Play the welcome film with sound"
+                    className="group absolute inset-0 flex items-end justify-between gap-3 p-4"
+                  >
+                    <span className="rounded-full border border-cyan-300/40 bg-[#05070c]/80 px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.15em] text-cyan-200 backdrop-blur">
+                      🔊 Tap for sound
+                    </span>
+                    <span className="grid h-12 w-12 place-items-center rounded-full bg-gleam text-ink shadow-lg transition-transform group-hover:scale-110">▶</span>
+                  </button>
                 </div>
                 <div className="absolute -top-3 left-4 rounded-full border border-cyan-300/40 bg-[#05070c] px-3 py-1 text-[10px] font-medium uppercase tracking-[0.2em] text-cyan-300">
                   ● Live · Holographic stage
@@ -211,10 +226,10 @@ function Stage() {
         </div>
 
         {/* WORK — holographic screening wall */}
-        <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center px-6" style={{ opacity: workOp, transform: px(6) }}>
+        <div className="absolute inset-0 flex flex-col items-center justify-center px-6" style={{ opacity: workOp, transform: px(6), pointerEvents: workOp > 0.5 ? 'auto' : 'none' }}>
           <p className="text-xs font-medium uppercase tracking-[0.3em] text-cyan-300">The screening wall</p>
           <h2 className="mt-3 text-center font-display text-3xl font-semibold tracking-tight sm:text-5xl">Real films for real UK businesses.</h2>
-          <div className="pointer-events-auto mt-8 grid w-full max-w-4xl grid-cols-2 gap-3 sm:grid-cols-3">
+          <div className="mt-8 grid w-full max-w-4xl grid-cols-2 gap-3 sm:grid-cols-3">
             {wall.map((w) => (
               <a key={w.id} href={`https://www.youtube.com/watch?v=${w.id}`} target="_blank" rel="noopener noreferrer" className="group relative aspect-video overflow-hidden rounded-md border border-cyan-300/25">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -224,14 +239,14 @@ function Stage() {
               </a>
             ))}
           </div>
-          <Link href="/work" className="pointer-events-auto mt-6 text-sm font-medium text-cyan-300 hover:text-cyan-200">Full portfolio →</Link>
+          <Link href="/work" className="mt-6 text-sm font-medium text-cyan-300 hover:text-cyan-200">Full portfolio →</Link>
         </div>
 
         {/* PRICING */}
-        <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center px-6" style={{ opacity: priceOp, transform: px(6) }}>
+        <div className="absolute inset-0 flex flex-col items-center justify-center px-6" style={{ opacity: priceOp, transform: px(6), pointerEvents: priceOp > 0.5 ? 'auto' : 'none' }}>
           <p className="text-xs font-medium uppercase tracking-[0.3em] text-cyan-300">Pricing</p>
           <h2 className="mt-3 text-center font-display text-3xl font-semibold tracking-tight sm:text-5xl">Clear pricing. Serious quality.</h2>
-          <div className="pointer-events-auto mt-8 grid w-full max-w-4xl gap-4 sm:grid-cols-3">
+          <div className="mt-8 grid w-full max-w-4xl gap-4 sm:grid-cols-3">
             {[['Social Pack', 'from £499', 'UGC & short-form'], ['Promotional Video', 'from £1,499', 'The hardest-working asset'], ['Broadcast TVC', 'from £3,999', 'Clearance-ready commercials']].map(([n, pr, d], i) => (
               <div key={n} className={'rounded-lg border p-5 text-left ' + (i === 1 ? 'border-gleam/50 bg-gleam/5' : 'border-cyan-300/25 bg-white/[0.02]')}>
                 <p className="text-sm font-semibold">{n}</p>
@@ -240,7 +255,7 @@ function Stage() {
               </div>
             ))}
           </div>
-          <Link href="/pricing" className="pointer-events-auto mt-6 text-sm font-medium text-cyan-300 hover:text-cyan-200">Full pricing →</Link>
+          <Link href="/pricing" className="mt-6 text-sm font-medium text-cyan-300 hover:text-cyan-200">Full pricing →</Link>
         </div>
 
         {/* BOOK — client meeting */}
@@ -255,6 +270,9 @@ function Stage() {
             <Link href="/blog" className="rounded-full border border-cyan-300/40 px-8 py-3.5 text-sm font-semibold text-cyan-100 transition-colors hover:border-cyan-300">From the studio — blog</Link>
           </div>
         </Centre>
+
+        {/* Welcome film with sound */}
+        {lightbox && <SoundLightbox onClose={() => setLightbox(false)} />}
 
         {/* Progress + chapter rail */}
         <div className="absolute left-0 top-0 z-30 h-0.5 w-full bg-cyan-300/10">
@@ -400,6 +418,28 @@ function Centre({ op, t, children }: { op: number; t: string; children: React.Re
   return (
     <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center" style={{ opacity: op, transform: t, pointerEvents: op > 0.5 ? 'auto' : 'none' }}>
       {children}
+    </div>
+  );
+}
+
+function SoundLightbox({ onClose }: { onClose: () => void }) {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [onClose]);
+  return (
+    <div className="pointer-events-auto absolute inset-0 z-50 flex items-center justify-center bg-[#05070c]/95 p-4" onClick={onClose}>
+      <button onClick={onClose} aria-label="Close" className="absolute right-4 top-4 grid h-10 w-10 place-items-center rounded-full border border-cyan-300/40 text-cyan-100 hover:text-cyan-300">✕</button>
+      <div className="aspect-video w-full max-w-5xl overflow-hidden rounded-lg border border-cyan-300/30 bg-black shadow-[0_0_60px_-10px_rgba(56,189,248,0.5)]" onClick={(e) => e.stopPropagation()}>
+        <iframe
+          className="h-full w-full"
+          src={`https://www.youtube-nocookie.com/embed/${WELCOME_ID}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
+          title="Moon Gleam welcome film"
+          allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+          allowFullScreen
+        />
+      </div>
     </div>
   );
 }
