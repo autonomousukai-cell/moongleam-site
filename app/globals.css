@@ -13,9 +13,10 @@ html {
 
 body {
   @apply bg-ink text-moon antialiased;
+  /* Logo-matched ambience: warm gold + brushed chrome (no blue). */
   background-image:
-    radial-gradient(60% 50% at 80% -10%, rgba(76, 201, 240, 0.10), transparent 60%),
-    radial-gradient(40% 40% at 10% 10%, rgba(233, 196, 106, 0.06), transparent 60%);
+    radial-gradient(60% 50% at 80% -10%, rgba(233, 196, 106, 0.10), transparent 60%),
+    radial-gradient(40% 40% at 10% 10%, rgba(199, 204, 209, 0.05), transparent 60%);
   background-attachment: fixed;
 }
 
@@ -51,6 +52,70 @@ body {
 .marquee-mask {
   -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
   mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+}
+
+/* ---------------------------------------------------------------------------
+   AI Creative Studio hero — typewriter caret, gold shimmer accent and a faint
+   studio-display grid. Reduced-motion is handled globally above.
+--------------------------------------------------------------------------- */
+@keyframes caret-blink {
+  0%, 45% { opacity: 1; }
+  50%, 95% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.ai-caret {
+  display: inline-block;
+  width: 0.6ch;
+  margin-left: 1px;
+  color: #f4d889;
+  animation: caret-blink 1.05s steps(1) infinite;
+}
+
+@keyframes gleam-shimmer {
+  0% { transform: translateX(-120%); }
+  60%, 100% { transform: translateX(220%); }
+}
+.gleam-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    100deg,
+    transparent 20%,
+    rgba(244, 216, 137, 0.35) 45%,
+    rgba(255, 255, 255, 0.45) 50%,
+    rgba(244, 216, 137, 0.35) 55%,
+    transparent 80%
+  );
+  transform: translateX(-120%);
+  animation: gleam-shimmer 3.6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes soft-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(233, 196, 106, 0.5); }
+  70% { opacity: 0.85; transform: scale(1.05); box-shadow: 0 0 0 8px rgba(233, 196, 106, 0); }
+}
+.dot-pulse {
+  animation: soft-pulse 2.4s ease-in-out infinite;
+}
+
+/* Faint studio-display grid + scanline sheen for the terminal panel. */
+.studio-grid {
+  background-image:
+    linear-gradient(to right, rgba(199, 204, 209, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(199, 204, 209, 0.05) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+.studio-scan {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.015) 0px,
+    rgba(255, 255, 255, 0.015) 1px,
+    transparent 1px,
+    transparent 3px
+  );
 }
 
 /* ---------------------------------------------------------------------------

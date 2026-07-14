@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Hero from '@/components/Hero';
 import LogoMarquee from '@/components/LogoMarquee';
-import WorkGrid from '@/components/WorkGrid';
+import AIBuildsSection from '@/components/AIBuildsSection';
 import Pricing from '@/components/Pricing';
 import FAQ from '@/components/FAQ';
 import CTABand from '@/components/CTABand';
@@ -45,26 +45,8 @@ export default function Home() {
         ]}
       />
 
-      {/* Work grid filtered by sector */}
-      <section id="work" className="border-t border-ink-line/60 py-20 md:py-28">
-        <div className="container-content">
-          <SectionHeading
-            center
-            eyebrow="Recent Work"
-            title="The videos we ship"
-            lead="Real work for real UK businesses. Filter by your industry."
-          />
-          <WorkGrid mode="sector" limit={9} />
-          <div className="mt-10 text-center">
-            <Link
-              href="/work"
-              className="inline-block rounded-full border border-ink-line px-7 py-3 font-medium text-moon transition-colors duration-200 hover:border-gleam/50 hover:text-gleam"
-            >
-              View full portfolio
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* Scroll-driven portfolio: "watch AI build your video" + full gallery */}
+      <AIBuildsSection />
 
       {/* Framework */}
       <Section

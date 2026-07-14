@@ -6,6 +6,7 @@ import './globals.css';
 import { site } from '@/lib/site';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
+import MessengerFab from '@/components/MessengerFab';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -95,6 +96,7 @@ export default function RootLayout({
         <Nav />
         {children}
         <Footer />
+        <MessengerFab />
         {/* GHL chat widget "Moon Gleam Chat" (LeadConnector) — site-wide.
             WhatsApp channel appears automatically once connected in GHL. */}
         {site.ghl.chatWidgetId ? (
