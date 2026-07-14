@@ -24,9 +24,15 @@ export const site = {
   },
 
   social: {
-    youtube: 'https://www.youtube.com/@moongleamuk',
-    facebook: 'https://www.facebook.com/moongleamuk/',
+    facebook: 'https://www.facebook.com/moongleamaistudio/',
+    youtube: 'https://www.youtube.com/@moongleamaistudio',
+    instagram: 'https://www.instagram.com/moongleamuk/',
+    tiktok: 'https://www.tiktok.com/@moongleamaistudio',
+    linkedin: 'https://www.linkedin.com/company/moongleam/',
   },
+
+  /** Facebook Messenger deep-link for the floating chat button. */
+  messenger: 'https://m.me/moongleamaistudio',
 
   ghl: {
     /** Moon Gleam sub-account location id (agency: Autonomous AI). */
