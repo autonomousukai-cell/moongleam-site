@@ -14,7 +14,7 @@ import {
   AnimatePresence,
 } from 'framer-motion';
 import Lenis from 'lenis';
-import { portfolio, clients, ytThumb, categories, type Category } from '@/lib/data';
+import { portfolio, clients, ytThumb, categories, services, faqs, sectorPages, type Category } from '@/lib/data';
 import { cta } from '@/lib/site';
 import GleamMascot from './GleamMascot';
 
@@ -46,8 +46,12 @@ const GLEAM = {
   statement: 'We turn a brief into broadcast-quality video — in days, not months.',
   film: 'Press play. This is the kind of work we make every week.',
   work: 'Filter by type, hover to preview, click to watch. Go explore.',
+  services: 'Here’s everything we make — tap any service to see what’s included.',
+  sectors: 'From law firms to jewellers — pick your world and see how we help.',
   proof: '500+ businesses trust us. Numbers we’re proud of.',
   process: 'Five steps from your idea to a finished film. That simple.',
+  pricing: 'Honest starting prices. Every project gets a tailored quote.',
+  faq: 'Questions? Tap any one and I’ll answer it.',
   cta: 'Ready to make yours? Let’s talk — I’ll introduce you to the team.',
 };
 
@@ -99,8 +103,12 @@ export default function StudioExperience() {
       <StatementSection reduce={!!reduce} />
       <FilmSection reduce={!!reduce} onPlay={() => setLightbox(SHOWREEL_ID)} />
       <WorkSection reduce={!!reduce} onPlay={setLightbox} />
+      <ServicesSection reduce={!!reduce} />
+      <SectorsSection reduce={!!reduce} />
       <ProofSection reduce={!!reduce} />
       <ProcessSection reduce={!!reduce} />
+      <PricingSection reduce={!!reduce} />
+      <FaqSection reduce={!!reduce} />
       <CtaSection reduce={!!reduce} onPlay={() => setLightbox(SHOWREEL_ID)} />
 
       <ScrollBar />
@@ -596,6 +604,254 @@ function CtaSection({ reduce, onPlay }: { reduce: boolean; onPlay: () => void })
           </button>
         </div>
       </Reveal>
+    </section>
+  );
+}
+
+/* ============================ informative + interactive ============================ */
+
+function Accordion({
+  items,
+  reduce,
+}: {
+  items: { head: string; body: ReactNode }[];
+  reduce: boolean;
+}) {
+  const [open, setOpen] = useState<number | null>(0);
+  return (
+    <div className="border-y border-ink-line/40">
+      {items.map((it, i) => {
+        const isOpen = open === i;
+        return (
+          <div key={i} className="border-b border-ink-line/40 last:border-b-0">
+            <button
+              onClick={() => setOpen(isOpen ? null : i)}
+              className="flex w-full items-center justify-between gap-4 py-5 text-left"
+              aria-expanded={isOpen}
+            >
+              <span className="text-base font-medium text-moon sm:text-lg">{it.head}</span>
+              <span
+                className={
+                  'grid h-7 w-7 shrink-0 place-items-center rounded-full border border-ink-line/60 text-lg text-gleam transition-transform ' +
+                  (isOpen ? 'rotate-45' : '')
+                }
+              >
+                +
+              </span>
+            </button>
+            <AnimatePresence initial={false}>
+              {isOpen && (
+                <motion.div
+                  initial={reduce ? false : { height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={reduce ? undefined : { height: 0, opacity: 0 }}
+                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                  className="overflow-hidden"
+                >
+                  <div className="pb-6 text-sm text-moon-soft sm:text-base">{it.body}</div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function ServicesSection({ reduce }: { reduce: boolean }) {
+  const items = services.map((s) => ({
+    head: s.name,
+    body: (
+      <div>
+        <p>{s.desc}</p>
+        <ul className="mt-3 grid gap-1.5 sm:grid-cols-2">
+          {s.points.map((p) => (
+            <li key={p} className="flex items-start gap-2">
+              <span className="mt-0.5 text-gleam">▸</span>
+              <span>{p}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ),
+  }));
+  return (
+    <section data-gleam-line={GLEAM.services} className="py-20 sm:py-28">
+      <div className="mx-auto max-w-4xl px-6">
+        <Reveal reduce={reduce}>
+          <p className="text-xs font-medium uppercase tracking-[0.3em] text-gleam">What we make</p>
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-moon sm:text-5xl">
+            Every format, one studio.
+          </h2>
+          <p className="mt-4 max-w-2xl text-base text-moon-soft">
+            From a single social clip to a broadcast TV commercial — tap any service to see what’s included.
+          </p>
+        </Reveal>
+        <Reveal reduce={reduce} className="mt-8">
+          <Accordion items={items} reduce={reduce} />
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function SectorsSection({ reduce }: { reduce: boolean }) {
+  const [active, setActive] = useState(0);
+  const s = sectorPages[active];
+  return (
+    <section
+      data-gleam-line={GLEAM.sectors}
+      className="border-y border-ink-line/20 bg-ink-soft/30 py-20 sm:py-28"
+    >
+      <div className="mx-auto max-w-5xl px-6">
+        <Reveal reduce={reduce}>
+          <p className="text-xs font-medium uppercase tracking-[0.3em] text-gleam">Who we help</p>
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-moon sm:text-5xl">
+            Built for your world.
+          </h2>
+        </Reveal>
+        <Reveal reduce={reduce} className="mt-8 flex flex-wrap gap-2">
+          {sectorPages.map((sp, i) => (
+            <Chip key={sp.slug} active={active === i} onClick={() => setActive(i)}>
+              {sp.name}
+            </Chip>
+          ))}
+        </Reveal>
+        <Reveal reduce={reduce} className="mt-6">
+          <motion.div
+            key={s.slug}
+            initial={reduce ? false : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="rounded-2xl border border-ink-line/40 bg-ink/40 p-6 sm:p-8"
+          >
+            <h3 className="text-xl font-semibold text-moon">{s.name}</h3>
+            <p className="mt-1 text-sm font-medium text-gleam">{s.short}</p>
+            <p className="mt-3 text-sm text-moon-soft sm:text-base">{s.desc}</p>
+            <p className="mt-4 text-xs uppercase tracking-wide text-moon-faint">Proof · {s.proof}</p>
+          </motion.div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function PricingSection({ reduce }: { reduce: boolean }) {
+  const tiers = [
+    {
+      name: 'Social Pack',
+      price: '£499',
+      tagline: 'UGC & short-form that keeps you posting',
+      featured: false,
+      points: [
+        'Batch of scroll-stopping clips',
+        'Hooks + captions built for retention',
+        'Cutdowns for TikTok, Reels & Shorts',
+        'Delivered within a week',
+      ],
+    },
+    {
+      name: 'Promotional Video',
+      price: '£1,499',
+      tagline: 'The hardest-working asset you own',
+      featured: true,
+      points: [
+        'Scripted around your differentiators',
+        'AI, filmed or hybrid production',
+        'Broadcast-standard grade & sound',
+        'Delivered in 7–14 days',
+      ],
+    },
+    {
+      name: 'Broadcast TVC',
+      price: '£3,999',
+      tagline: 'Clearance-ready TV commercials',
+      featured: false,
+      points: [
+        'Full concept, script & storyboard',
+        'Broadcast technical standards',
+        'Versions for TV, web, social & in-store',
+        '2–3 weeks from approved script',
+      ],
+    },
+  ];
+  return (
+    <section data-gleam-line={GLEAM.pricing} className="py-20 sm:py-28">
+      <div className="mx-auto max-w-6xl px-6">
+        <Reveal reduce={reduce} className="text-center">
+          <p className="text-xs font-medium uppercase tracking-[0.3em] text-gleam">Pricing</p>
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-moon sm:text-5xl">
+            Clear pricing. Serious quality.
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-base text-moon-soft">
+            Honest starting points — every project gets a tailored written quote on your free call.
+          </p>
+        </Reveal>
+        <div className="mt-12 grid gap-6 lg:grid-cols-3">
+          {tiers.map((t, i) => (
+            <Reveal reduce={reduce} delay={reduce ? 0 : i * 0.08} key={t.name}>
+              <div
+                className={
+                  'flex h-full flex-col rounded-2xl border p-6 transition-transform hover:-translate-y-1 ' +
+                  (t.featured
+                    ? 'border-gleam/60 bg-ink-soft/60 shadow-gleam-glow'
+                    : 'border-ink-line/40 bg-ink-soft/30')
+                }
+              >
+                {t.featured && (
+                  <span className="mb-3 w-fit rounded-full bg-gleam px-3 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-ink">
+                    Most popular
+                  </span>
+                )}
+                <h3 className="text-lg font-semibold text-moon">{t.name}</h3>
+                <p className="mt-1 text-sm text-moon-soft">{t.tagline}</p>
+                <p className="mt-4 text-3xl font-semibold text-moon">
+                  from <span className="text-gleam">{t.price}</span>
+                </p>
+                <ul className="mt-5 flex-1 space-y-2 text-sm text-moon-soft">
+                  {t.points.map((p) => (
+                    <li key={p} className="flex items-start gap-2">
+                      <span className="mt-0.5 text-gleam">✓</span>
+                      <span>{p}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  href={cta.href}
+                  className={
+                    'mt-6 rounded-full px-6 py-3 text-center text-sm font-semibold transition-transform hover:scale-[1.02] ' +
+                    (t.featured
+                      ? 'bg-gleam text-ink'
+                      : 'border border-ink-line/60 text-moon hover:border-gleam/60 hover:text-gleam')
+                  }
+                >
+                  {cta.label}
+                </Link>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FaqSection({ reduce }: { reduce: boolean }) {
+  const items = faqs.map((f) => ({ head: f.q, body: <p>{f.a}</p> }));
+  return (
+    <section data-gleam-line={GLEAM.faq} className="py-20 sm:py-28">
+      <div className="mx-auto max-w-3xl px-6">
+        <Reveal reduce={reduce}>
+          <p className="text-xs font-medium uppercase tracking-[0.3em] text-gleam">Questions</p>
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-moon sm:text-5xl">
+            Frequently asked.
+          </h2>
+        </Reveal>
+        <Reveal reduce={reduce} className="mt-8">
+          <Accordion items={items} reduce={reduce} />
+        </Reveal>
+      </div>
     </section>
   );
 }
