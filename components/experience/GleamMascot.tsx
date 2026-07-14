@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useRive } from '@rive-app/react-canvas';
+import { useRive, Layout, Fit, Alignment } from '@rive-app/react-canvas';
 
 /**
  * Gleam — the rigged Rive robot mascot (public/gleam.riv, CC-BY JcToon).
@@ -16,6 +16,8 @@ export default function GleamMascot({ className = '' }: { className?: string }) 
   const { rive, RiveComponent } = useRive({
     src: '/gleam.riv',
     autoplay: true,
+    // Show the WHOLE robot centred, not a cropped fill.
+    layout: new Layout({ fit: Fit.Contain, alignment: Alignment.BottomCenter }),
   });
 
   // Start the state machine by discovered name (name-agnostic).
