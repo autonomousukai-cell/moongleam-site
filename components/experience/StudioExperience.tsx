@@ -7,6 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 import { scenes, zoneOf, zoneLabels, type ZoneKey } from './scenes';
 import CustomCursor from './CustomCursor';
+import GleamMascot from './GleamMascot';
 import ReducedExperience from './ReducedExperience';
 import ZoneHero from './zones/ZoneHero';
 import ZoneProblems from './zones/ZoneProblems';
@@ -156,6 +157,14 @@ function ScrubStage() {
         <ZoneScreening progress={progress} />
         <ZonePricing progress={progress} />
         <ZoneExit progress={progress} />
+      </div>
+
+      {/* Gleam — rigged Rive mascot; idles + blinks, flies on click. Your guide. */}
+      <div className="group pointer-events-auto fixed bottom-3 left-3 z-20 h-24 w-24 cursor-pointer sm:bottom-5 sm:left-5 sm:h-32 sm:w-32">
+        <GleamMascot className="h-full w-full [filter:drop-shadow(0_10px_28px_rgba(233,196,106,0.22))]" />
+        <span className="pointer-events-none absolute -top-1 left-1/2 -translate-x-1/2 -translate-y-full whitespace-nowrap rounded-full border border-ink-line/70 bg-ink/70 px-2 py-0.5 text-[9px] font-medium uppercase tracking-[0.18em] text-moon-soft opacity-0 backdrop-blur transition-opacity duration-300 group-hover:opacity-100">
+          Hi, I&apos;m Gleam
+        </span>
       </div>
 
       {/* Top progress bar + zone label */}
