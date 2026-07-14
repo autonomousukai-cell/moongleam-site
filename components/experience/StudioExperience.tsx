@@ -8,44 +8,44 @@ import {
   useReducedMotion,
   useScroll,
   useTransform,
+  useMotionValue,
+  useSpring,
+  useMotionTemplate,
   AnimatePresence,
 } from 'framer-motion';
 import Lenis from 'lenis';
-import { portfolio, clients, ytThumb } from '@/lib/data';
+import { portfolio, clients, ytThumb, categories, type Category } from '@/lib/data';
 import { cta } from '@/lib/site';
 import GleamMascot from './GleamMascot';
 
 /* ------------------------------------------------------------------ *
- *  /experience — an Apple-style cinematic scroll: statement hero →    *
- *  scaling showreel → real portfolio rail → animated proof → process  *
- *  → CTA. Real videos framed by minimal, high-contrast motion. Fully  *
- *  responsive. Gleam persists as a section-aware guide.               *
+ *  /experience — an advanced, interactive Apple-style cinematic tour: *
+ *  cursor spotlight, scaling showreel, a filterable 3D-tilt gallery   *
+ *  that previews on hover, animated proof + moving client marquee.    *
+ *  Fully responsive. Gleam persists as a section-aware guide.         *
  * ------------------------------------------------------------------ */
 
-const SHOWREEL_ID = 'x9c5L7DncWk'; // Moon Gleam brand film
+const SHOWREEL_ID = 'x9c5L7DncWk';
 
-// Curated, diverse real portfolio pieces for the work rail.
 const FEATURED_IDS = [
-  'kQKz4nE7ZxM', // Bombay Jewellers TVC
-  'P1PCjWxa5Jo', // Netflix-Quality Ads, Made by AI
-  'wsVu1zJFt-k', // Lord Lucan documentary
-  'Nm2uEJ6Q12M', // Bluestone Travel — Istanbul
-  'P2bAOlB58n8', // RK Motors — Animated TVC
-  'yubYJ8DIjRQ', // HRF Winter Souk — Charity
-  'EIaa0ZCCyYM', // 3D Kids Animation
-  'agn6nuD_m_8', // Lawmatic Solicitors
-  'Afe2qXdodRM', // QNS Academy brand film
+  'kQKz4nE7ZxM', 'P1PCjWxa5Jo', 'wsVu1zJFt-k', 'Nm2uEJ6Q12M', 'P2bAOlB58n8',
+  'yubYJ8DIjRQ', 'EIaa0ZCCyYM', 'agn6nuD_m_8', 'Afe2qXdodRM', 'H_6mJKLUOhQ',
+  'mqhDbEQQcC0', 'rJ8AD-ZHOuI', 'BVAWfIbwXfI', 'x9c5L7DncWk',
 ];
-const featured = FEATURED_IDS.map((id) => portfolio.find((p) => p.id === id)).filter(
-  (p): p is (typeof portfolio)[number] => Boolean(p),
+type Item = (typeof portfolio)[number];
+const featured: Item[] = FEATURED_IDS.map((id) => portfolio.find((p) => p.id === id)).filter(
+  (p): p is Item => Boolean(p),
 );
+const featuredCats = Array.from(new Set(featured.map((f) => f.cat)));
 
-/* Gleam's line per section (driven by IntersectionObserver). */
+const previewSrc = (id: string) =>
+  `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&controls=0&modestbranding=1&playsinline=1&rel=0`;
+
 const GLEAM = {
   hero: "Hi, I'm Gleam. Let me show you what this studio can do.",
   statement: 'We turn a brief into broadcast-quality video — in days, not months.',
   film: 'Press play. This is the kind of work we make every week.',
-  work: 'Real projects, real UK businesses — swipe through a few of our favourites.',
+  work: 'Filter by type, hover to preview, click to watch. Go explore.',
   proof: '500+ businesses trust us. Numbers we’re proud of.',
   process: 'Five steps from your idea to a finished film. That simple.',
   cta: 'Ready to make yours? Let’s talk — I’ll introduce you to the team.',
@@ -55,8 +55,12 @@ export default function StudioExperience() {
   const reduce = useReducedMotion();
   const [line, setLine] = useState<string>(GLEAM.hero);
   const [lightbox, setLightbox] = useState<string | null>(null);
+  const [fine, setFine] = useState(false);
 
-  // Smooth scroll (skipped for reduced motion).
+  useEffect(() => {
+    setFine(window.matchMedia('(pointer: fine)').matches);
+  }, []);
+
   useEffect(() => {
     if (reduce) return;
     const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
@@ -72,7 +76,6 @@ export default function StudioExperience() {
     };
   }, [reduce]);
 
-  // Section-aware Gleam line.
   useEffect(() => {
     const els = Array.from(document.querySelectorAll<HTMLElement>('[data-gleam-line]'));
     const io = new IntersectionObserver(
@@ -89,8 +92,8 @@ export default function StudioExperience() {
 
   return (
     <div className="relative bg-ink text-moon">
-      {/* ambient grain / vignette */}
-      <div className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(120%_80%_at_50%_-10%,rgba(233,196,106,0.10),transparent_60%)]" />
+      {fine && !reduce && <MouseSpotlight />}
+      <div className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(120%_80%_at_50%_-10%,rgba(233,196,106,0.08),transparent_60%)]" />
 
       <HeroSection reduce={!!reduce} />
       <StatementSection reduce={!!reduce} />
@@ -100,18 +103,31 @@ export default function StudioExperience() {
       <ProcessSection reduce={!!reduce} />
       <CtaSection reduce={!!reduce} onPlay={() => setLightbox(SHOWREEL_ID)} />
 
-      {/* progress bar */}
       <ScrollBar />
-
-      {/* Gleam guide */}
       <GleamMascot line={line} />
 
-      {/* Lightbox */}
       <AnimatePresence>
         {lightbox && <Lightbox id={lightbox} onClose={() => setLightbox(null)} />}
       </AnimatePresence>
     </div>
   );
+}
+
+/* ============================ interactive bits ============================ */
+
+function MouseSpotlight() {
+  const x = useMotionValue(-600);
+  const y = useMotionValue(-600);
+  useEffect(() => {
+    const on = (e: MouseEvent) => {
+      x.set(e.clientX);
+      y.set(e.clientY);
+    };
+    window.addEventListener('mousemove', on, { passive: true });
+    return () => window.removeEventListener('mousemove', on);
+  }, [x, y]);
+  const bg = useMotionTemplate`radial-gradient(560px circle at ${x}px ${y}px, rgba(233,196,106,0.10), transparent 55%)`;
+  return <motion.div className="pointer-events-none fixed inset-0 z-0" style={{ background: bg }} />;
 }
 
 /* ============================ primitives ============================ */
@@ -187,7 +203,6 @@ function HeroSection({ reduce }: { reduce: boolean }) {
         </motion.p>
       </div>
 
-      {/* scroll cue */}
       {!reduce && (
         <motion.div
           initial={{ opacity: 0 }}
@@ -198,7 +213,7 @@ function HeroSection({ reduce }: { reduce: boolean }) {
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
-            className="flex h-9 w-6 items-start justify-center rounded-full border border-ink-line/60 p-1.5"
+            className="flex h-9 w-6 items-start justify-center rounded-full border border-moon/30 p-1.5"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-gleam" />
           </motion.div>
@@ -228,14 +243,10 @@ function StatementSection({ reduce }: { reduce: boolean }) {
   );
 }
 
-/** Showreel that scales up into frame as you scroll (Apple product-reveal). */
 function FilmSection({ reduce, onPlay }: { reduce: boolean; onPlay: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { margin: '-20% 0px' });
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start end', 'end start'],
-  });
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
   const scale = useTransform(scrollYProgress, [0, 0.5], [reduce ? 1 : 0.78, 1]);
   const radius = useTransform(scrollYProgress, [0, 0.5], [reduce ? 12 : 28, 12]);
 
@@ -249,11 +260,10 @@ function FilmSection({ reduce, onPlay }: { reduce: boolean; onPlay: () => void }
         style={reduce ? undefined : { scale, borderRadius: radius }}
         className="relative aspect-video w-full max-w-5xl overflow-hidden rounded-2xl border border-ink-line/40 bg-black shadow-2xl"
       >
-        {/* Ambient autoplay (muted) once in view — the film comes alive. */}
         {inView ? (
           <iframe
             className="absolute inset-0 h-full w-full"
-            src={`https://www.youtube-nocookie.com/embed/${SHOWREEL_ID}?autoplay=1&mute=1&loop=1&playlist=${SHOWREEL_ID}&controls=0&modestbranding=1&playsinline=1&rel=0`}
+            src={previewSrc(SHOWREEL_ID)}
             title="Moon Gleam showreel"
             allow="autoplay; encrypted-media; picture-in-picture"
             loading="lazy"
@@ -290,61 +300,151 @@ function FilmSection({ reduce, onPlay }: { reduce: boolean; onPlay: () => void }
 }
 
 function WorkSection({ reduce, onPlay }: { reduce: boolean; onPlay: (id: string) => void }) {
+  const [cat, setCat] = useState<Category | 'all'>('all');
+  const shown = cat === 'all' ? featured : featured.filter((f) => f.cat === cat);
+
   return (
     <section data-gleam-line={GLEAM.work} className="py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-6">
         <Reveal reduce={reduce}>
-          <p className="text-xs font-medium uppercase tracking-[0.3em] text-gleam">
-            Selected work
-          </p>
+          <p className="text-xs font-medium uppercase tracking-[0.3em] text-gleam">Selected work</p>
           <h2 className="mt-3 max-w-2xl text-3xl font-semibold tracking-tight text-moon sm:text-5xl">
             Real films for real UK businesses.
           </h2>
         </Reveal>
-      </div>
 
-      {/* Horizontal snap rail — premium on desktop, swipeable on mobile. */}
-      <div className="mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 [scrollbar-width:none] sm:mt-14 sm:gap-6 [&::-webkit-scrollbar]:hidden">
-        {featured.map((item, i) => (
-          <Reveal
-            reduce={reduce}
-            delay={reduce ? 0 : Math.min(i * 0.05, 0.3)}
-            key={item.id}
-            className="w-[78vw] shrink-0 snap-center sm:w-[380px]"
+        {/* Interactive filter chips */}
+        <Reveal reduce={reduce} className="mt-8 flex flex-wrap gap-2">
+          <Chip active={cat === 'all'} onClick={() => setCat('all')}>
+            All
+          </Chip>
+          {featuredCats.map((c) => (
+            <Chip key={c} active={cat === c} onClick={() => setCat(c)}>
+              {categories[c]}
+            </Chip>
+          ))}
+        </Reveal>
+
+        {/* Filterable 3D-tilt gallery with hover-preview */}
+        <motion.div layout className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <AnimatePresence mode="popLayout">
+            {shown.map((item) => (
+              <motion.div
+                key={item.id}
+                layout
+                initial={reduce ? false : { opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={reduce ? undefined : { opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <TiltCard item={item} reduce={reduce} onPlay={onPlay} />
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+
+        <Reveal reduce={reduce} className="mt-10">
+          <Link
+            href="/work"
+            className="inline-flex items-center gap-2 text-sm font-medium text-gleam hover:text-gleam-bright"
           >
-            <button
-              onClick={() => onPlay(item.id)}
-              className="group block w-full text-left"
-              aria-label={`Play ${item.title}`}
-            >
-              <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-ink-line/40 bg-black">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={ytThumb(item.id)}
-                  alt={item.title}
-                  loading="lazy"
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent" />
-                <span className="absolute bottom-3 left-3 flex h-10 w-10 items-center justify-center rounded-full bg-gleam/95 text-ink opacity-90 transition-transform group-hover:scale-110">
-                  <PlayIcon />
-                </span>
-              </div>
-              <p className="mt-3 text-sm font-medium text-moon">{item.title}</p>
-            </button>
-          </Reveal>
-        ))}
-      </div>
-
-      <div className="mx-auto mt-10 max-w-6xl px-6">
-        <Link
-          href="/work"
-          className="inline-flex items-center gap-2 text-sm font-medium text-gleam hover:text-gleam-bright"
-        >
-          See the full portfolio <span aria-hidden>→</span>
-        </Link>
+            See the full portfolio <span aria-hidden>→</span>
+          </Link>
+        </Reveal>
       </div>
     </section>
+  );
+}
+
+function Chip({
+  active,
+  onClick,
+  children,
+}: {
+  active: boolean;
+  onClick: () => void;
+  children: ReactNode;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className={
+        'rounded-full border px-4 py-1.5 text-xs font-medium transition-colors ' +
+        (active
+          ? 'border-gleam bg-gleam text-ink'
+          : 'border-ink-line/60 text-moon-soft hover:border-gleam/50 hover:text-moon')
+      }
+    >
+      {children}
+    </button>
+  );
+}
+
+function TiltCard({
+  item,
+  reduce,
+  onPlay,
+}: {
+  item: Item;
+  reduce: boolean;
+  onPlay: (id: string) => void;
+}) {
+  const [hover, setHover] = useState(false);
+  const rx = useMotionValue(0);
+  const ry = useMotionValue(0);
+  const srx = useSpring(rx, { stiffness: 150, damping: 15 });
+  const sry = useSpring(ry, { stiffness: 150, damping: 15 });
+
+  const onMove = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (reduce) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width - 0.5;
+    const py = (e.clientY - r.top) / r.height - 0.5;
+    ry.set(px * 10);
+    rx.set(-py * 10);
+  };
+  const reset = () => {
+    rx.set(0);
+    ry.set(0);
+    setHover(false);
+  };
+
+  return (
+    <motion.button
+      onMouseMove={onMove}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={reset}
+      onClick={() => onPlay(item.id)}
+      style={reduce ? undefined : { rotateX: srx, rotateY: sry, transformPerspective: 900 }}
+      className="group block w-full text-left"
+      aria-label={`Play ${item.title}`}
+    >
+      <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-ink-line/40 bg-black">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={ytThumb(item.id)}
+          alt={item.title}
+          loading="lazy"
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+        {hover && !reduce && (
+          <iframe
+            className="pointer-events-none absolute inset-0 h-full w-full"
+            src={previewSrc(item.id)}
+            title={item.title}
+            allow="autoplay; encrypted-media"
+          />
+        )}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/85 via-transparent to-transparent" />
+        <span className="pointer-events-none absolute left-3 top-3 rounded-full bg-ink/70 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-gleam backdrop-blur">
+          {categories[item.cat]}
+        </span>
+        <span className="pointer-events-none absolute bottom-3 left-3 flex h-10 w-10 items-center justify-center rounded-full bg-gleam/95 text-ink transition-transform group-hover:scale-110">
+          <PlayIcon />
+        </span>
+      </div>
+      <p className="mt-3 text-sm font-medium text-moon">{item.title}</p>
+    </motion.button>
   );
 }
 
@@ -368,21 +468,41 @@ function ProofSection({ reduce }: { reduce: boolean }) {
             </Reveal>
           ))}
         </div>
-
-        <Reveal reduce={reduce} className="mt-16">
-          <p className="mb-5 text-center text-xs uppercase tracking-[0.3em] text-moon-soft">
-            Trusted by
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-moon-soft sm:text-base">
-            {clients.map((c) => (
-              <span key={c} className="whitespace-nowrap">
-                {c}
-              </span>
-            ))}
-          </div>
-        </Reveal>
       </div>
+
+      <Reveal reduce={reduce} className="mt-16">
+        <p className="mb-5 text-center text-xs uppercase tracking-[0.3em] text-moon-soft">Trusted by</p>
+        <ClientMarquee reduce={reduce} />
+      </Reveal>
     </section>
+  );
+}
+
+function ClientMarquee({ reduce }: { reduce: boolean }) {
+  const row = [...clients, ...clients];
+  if (reduce) {
+    return (
+      <div className="mx-auto flex max-w-5xl flex-wrap justify-center gap-x-8 gap-y-2 px-6 text-sm text-moon-soft">
+        {clients.map((c) => (
+          <span key={c}>{c}</span>
+        ))}
+      </div>
+    );
+  }
+  return (
+    <div className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+      <motion.div
+        className="flex w-max gap-12 whitespace-nowrap pr-12 text-base text-moon-soft"
+        animate={{ x: ['0%', '-50%'] }}
+        transition={{ duration: 24, repeat: Infinity, ease: 'linear' }}
+      >
+        {row.map((c, i) => (
+          <span key={`${c}-${i}`} className="transition-colors hover:text-gleam">
+            {c}
+          </span>
+        ))}
+      </motion.div>
+    </div>
   );
 }
 
@@ -426,9 +546,7 @@ function ProcessSection({ reduce }: { reduce: boolean }) {
     <section data-gleam-line={GLEAM.process} className="py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-6">
         <Reveal reduce={reduce}>
-          <p className="text-xs font-medium uppercase tracking-[0.3em] text-gleam">
-            How it works
-          </p>
+          <p className="text-xs font-medium uppercase tracking-[0.3em] text-gleam">How it works</p>
           <h2 className="mt-3 max-w-2xl text-3xl font-semibold tracking-tight text-moon sm:text-5xl">
             Five steps from idea to finished film.
           </h2>
@@ -436,7 +554,7 @@ function ProcessSection({ reduce }: { reduce: boolean }) {
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {steps.map((s, i) => (
             <Reveal reduce={reduce} delay={reduce ? 0 : i * 0.07} key={s.n}>
-              <div className="h-full rounded-2xl border border-ink-line/30 bg-ink-soft/40 p-5">
+              <div className="h-full rounded-2xl border border-ink-line/30 bg-ink-soft/40 p-5 transition-colors hover:border-gleam/40">
                 <div className="text-sm font-semibold text-gleam">{s.n}</div>
                 <div className="mt-2 text-lg font-semibold text-moon">{s.t}</div>
                 <p className="mt-2 text-sm text-moon-soft">{s.d}</p>
@@ -472,7 +590,7 @@ function CtaSection({ reduce, onPlay }: { reduce: boolean; onPlay: () => void })
           </Link>
           <button
             onClick={onPlay}
-            className="rounded-full border border-ink-line/50 px-7 py-3.5 text-sm font-semibold text-moon transition-colors hover:border-gleam/60 hover:text-gleam"
+            className="rounded-full border border-moon/30 px-7 py-3.5 text-sm font-semibold text-moon transition-colors hover:border-gleam/60 hover:text-gleam"
           >
             Watch the showreel
           </button>
@@ -506,7 +624,7 @@ function Lightbox({ id, onClose }: { id: string; onClose: () => void }) {
       <button
         onClick={onClose}
         aria-label="Close video"
-        className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full border border-ink-line/50 text-moon hover:text-gleam"
+        className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full border border-moon/30 text-moon hover:text-gleam"
       >
         ✕
       </button>
