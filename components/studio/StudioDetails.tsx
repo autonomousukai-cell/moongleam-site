@@ -3,11 +3,10 @@ import { site } from '@/lib/site';
 
 /**
  * Accessible, server-rendered content beneath the tour — the same narrative
- * in standard page form (SEO + screen readers + the "Explore the studio"
- * landing point). Lists the Phase-2 rooms so returning visitors see the
- * journey growing.
+ * in standard page form (SEO + screen readers). All eight rooms are open;
+ * this section is the tour's index and landing point.
  */
-const upcomingZones = [
+const tourZones = [
   {
     n: '03',
     t: 'AI Creative Lab',
@@ -54,22 +53,23 @@ export default function StudioDetails() {
           You have just stepped inside Moon Gleam.
         </h2>
         <p className="mt-5 max-w-2xl text-base leading-relaxed text-moon-soft">
-          What you toured is the entrance to our virtual studio — a scroll-driven
-          journey through the building where our AI films are made. The exterior
-          and reception are open now; the rooms below are in production and will
-          open one by one.
+          What you just walked is our virtual studio — a scroll-driven camera
+          journey through the building where our AI films are made, from the
+          night-lit exterior to the rooftop booking desk. Every room below is
+          open; scroll back up or use the tour navigation to revisit any of
+          them.
         </p>
 
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {upcomingZones.map((z) => (
+          {tourZones.map((z) => (
             <div
               key={z.n}
               className="rounded-2xl border border-ink-line/40 bg-ink-soft/40 p-5 transition-colors hover:border-gleam/30"
             >
               <div className="flex items-center justify-between">
                 <span className="text-sm font-semibold text-gleam">{z.n}</span>
-                <span className="rounded-full border border-ink-line/60 px-2.5 py-0.5 text-[9px] uppercase tracking-[0.16em] text-moon-faint">
-                  In production
+                <span className="rounded-full border border-gleam/30 px-2.5 py-0.5 text-[9px] uppercase tracking-[0.16em] text-gleam/80">
+                  Open
                 </span>
               </div>
               <h3 className="mt-3 text-lg font-semibold text-moon">{z.t}</h3>

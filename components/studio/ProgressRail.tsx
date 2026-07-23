@@ -1,10 +1,12 @@
 'use client';
 
+import { ZONE_TICKS } from './journey';
+
 /**
  * Journey progress indicator — current location label, a vertical rail that
- * fills cyan→violet→amber as the visitor travels, and a percent readout.
- * All three are written directly by the engine ([data-mgst]) — zero
- * React re-renders while scrubbing.
+ * fills cyan→violet→amber as the visitor travels all 8 zones (one tick per
+ * zone), and a percent readout. Label, fill and percent are written directly
+ * by the engine ([data-mgst]) — zero React re-renders while scrubbing.
  */
 export default function ProgressRail() {
   return (
@@ -15,11 +17,22 @@ export default function ProgressRail() {
       >
         Exterior
       </span>
-      <div className="relative h-36 w-px overflow-hidden rounded-full bg-white/10">
-        <div
-          data-mgst="railFill"
-          className="absolute inset-0 origin-top scale-y-0 bg-gradient-to-b from-[#5BE3FF] via-[#8B7CF6] to-[#E9C46A]"
-        />
+      <div className="relative h-48 w-px rounded-full bg-white/10">
+        <div className="absolute inset-0 overflow-hidden rounded-full">
+          <div
+            data-mgst="railFill"
+            className="absolute inset-0 origin-top scale-y-0 bg-gradient-to-b from-[#5BE3FF] via-[#8B7CF6] to-[#E9C46A]"
+          />
+        </div>
+        {/* one tick per zone */}
+        {ZONE_TICKS.map((t) => (
+          <span
+            key={t.key}
+            title={t.label}
+            className="absolute left-1/2 h-1 w-1 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/30 bg-[#05060A]"
+            style={{ top: `${t.at * 100}%` }}
+          />
+        ))}
       </div>
       <span data-mgst="pct" className="text-[10px] tabular-nums text-moon-soft">
         00%

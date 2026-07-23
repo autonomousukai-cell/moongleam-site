@@ -14,7 +14,7 @@ const display = Marcellus({
 export const metadata: Metadata = {
   title: 'Studio Tour — Step Inside Moon Gleam',
   description:
-    'A cinematic virtual tour of the Moon Gleam AI film studio. Scroll from the night-lit exterior through the doors into reception — where AI films, commercials and limitless worlds are made.',
+    'A cinematic virtual tour of the Moon Gleam AI film studio. Scroll from the night-lit exterior through reception, the AI creative lab, the virtual soundstage, the production pipeline, the render suite and the screening room to the rooftop booking desk.',
   alternates: { canonical: '/studio' },
   openGraph: {
     title: 'Moon Gleam AI Studio — Virtual Studio Tour',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 };
 
 /**
- * /studio — Phase 1 of the immersive virtual studio tour (isolated route;
+ * /studio — the full 8-zone immersive virtual studio tour (isolated route;
  * the rest of the site is untouched). Server component keeps metadata + the
  * SEO-visible details section; the scroll engine hydrates client-side.
  */

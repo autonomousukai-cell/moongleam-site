@@ -7,41 +7,57 @@ import Lenis from 'lenis';
 import {
   T,
   TRACK_VH,
+  P1_END,
+  XFADE,
+  ZW,
+  ZONE_STARTS,
+  STUDIO_ZONES,
+  clamp01,
   seg,
   smooth,
   easeOut,
   lerp,
   zoneAt,
   zoneLabelAt,
+  type Layers,
 } from './journey';
 import FrameSequenceCanvas, { FrameSequence } from './FrameSequence';
 import ParticleField from './ParticleField';
 import SceneExterior from './SceneExterior';
 import SceneReception from './SceneReception';
+import SceneLab, { renderLab } from './SceneLab';
+import SceneSoundstage, { renderSoundstage } from './SceneSoundstage';
+import ScenePipeline, { renderPipeline } from './ScenePipeline';
+import SceneSuite, { renderSuite } from './SceneSuite';
+import SceneScreening, { renderScreening } from './SceneScreening';
+import SceneBooking, { renderBooking } from './SceneBooking';
 import StudioNav from './StudioNav';
 import ProgressRail from './ProgressRail';
 
 /**
- * The Phase-1 cinematic engine.
+ * The cinematic engine — now the full 8-zone journey.
  *
  * One tall scroll track (TRACK_VH) + one sticky viewport. Lenis smooths the
  * wheel; a single GSAP ScrollTrigger scrubs progress 0–1; renderFrame() maps
  * that progress onto every layer with direct style writes (no React
  * re-renders while scrubbing). The journey is fully reversible.
  *
- * Camera path: night exterior → continuous dolly to the entrance → doors
- * slide open → threshold light bloom → settle inside the reception
- * (scale + focus pull). When real footage exists, FRAME_MANIFEST swaps the
- * procedural sets for a scrubbed frame sequence with no other changes.
+ * Camera path: night exterior → dolly to the entrance → doors open →
+ * reception (the approved Phase-1 choreography, remapped into [0, P1_END])
+ * → creative lab → soundstage → pipeline → render suite → screening room →
+ * rooftop booking. Each room transition shares one walk-forward grammar
+ * (zoneShell) so the whole building reads as one continuous camera move.
+ * When real footage exists, FRAME_MANIFEST swaps the procedural sets for a
+ * scrubbed frame sequence with no other changes.
  */
 export default function CinematicJourney({ frames }: { frames: FrameSequence | null }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
-  const layersRef = useRef<Record<string, HTMLElement>>({});
+  const layersRef = useRef<Layers>({});
   const progressRef = useRef(0);
   const lenisRef = useRef<Lenis | null>(null);
-  const zoneRef = useRef<'exterior' | 'reception'>('exterior');
-  const [zone, setZone] = useState<'exterior' | 'reception'>('exterior');
+  const zoneRef = useRef('exterior');
+  const [zone, setZone] = useState('exterior');
 
   /** Map scroll progress onto every layer. Called by ScrollTrigger only. */
   const renderFrame = useCallback((p: number) => {
@@ -49,8 +65,11 @@ export default function CinematicJourney({ frames }: { frames: FrameSequence | n
     if (!el.ext && !el.title) return;
     progressRef.current = p;
 
+    /* ================= PHASE 1 (exterior → reception), local space ======= */
+    const p1 = clamp01(p / P1_END);
+
     /* ---- camera dolly (exterior) ---- */
-    const dolly = smooth(seg(p, T.dolly[0], T.dolly[1]));
+    const dolly = smooth(seg(p1, T.dolly[0], T.dolly[1]));
     if (el.sky) el.sky.style.transform = `scale(${lerp(1, 1.18, dolly).toFixed(4)})`;
     if (el.bldg) el.bldg.style.transform = `scale(${lerp(1, 2.55, dolly).toFixed(4)})`;
     if (el.mist1)
@@ -61,60 +80,58 @@ export default function CinematicJourney({ frames }: { frames: FrameSequence | n
       el.mist3.style.transform = `translate3d(0,${(dolly * 14).toFixed(2)}%,0) scale(${lerp(1, 1.6, dolly).toFixed(4)})`;
 
     /* ---- entrance doors ---- */
-    const d = smooth(seg(p, T.doors[0], T.doors[1]));
+    const d = smooth(seg(p1, T.doors[0], T.doors[1]));
     if (el.doorL) el.doorL.style.transform = `translateX(${(-d * 112).toFixed(2)}%)`;
     if (el.doorR) el.doorR.style.transform = `translateX(${(d * 112).toFixed(2)}%)`;
     if (el.doorSeam) el.doorSeam.style.opacity = String(1 - d);
     if (el.doorLight) el.doorLight.style.opacity = String(0.55 + 0.45 * d);
 
     /* ---- threshold light bloom ---- */
-    const f = Math.sin(smooth(seg(p, T.flash[0], T.flash[1])) * Math.PI);
+    const f = Math.sin(smooth(seg(p1, T.flash[0], T.flash[1])) * Math.PI);
     if (el.flash) el.flash.style.opacity = (f * 0.85).toFixed(3);
 
     /* ---- exterior ⇄ reception crossfade ---- */
-    const cross = smooth(seg(p, T.cross[0], T.cross[1]));
+    const cross = smooth(seg(p1, T.cross[0], T.cross[1]));
     if (el.ext) {
       el.ext.style.opacity = String(1 - cross);
       el.ext.style.visibility = cross >= 1 ? 'hidden' : 'visible';
     }
+    /* Reception hands over to the lab at the end of Phase 1. */
+    const recExit = smooth(seg(p, ZW.lab[0], ZW.lab[0] + XFADE));
+    const recAlpha = cross * (1 - recExit);
     if (el.rec) {
-      el.rec.style.opacity = String(cross);
-      el.rec.style.visibility = cross <= 0 ? 'hidden' : 'visible';
+      el.rec.style.opacity = recAlpha.toFixed(3);
+      el.rec.style.visibility = recAlpha <= 0 ? 'hidden' : 'visible';
     }
 
-    /* ---- arrival settle + focus pull ---- */
-    const arr = easeOut(seg(p, T.arrive[0], T.arrive[1]));
+    /* ---- arrival settle + focus pull, then walk-out toward the lab ---- */
+    const arr = easeOut(seg(p1, T.arrive[0], T.arrive[1]));
     if (el.recInner) {
-      el.recInner.style.transform = `scale(${lerp(1.22, 1, arr).toFixed(4)})`;
+      const scale = lerp(1.22, 1, arr) * lerp(1, 1.18, recExit);
+      el.recInner.style.transform = `scale(${scale.toFixed(4)})`;
       const blur = lerp(9, 0, arr);
       el.recInner.style.filter =
         cross > 0 && blur > 0.4 ? `blur(${blur.toFixed(1)}px)` : 'none';
     }
 
     /* ---- overlays ---- */
-    const titleFade = 1 - smooth(seg(p, T.titleOut[0], T.titleOut[1]));
+    const titleFade = 1 - smooth(seg(p1, T.titleOut[0], T.titleOut[1]));
     if (el.title) {
       el.title.style.opacity = String(titleFade);
       el.title.style.transform = `translateY(${((1 - titleFade) * -34).toFixed(1)}px)`;
     }
-    const hintFade = 1 - smooth(seg(p, T.hintOut[0], T.hintOut[1]));
+    const hintFade = 1 - smooth(seg(p1, T.hintOut[0], T.hintOut[1]));
     if (el.hint) el.hint.style.opacity = String(hintFade);
 
-    const bars =
-      smooth(seg(p, T.bars[0], T.bars[1])) *
-      (1 - smooth(seg(p, T.barsOut[0], T.barsOut[1])));
-    if (el.barTop) el.barTop.style.transform = `translateY(${((bars - 1) * 100).toFixed(1)}%)`;
-    if (el.barBot) el.barBot.style.transform = `translateY(${((1 - bars) * 100).toFixed(1)}%)`;
-
-    const w = smooth(seg(p, T.welcome[0], T.welcome[1]));
+    const w = smooth(seg(p1, T.welcome[0], T.welcome[1])) * (1 - recExit);
     if (el.welcome) {
       el.welcome.style.opacity = String(w);
       el.welcome.style.transform = `translateY(${((1 - w) * 28).toFixed(1)}px)`;
       el.welcome.style.pointerEvents = w > 0.6 ? 'auto' : 'none';
     }
 
-    /* ---- hotspots ---- */
-    const hExt = 1 - smooth(seg(p, 0.24, 0.38));
+    /* ---- Phase-1 hotspots ---- */
+    const hExt = 1 - smooth(seg(p1, 0.24, 0.38));
     if (el.hotspotExt) {
       el.hotspotExt.style.opacity = String(hExt);
       el.hotspotExt.style.pointerEvents = hExt > 0.5 ? 'auto' : 'none';
@@ -123,6 +140,24 @@ export default function CinematicJourney({ frames }: { frames: FrameSequence | n
       el.hotspotRec.style.opacity = String(w);
       el.hotspotRec.style.pointerEvents = w > 0.6 ? 'auto' : 'none';
     }
+
+    /* ================= PHASE 2 rooms ===================================== */
+    renderLab(el, p);
+    renderSoundstage(el, p);
+    renderPipeline(el, p);
+    renderSuite(el, p);
+    renderScreening(el, p);
+    renderBooking(el, p);
+
+    /* ---- cinematic letterbox: Phase-1 transit + every room threshold ---- */
+    let bars =
+      smooth(seg(p1, T.bars[0], T.bars[1])) *
+      (1 - smooth(seg(p1, T.barsOut[0], T.barsOut[1])));
+    for (const b of ZONE_STARTS) {
+      bars = Math.max(bars, Math.sin(Math.PI * seg(p, b - 0.018, b + 0.062)) * 0.8);
+    }
+    if (el.barTop) el.barTop.style.transform = `translateY(${((bars - 1) * 100).toFixed(1)}%)`;
+    if (el.barBot) el.barBot.style.transform = `translateY(${((1 - bars) * 100).toFixed(1)}%)`;
 
     /* ---- progress rail ---- */
     if (el.pct) el.pct.textContent = `${String(Math.round(p * 100)).padStart(2, '0')}%`;
@@ -143,7 +178,7 @@ export default function CinematicJourney({ frames }: { frames: FrameSequence | n
     if (!stage || !track) return;
 
     // Collect every [data-mgst] layer once — the engine writes styles directly.
-    const layers: Record<string, HTMLElement> = {};
+    const layers: Layers = {};
     stage.querySelectorAll<HTMLElement>('[data-mgst]').forEach((n) => {
       const key = n.dataset.mgst;
       if (key) layers[key] = n;
@@ -190,13 +225,10 @@ export default function CinematicJourney({ frames }: { frames: FrameSequence | n
     });
   }, []);
 
-  /** "Explore the studio" → glide down to the accessible content below. */
+  /** "Explore the studio" → the journey continues into the Creative Lab. */
   const explore = useCallback(() => {
-    const lenis = lenisRef.current;
-    const el = document.getElementById('studio-details');
-    if (lenis && el) lenis.scrollTo(el, { offset: -40, duration: 1.8 });
-    else el?.scrollIntoView({ behavior: 'smooth' });
-  }, []);
+    goTo(STUDIO_ZONES.find((z) => z.key === 'lab')?.target ?? 0.33);
+  }, [goTo]);
 
   return (
     <div ref={trackRef} style={{ height: `${TRACK_VH}vh` }} className="relative">
@@ -216,6 +248,12 @@ export default function CinematicJourney({ frames }: { frames: FrameSequence | n
           <>
             <SceneExterior />
             <SceneReception />
+            <SceneLab />
+            <SceneSoundstage />
+            <ScenePipeline />
+            <SceneSuite />
+            <SceneScreening />
+            <SceneBooking />
           </>
         )}
 
@@ -228,7 +266,7 @@ export default function CinematicJourney({ frames }: { frames: FrameSequence | n
           className="pointer-events-none absolute inset-0 z-10 opacity-0 bg-[radial-gradient(60%_60%_at_50%_55%,rgba(244,216,137,0.9),rgba(91,227,255,0.22)_60%,transparent_78%)]"
         />
 
-        {/* cinematic letterbox during the transit */}
+        {/* cinematic letterbox during transits */}
         <div
           data-mgst="barTop"
           className="pointer-events-none absolute inset-x-0 top-0 z-10 h-[7vh] -translate-y-full bg-black"

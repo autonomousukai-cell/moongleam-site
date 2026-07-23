@@ -76,9 +76,10 @@ export default function ParticleField({
       if (document.hidden) return;
       t += 1 / 60;
       const p = progressRef.current;
-      // Exterior fades out through the doorway; interior fades in.
-      const extAlpha = 1 - smooth(seg(p, 0.58, 0.72));
-      const intAlpha = smooth(seg(p, 0.62, 0.78));
+      // Exterior fades out through the doorway (now at ~15% of the full
+      // 8-zone journey); warm dust motes carry through every interior room.
+      const extAlpha = 1 - smooth(seg(p, 0.145, 0.18));
+      const intAlpha = smooth(seg(p, 0.155, 0.195));
 
       ctx.clearRect(0, 0, w, h);
 
