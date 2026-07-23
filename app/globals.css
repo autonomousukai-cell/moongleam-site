@@ -282,3 +282,68 @@ body {
     #e9c46a 10px 20px
   );
 }
+
+/* ---------------------------------------------------------------------------
+   /studio — Phase-1 immersive virtual studio tour. Everything is prefixed
+   `mgst-` and used only by components/studio/*. The scroll-scrubbed camera
+   transforms are written inline by the engine (CinematicJourney); these are
+   the ambient loops that run independently of scroll.
+--------------------------------------------------------------------------- */
+
+/* Film grain — tiny SVG turbulence tile, barely visible, sells the "footage". */
+.mgst-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+/* LED signage flicker — occasional dips, like a real emissive sign. */
+@keyframes mgst-led {
+  0%, 6%, 10%, 100% { opacity: 1; }
+  7%, 9% { opacity: 0.82; }
+  52% { opacity: 0.94; }
+  53.5% { opacity: 1; }
+}
+.mgst-led {
+  animation: mgst-led 7s linear infinite;
+}
+
+/* Slow lateral drift for mist banks (outer wrapper carries scroll parallax). */
+@keyframes mgst-drift {
+  0% { transform: translateX(-3%); }
+  50% { transform: translateX(3%); }
+  100% { transform: translateX(-3%); }
+}
+.mgst-drift {
+  animation: mgst-drift 16s ease-in-out infinite;
+}
+.mgst-drift-slow {
+  animation: mgst-drift 26s ease-in-out infinite reverse;
+}
+
+/* Scroll-hint chevron bob. */
+@keyframes mgst-bob {
+  0%, 100% { transform: translateY(0); opacity: 0.9; }
+  50% { transform: translateY(9px); opacity: 0.35; }
+}
+.mgst-bob {
+  animation: mgst-bob 2s ease-in-out infinite;
+}
+
+/* Hotspot marker pulse ring. */
+@keyframes mgst-ping {
+  0% { transform: scale(1); opacity: 0.7; }
+  80%, 100% { transform: scale(2.1); opacity: 0; }
+}
+.mgst-ping {
+  animation: mgst-ping 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* Loader wordmark sheen. */
+@keyframes mgst-sheen {
+  0% { background-position: -200% 0; }
+  100% { background-position: 300% 0; }
+}
+.mgst-sheen {
+  background-size: 200% auto;
+  animation: mgst-sheen 2.6s linear infinite;
+}
