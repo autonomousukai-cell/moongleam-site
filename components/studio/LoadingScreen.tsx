@@ -2,10 +2,19 @@
 
 import Image from 'next/image';
 
+/** The studio "boots" in stages while assets preload. */
+const STATUS = [
+  [0.25, 'Powering the stage'],
+  [0.5, 'Calibrating lenses'],
+  [0.85, 'Loading the sets'],
+  [1.01, 'Rolling'],
+] as const;
+
 /**
- * Branded Moon Gleam loading sequence — shown while the tour code chunk and
- * critical visuals preload. `progress` is 0–1; `leaving` fades the whole
- * screen out once the studio is ready.
+ * Branded loading sequence — an academy film-leader countdown crossed with a
+ * studio boot screen: sweep hand, crosshair reticle, staged status readout
+ * and a light-path progress strip. `progress` is 0–1; `leaving` fades the
+ * whole screen out once the studio is ready.
  */
 export default function LoadingScreen({
   progress,
@@ -14,7 +23,10 @@ export default function LoadingScreen({
   progress: number;
   leaving?: boolean;
 }) {
-  const pct = Math.round(Math.min(1, Math.max(0, progress)) * 100);
+  const p = Math.min(1, Math.max(0, progress));
+  const pct = Math.round(p * 100);
+  const status = STATUS.find(([end]) => p < end)?.[1] ?? 'Rolling';
+
   return (
     <div
       aria-hidden={leaving}
@@ -23,14 +35,46 @@ export default function LoadingScreen({
         (leaving ? 'pointer-events-none opacity-0' : 'opacity-100')
       }
     >
-      <Image
-        src="/mg-logo.png"
-        alt="Moon Gleam"
-        width={64}
-        height={64}
-        priority
-        className="h-16 w-16 object-contain drop-shadow-[0_0_24px_rgba(233,196,106,0.45)]"
-      />
+      {/* film-leader ring: reticle + sweep hand around the logo */}
+      <div className="relative grid h-40 w-40 place-items-center">
+        <svg viewBox="0 0 160 160" className="absolute inset-0" fill="none" aria-hidden>
+          {/* leader crosshair */}
+          <path d="M80 2v22M80 136v22M2 80h22M136 80h22" stroke="rgba(199,204,209,0.25)" strokeWidth="1" />
+          <circle cx="80" cy="80" r="66" stroke="rgba(199,204,209,0.18)" strokeWidth="1" />
+          <circle cx="80" cy="80" r="52" stroke="rgba(91,227,255,0.25)" strokeWidth="1" />
+          {/* progress arc — fills as the studio loads */}
+          <circle
+            cx="80"
+            cy="80"
+            r="66"
+            stroke="url(#mgstLeaderGrad)"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeDasharray={`${(p * 2 * Math.PI * 66).toFixed(1)} ${(2 * Math.PI * 66).toFixed(1)}`}
+            transform="rotate(-90 80 80)"
+          />
+          <defs>
+            <linearGradient id="mgstLeaderGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stopColor="#5BE3FF" />
+              <stop offset="0.55" stopColor="#8B7CF6" />
+              <stop offset="1" stopColor="#E9C46A" />
+            </linearGradient>
+          </defs>
+        </svg>
+        {/* sweep hand */}
+        <svg viewBox="0 0 160 160" className="mgst-sweep absolute inset-0" fill="none" aria-hidden>
+          <path d="M80 80 L80 16" stroke="rgba(91,227,255,0.35)" strokeWidth="1.5" strokeLinecap="round" />
+        </svg>
+        <Image
+          src="/mg-logo.png"
+          alt="Moon Gleam"
+          width={56}
+          height={56}
+          priority
+          className="h-14 w-14 object-contain drop-shadow-[0_0_24px_rgba(233,196,106,0.45)]"
+        />
+      </div>
+
       <p className="mgst-sheen mt-6 bg-[linear-gradient(100deg,#8A9099_35%,#F4D889_50%,#8A9099_65%)] bg-clip-text text-xl font-medium tracking-[0.32em] text-transparent [font-family:var(--font-studio-display)]">
         MOON&nbsp;GLEAM
       </p>
@@ -39,7 +83,7 @@ export default function LoadingScreen({
       </p>
 
       <div
-        className="mt-10 h-px w-56 overflow-hidden rounded-full bg-white/10"
+        className="mt-9 h-px w-56 overflow-hidden rounded-full bg-white/10"
         role="progressbar"
         aria-valuenow={pct}
         aria-valuemin={0}
@@ -51,8 +95,11 @@ export default function LoadingScreen({
           style={{ width: `${pct}%` }}
         />
       </div>
-      <p className="mt-4 text-[11px] tracking-[0.2em] text-moon-soft">
-        Preparing the studio&hellip; <span className="tabular-nums">{pct}%</span>
+      <p className="mt-4 text-[10px] uppercase tracking-[0.3em] text-moon-soft">
+        {status}&hellip;{' '}
+        <span className="font-mono tabular-nums tracking-normal text-moon-faint">
+          {String(pct).padStart(3, '0')}
+        </span>
       </p>
     </div>
   );

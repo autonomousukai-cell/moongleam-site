@@ -48,6 +48,32 @@ export const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
  */
 export const FRAME_MANIFEST: string[] = [];
 
+/* ----------------------------- zone backdrops ----------------------------- */
+
+/**
+ * Bespoke AI-rendered studio scenes (Moon Gleam's own pipeline, one per zone)
+ * — the real "sets" behind every room, layered under the depth/particle/
+ * letterbox grammar. Preloaded by StudioTour during the branded loader.
+ */
+export const ZONE_BACKDROPS = {
+  exterior: '/studio/exterior.webp',
+  reception: '/studio/reception.webp',
+  lab: '/studio/lab.webp',
+  soundstage: '/studio/soundstage.webp',
+  pipeline: '/studio/pipeline.webp',
+  suite: '/studio/suite.webp',
+  screening: '/studio/screening.webp',
+  booking: '/studio/booking.webp',
+} as const;
+
+/** Timecode readout for the film-timeline rail — the journey as a 60s reel. */
+export const timecodeAt = (p: number): string => {
+  const frames = Math.round(clamp01(p) * 60 * 24);
+  const ss = Math.floor(frames / 24);
+  const ff = frames % 24;
+  return `00:00:${String(ss).padStart(2, '0')}:${String(ff).padStart(2, '0')}`;
+};
+
 /* ------------------------------ scroll track ------------------------------ */
 
 /**

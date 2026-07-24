@@ -19,6 +19,7 @@ import {
   lerp,
   zoneAt,
   zoneLabelAt,
+  timecodeAt,
   type Layers,
 } from './journey';
 import FrameSequenceCanvas, { FrameSequence } from './FrameSequence';
@@ -79,8 +80,17 @@ export default function CinematicJourney({ frames }: { frames: FrameSequence | n
     if (el.mist3)
       el.mist3.style.transform = `translate3d(0,${(dolly * 14).toFixed(2)}%,0) scale(${lerp(1, 1.6, dolly).toFixed(4)})`;
 
-    /* ---- entrance doors ---- */
+    /* ---- entrance doors ----
+       The doors are viewport-level glass panels now that the exterior is a
+       real rendered set: they materialise as the dolly reaches the entrance,
+       then slide apart as the camera passes through. */
     const d = smooth(seg(p1, T.doors[0], T.doors[1]));
+    const dIn = smooth(seg(p1, T.doors[0] - 0.1, T.doors[0]));
+    if (el.doorGrp) {
+      const a = dIn * (1 - smooth(seg(p1, T.doors[1] - 0.02, T.doors[1] + 0.04)));
+      el.doorGrp.style.opacity = a.toFixed(3);
+      el.doorGrp.style.visibility = a <= 0 ? 'hidden' : 'visible';
+    }
     if (el.doorL) el.doorL.style.transform = `translateX(${(-d * 112).toFixed(2)}%)`;
     if (el.doorR) el.doorR.style.transform = `translateX(${(d * 112).toFixed(2)}%)`;
     if (el.doorSeam) el.doorSeam.style.opacity = String(1 - d);
@@ -159,10 +169,11 @@ export default function CinematicJourney({ frames }: { frames: FrameSequence | n
     if (el.barTop) el.barTop.style.transform = `translateY(${((bars - 1) * 100).toFixed(1)}%)`;
     if (el.barBot) el.barBot.style.transform = `translateY(${((1 - bars) * 100).toFixed(1)}%)`;
 
-    /* ---- progress rail ---- */
-    if (el.pct) el.pct.textContent = `${String(Math.round(p * 100)).padStart(2, '0')}%`;
+    /* ---- film-timeline rail ---- */
+    if (el.pct) el.pct.textContent = timecodeAt(p);
     if (el.railFill) el.railFill.style.transform = `scaleY(${p.toFixed(4)})`;
     if (el.zoneLabel) el.zoneLabel.textContent = zoneLabelAt(p);
+    if (el.reel) el.reel.style.transform = `rotate(${(p * 720).toFixed(1)}deg)`;
 
     /* ---- nav highlight (only re-renders on zone change) ---- */
     const z = zoneAt(p);
@@ -187,6 +198,22 @@ export default function CinematicJourney({ frames }: { frames: FrameSequence | n
 
     gsap.registerPlugin(ScrollTrigger);
 
+    /* SCROLL-FIX (R1) — three guarantees before the engine can run:
+       1. The loader's `overflow: hidden` on <html> must be gone, whatever the
+          effect ordering of the mount was, or the window can never scroll.
+       2. `scroll-behavior` must be `auto` while Lenis owns the scroll: Lenis
+          writes window.scrollTo() every frame, and CSS smooth-scrolling would
+          animate each write from a barely-moved position — the net effect is
+          a page frozen at the top while the wheel does nothing.
+       3. ScrollTrigger must re-measure the 2480vh track after layout settles
+          (fonts/loader teardown), or its start/end — and therefore progress —
+          can be computed from a half-settled document. */
+    const html = document.documentElement;
+    html.style.overflow = '';
+    document.body.style.overflow = '';
+    const prevScrollBehavior = html.style.scrollBehavior;
+    html.style.scrollBehavior = 'auto';
+
     // Lenis drives the scroll; GSAP's ticker drives Lenis — smooth + reversible.
     const lenis = new Lenis({ duration: 1.35, smoothWheel: true });
     lenisRef.current = lenis;
@@ -205,11 +232,28 @@ export default function CinematicJourney({ frames }: { frames: FrameSequence | n
 
     renderFrame(0);
 
+    /* Re-measure once the browser has painted the mounted tree, and again
+       after the loader's fade-out window — both are cheap and idempotent. */
+    const remeasure = () => {
+      lenis.resize();
+      ScrollTrigger.refresh();
+      renderFrame(st.progress);
+    };
+    const raf = requestAnimationFrame(remeasure);
+    const settle = window.setTimeout(remeasure, 300);
+    const late = window.setTimeout(remeasure, 1200);
+    window.addEventListener('resize', remeasure);
+
     return () => {
+      cancelAnimationFrame(raf);
+      window.clearTimeout(settle);
+      window.clearTimeout(late);
+      window.removeEventListener('resize', remeasure);
       st.kill();
       gsap.ticker.remove(tick);
       lenis.destroy();
       lenisRef.current = null;
+      html.style.scrollBehavior = prevScrollBehavior;
     };
   }, [renderFrame]);
 
@@ -232,7 +276,7 @@ export default function CinematicJourney({ frames }: { frames: FrameSequence | n
 
   return (
     <div ref={trackRef} style={{ height: `${TRACK_VH}vh` }} className="relative">
-      <div ref={stageRef} className="sticky top-0 h-screen overflow-hidden bg-[#05060A]">
+      <div ref={stageRef} className="mgst-cursor sticky top-0 h-screen overflow-hidden bg-[#05060A]">
         {/* a11y escape hatch */}
         <a
           href="#studio-details"
@@ -308,17 +352,13 @@ export default function CinematicJourney({ frames }: { frames: FrameSequence | n
           <p className="mx-auto max-w-2xl text-balance text-[clamp(1.4rem,3vw,2.4rem)] font-medium leading-snug text-white [font-family:var(--font-studio-display)] [text-shadow:0_2px_30px_rgba(0,0,0,0.8)]">
             Welcome to the future of film production.
           </p>
-          <button
-            type="button"
-            onClick={explore}
-            className="mt-6 rounded-full border border-gleam/60 bg-gleam/10 px-8 py-3.5 text-sm font-semibold tracking-wide text-gleam backdrop-blur transition-all hover:bg-gleam hover:text-ink hover:shadow-gleam-glow"
-          >
+          <button type="button" onClick={explore} className="mgst-hud-btn mt-6">
             Explore the studio
           </button>
         </div>
 
         <StudioNav active={zone} onGo={goTo} />
-        <ProgressRail />
+        <ProgressRail onGo={goTo} />
       </div>
     </div>
   );

@@ -1,8 +1,10 @@
 'use client';
 
 import Hotspot from './Hotspot';
+import SceneBackdrop from './SceneBackdrop';
 import {
   ZW,
+  ZONE_BACKDROPS,
   type Layers,
   zoneShell,
   ovAlpha,
@@ -68,20 +70,9 @@ export default function ScenePipeline() {
       style={{ visibility: 'hidden' }}
     >
       <div data-mgst="pipeInner" className="absolute inset-0 origin-center will-change-transform">
-        {/* corridor shell — long perspective walls */}
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,#06080D_0%,#0B0E15_55%,#05060A_100%)]" />
-        <div className="absolute inset-y-0 left-0 w-[26%] bg-[linear-gradient(90deg,#04050A_20%,transparent)]" />
-        <div className="absolute inset-y-0 right-0 w-[26%] bg-[linear-gradient(-90deg,#04050A_20%,transparent)]" />
-        {/* receding ceiling light slots */}
-        {[20, 34, 48, 62, 76].map((x, i) => (
-          <div
-            key={x}
-            className="absolute top-[10%] h-px bg-[rgba(91,227,255,0.25)] blur-[1px]"
-            style={{ left: `${x}%`, width: `${8 - i}%`, opacity: 0.5 - i * 0.06 }}
-          />
-        ))}
-        {/* floor guide-light */}
-        <div className="absolute inset-x-[16%] bottom-[14%] h-px bg-[linear-gradient(90deg,transparent,rgba(233,196,106,0.3),transparent)] blur-[1px]" />
+        {/* the rendered set — glowing node stream in a dark process hall;
+            the live path below annotates it station by station */}
+        <SceneBackdrop src={ZONE_BACKDROPS.pipeline} />
 
         {/* the pipeline path */}
         <div className="absolute left-[9%] right-[9%] top-1/2 -translate-y-1/2">

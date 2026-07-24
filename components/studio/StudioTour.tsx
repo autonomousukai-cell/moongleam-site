@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { FRAME_MANIFEST } from './journey';
+import { FRAME_MANIFEST, ZONE_BACKDROPS } from './journey';
 import { FrameSequence } from './FrameSequence';
 import LoadingScreen from './LoadingScreen';
 import CinematicJourney from './CinematicJourney';
@@ -55,10 +55,26 @@ export default function StudioTour() {
 
     const seq = FRAME_MANIFEST.length > 0 ? new FrameSequence(FRAME_MANIFEST) : null;
     framesRef.current = seq;
-    let assetProgress = seq ? 0 : 1;
-    seq?.preload((p) => {
-      assetProgress = p;
-    });
+    let assetProgress = 0;
+    if (seq) {
+      seq.preload((p) => {
+        assetProgress = p;
+      });
+    } else {
+      // Preload the 8 AI-rendered zone backdrops so the journey never pops in.
+      const urls = Object.values(ZONE_BACKDROPS);
+      let done = 0;
+      const bump = () => {
+        done += 1;
+        assetProgress = done / urls.length;
+      };
+      urls.forEach((url) => {
+        const img = new window.Image();
+        img.onload = bump;
+        img.onerror = bump; // a missing backdrop must never stall the tour
+        img.src = url;
+      });
+    }
 
     const started = performance.now();
     const timer = window.setInterval(() => {
@@ -87,6 +103,34 @@ export default function StudioTour() {
       document.documentElement.style.overflow = '';
     };
   }, [ready, mode]);
+
+  /* GUARANTEE the scroll lock is released once the studio is ready. The
+     cleanup above already restores it, but effect ordering across the newly
+     mounted journey/fallback tree must never be able to leave the page
+     frozen — this ran hot on the live site (only zone 1 reachable). */
+  useEffect(() => {
+    if (!ready) return;
+    const release = () => {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+    };
+    release();
+    const raf = requestAnimationFrame(release);
+    const t = window.setTimeout(release, 350);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.clearTimeout(t);
+    };
+  }, [ready]);
+
+  /* Absolute backstop: leaving /studio must always hand back a scrollable page. */
+  useEffect(
+    () => () => {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+    },
+    [],
+  );
 
   /* Remove the loader from the tree after its fade-out completes. */
   useEffect(() => {

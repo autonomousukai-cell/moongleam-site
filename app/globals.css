@@ -398,3 +398,161 @@ body {
 .mgst-beam {
   animation: mgst-beam 5.5s ease-in-out infinite;
 }
+
+/* ---------------------------------------------------------------------------
+   Lenis smooth-scroll companion rules (REQUIRED). Lenis drives the window
+   scroll with per-frame programmatic scrollTo calls; the global
+   `html { scroll-behavior: smooth }` above would make the browser animate
+   every one of those writes, so the page never actually moves and the tour
+   freezes at 0%. Lenis adds the `lenis` class to <html> while active.
+--------------------------------------------------------------------------- */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------------------------
+   /studio — director's-console HUD language (R3). Nav, buttons, hotspots,
+   loaders and panels all read as an AI-film-studio control interface.
+--------------------------------------------------------------------------- */
+
+/* Lens/focus-ring cursor over the cinematic stage. */
+.mgst-cursor {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Ccircle cx='15' cy='15' r='9' fill='none' stroke='rgba(91,227,255,0.85)' stroke-width='1.4'/%3E%3Ccircle cx='15' cy='15' r='1.6' fill='%23E9C46A'/%3E%3Cpath d='M15 1v5M15 24v5M1 15h5M24 15h5' stroke='rgba(199,204,209,0.8)' stroke-width='1.2'/%3E%3C/svg%3E") 15 15, crosshair;
+}
+.mgst-cursor a,
+.mgst-cursor button {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Ccircle cx='15' cy='15' r='11' fill='none' stroke='rgba(233,196,106,0.95)' stroke-width='1.6'/%3E%3Ccircle cx='15' cy='15' r='2' fill='%23E9C46A'/%3E%3Cpath d='M15 0v6M15 24v6M0 15h6M24 15h6' stroke='rgba(233,196,106,0.7)' stroke-width='1.3'/%3E%3C/svg%3E") 15 15, pointer;
+}
+
+/* Director's-console glass HUD buttons — angled corners + bracket glow. */
+.mgst-hud-btn,
+.mgst-hud-btn-ghost {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.9rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+  backdrop-filter: blur(6px);
+  transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+.mgst-hud-btn {
+  color: #05060a;
+  background: linear-gradient(120deg, #f4d889, #e9c46a 55%, #d9ae4e);
+  box-shadow: 0 0 26px -6px rgba(233, 196, 106, 0.65);
+}
+.mgst-hud-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 40px -4px rgba(233, 196, 106, 0.85);
+}
+.mgst-hud-btn-ghost {
+  color: #c7ccd1;
+  background: rgba(7, 11, 20, 0.55);
+  box-shadow: inset 0 0 0 1px rgba(91, 227, 255, 0.35);
+}
+.mgst-hud-btn-ghost:hover {
+  color: #5be3ff;
+  box-shadow: inset 0 0 0 1px rgba(91, 227, 255, 0.7), 0 0 26px -8px rgba(91, 227, 255, 0.6);
+}
+/* corner brackets */
+.mgst-hud-btn::before,
+.mgst-hud-btn-ghost::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  pointer-events: none;
+  background:
+    linear-gradient(currentColor, currentColor) left top / 10px 1px,
+    linear-gradient(currentColor, currentColor) left top / 1px 10px,
+    linear-gradient(currentColor, currentColor) right bottom / 10px 1px,
+    linear-gradient(currentColor, currentColor) right bottom / 1px 10px;
+  background-repeat: no-repeat;
+  opacity: 0.45;
+}
+
+/* Holographic HUD panel — glass, corner brackets, faint scanlines. */
+.mgst-holo-panel {
+  position: relative;
+  border: 1px solid rgba(91, 227, 255, 0.28);
+  background:
+    linear-gradient(180deg, rgba(7, 11, 20, 0.88), rgba(5, 6, 10, 0.82));
+  box-shadow:
+    0 0 34px -10px rgba(91, 227, 255, 0.4),
+    inset 0 0 22px -12px rgba(91, 227, 255, 0.35);
+  backdrop-filter: blur(10px);
+}
+.mgst-holo-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    180deg,
+    rgba(91, 227, 255, 0.045) 0 1px,
+    transparent 1px 3px
+  );
+}
+.mgst-holo-panel::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(91, 227, 255, 0.7), rgba(91, 227, 255, 0.7)) left top / 12px 1px,
+    linear-gradient(rgba(91, 227, 255, 0.7), rgba(91, 227, 255, 0.7)) left top / 1px 12px,
+    linear-gradient(rgba(91, 227, 255, 0.7), rgba(91, 227, 255, 0.7)) right top / 12px 1px,
+    linear-gradient(rgba(91, 227, 255, 0.7), rgba(91, 227, 255, 0.7)) right top / 1px 12px,
+    linear-gradient(rgba(91, 227, 255, 0.7), rgba(91, 227, 255, 0.7)) left bottom / 12px 1px,
+    linear-gradient(rgba(91, 227, 255, 0.7), rgba(91, 227, 255, 0.7)) left bottom / 1px 12px,
+    linear-gradient(rgba(91, 227, 255, 0.7), rgba(91, 227, 255, 0.7)) right bottom / 12px 1px,
+    linear-gradient(rgba(91, 227, 255, 0.7), rgba(91, 227, 255, 0.7)) right bottom / 1px 12px;
+  background-repeat: no-repeat;
+  opacity: 0.55;
+}
+
+/* Anamorphic lens-flare line behind hotspot markers. */
+@keyframes mgst-flare {
+  0%, 100% { opacity: 0.35; transform: scaleX(0.75); }
+  50% { opacity: 0.8; transform: scaleX(1); }
+}
+.mgst-flare {
+  animation: mgst-flare 3.2s ease-in-out infinite;
+}
+
+/* Waypoint light-path shimmer (nav spine). */
+@keyframes mgst-path {
+  0% { background-position: 0 -60px; }
+  100% { background-position: 0 60px; }
+}
+.mgst-path {
+  background-image: linear-gradient(
+    180deg,
+    rgba(91, 227, 255, 0.05) 0,
+    rgba(91, 227, 255, 0.6) 30px,
+    rgba(91, 227, 255, 0.05) 60px
+  );
+  background-size: 100% 60px;
+  animation: mgst-path 2.8s linear infinite;
+}
+
+/* Film-leader countdown sweep hand (loader). */
+@keyframes mgst-sweep {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.mgst-sweep {
+  animation: mgst-sweep 2s linear infinite;
+  transform-origin: 50% 50%;
+}

@@ -4,8 +4,10 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { portfolio, categories, ytThumb, type WorkItem } from '@/lib/data';
+import SceneBackdrop from './SceneBackdrop';
 import {
   ZW,
+  ZONE_BACKDROPS,
   type Layers,
   zoneShell,
   ovAlpha,
@@ -68,11 +70,11 @@ export default function SceneScreening() {
       style={{ visibility: 'hidden' }}
     >
       <div data-mgst="scrInner" className="absolute inset-0 origin-center will-change-transform">
-        {/* cinema void */}
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,#020304_0%,#07080C_55%,#030405_100%)]" />
+        {/* the rendered set — private cinema, projector beam through haze */}
+        <SceneBackdrop src={ZONE_BACKDROPS.screening} scrim="top" />
 
-        {/* the big screen */}
-        <div className="absolute left-1/2 top-[12%] h-[46%] w-[min(66vw,900px)] -translate-x-1/2 overflow-hidden rounded-md border border-[#14161C] bg-black shadow-[0_0_100px_-10px_rgba(199,204,209,0.25)]">
+        {/* the reel — a holographic screen floating over the auditorium */}
+        <div className="absolute left-1/2 top-[15%] h-[42%] w-[min(58vw,820px)] -translate-x-1/2 overflow-hidden rounded-md border border-[rgba(91,227,255,0.3)] bg-black shadow-[0_0_100px_-10px_rgba(91,227,255,0.35)]">
           {SCREENING_WORKS.map((w, i) => (
             <div key={w.id} data-mgst={`scrShot${i}`} className="absolute inset-0 opacity-0">
               <Image
@@ -115,14 +117,14 @@ export default function SceneScreening() {
                     href={`https://www.youtube.com/watch?v=${selected.id}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rounded-full border border-gleam/60 bg-gleam/10 px-5 py-2 text-xs font-semibold tracking-wide text-gleam transition-colors hover:bg-gleam hover:text-ink"
+                    className="mgst-hud-btn !px-5 !py-2 !text-xs"
                   >
                     Watch the film
                   </a>
                   <button
                     type="button"
                     onClick={() => setSelected(null)}
-                    className="rounded-full border border-white/20 px-5 py-2 text-xs font-semibold tracking-wide text-moon transition-colors hover:border-white/50 hover:text-white"
+                    className="mgst-hud-btn-ghost !px-5 !py-2 !text-xs"
                   >
                     Back to the reel
                   </button>
@@ -132,36 +134,6 @@ export default function SceneScreening() {
           )}
         </div>
 
-        {/* projector beam */}
-        <div className="mgst-beam absolute left-1/2 top-0 h-[60%] w-[80vw] -translate-x-1/2 bg-[conic-gradient(from_180deg_at_50%_0%,transparent_44%,rgba(199,204,209,0.06)_50%,transparent_56%)] mix-blend-screen" />
-        {/* projector lamp */}
-        <div className="absolute left-1/2 top-[2%] h-2 w-2 -translate-x-1/2 rounded-full bg-white/80 blur-[2px] shadow-[0_0_18px_6px_rgba(255,255,255,0.35)]" />
-
-        {/* seat rows */}
-        {[
-          { bottom: '20%', w: 9, gap: 2.2, o: 0.9, count: 8 },
-          { bottom: '12%', w: 11, gap: 2.6, o: 1, count: 7 },
-        ].map((row, r) => (
-          <div
-            key={r}
-            className="absolute inset-x-0 flex justify-center"
-            style={{ bottom: row.bottom, gap: `${row.gap}vw`, opacity: row.o }}
-          >
-            {Array.from({ length: row.count }, (_, i) => (
-              <div
-                key={i}
-                className="rounded-t-xl bg-[#0B0D12] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
-                style={{ width: `${row.w * 0.55}vw`, height: `${row.w * 0.42}vw` }}
-              />
-            ))}
-          </div>
-        ))}
-        {/* aisle lights */}
-        <div className="absolute inset-x-[14%] bottom-[9%] flex justify-between">
-          {Array.from({ length: 9 }, (_, i) => (
-            <span key={i} className="h-1 w-1 rounded-full bg-[rgba(233,196,106,0.5)] shadow-[0_0_6px_2px_rgba(233,196,106,0.25)]" />
-          ))}
-        </div>
       </div>
 
       {/* ---- overlay ---- */}
@@ -175,10 +147,7 @@ export default function SceneScreening() {
         <p className="mx-auto mt-2 max-w-2xl text-balance text-[clamp(1.2rem,2.4vw,1.9rem)] font-medium leading-snug text-white [font-family:var(--font-studio-display)] [text-shadow:0_2px_30px_rgba(0,0,0,0.8)]">
           Selected worlds we have brought to life.
         </p>
-        <Link
-          href="/work"
-          className="mt-3 inline-block rounded-full border border-gleam/60 bg-gleam/10 px-6 py-2.5 text-xs font-semibold tracking-wide text-gleam backdrop-blur transition-colors hover:bg-gleam hover:text-ink"
-        >
+        <Link href="/work" className="mgst-hud-btn-ghost mt-3 !px-6 !py-2.5 !text-xs">
           View our work
         </Link>
       </div>
@@ -189,7 +158,7 @@ export default function SceneScreening() {
         className="absolute inset-x-0 bottom-[3%] z-30 opacity-0"
         style={{ pointerEvents: 'none' }}
       >
-        <div className="pointer-events-auto mx-auto flex w-fit max-w-[92vw] items-stretch gap-2 rounded-2xl border border-white/10 bg-black/55 p-2 backdrop-blur-md">
+        <div className="mgst-holo-panel pointer-events-auto mx-auto flex w-fit max-w-[92vw] items-stretch gap-2 rounded-sm p-2">
           {SCREENING_WORKS.map((w) => (
             <button
               key={w.id}
