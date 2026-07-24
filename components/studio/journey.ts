@@ -58,11 +58,14 @@ export const FRAME_MANIFEST: string[] = [];
 export const ZONE_BACKDROPS = {
   exterior: '/studio/exterior.webp',
   reception: '/studio/reception.webp',
-  lab: '/studio/lab.webp',
+  about: '/studio/about.webp',
+  services: '/studio/services.webp',
   soundstage: '/studio/soundstage.webp',
   pipeline: '/studio/pipeline.webp',
   suite: '/studio/suite.webp',
   screening: '/studio/screening.webp',
+  pricing: '/studio/pricing.webp',
+  blog: '/studio/blog.webp',
   booking: '/studio/booking.webp',
 } as const;
 
@@ -78,10 +81,11 @@ export const timecodeAt = (p: number): string => {
 
 /**
  * Height of the scroll track in vh — sets the pace of the whole journey.
- * Phase 1 used 620vh for the first quarter of the journey; ×4 keeps that
- * exact pacing while the six new rooms fill the remaining three quarters.
+ * Phase 1 keeps its approved 620vh of travel (= P1_END of the track); the
+ * nine rooms after it get ~293vh each — the same dwell rhythm the six-room
+ * cut shipped with.
  */
-export const TRACK_VH = 2480;
+export const TRACK_VH = 3260;
 
 /* ------------------------- Phase-1 timeline (local) ----------------------- *
  * Progress windows for each beat of the Phase-1 sequence, in PHASE-1 LOCAL   *
@@ -110,7 +114,7 @@ export const T = {
 };
 
 /** Global progress where Phase 1 (exterior → reception) ends. */
-export const P1_END = 0.25;
+export const P1_END = 0.19;
 
 /* --------------------------- Phase-2 zone windows -------------------------- */
 
@@ -118,27 +122,39 @@ export const P1_END = 0.25;
 export const XFADE = 0.05;
 
 /**
- * Global [start, end] windows for the six Phase-2 rooms. A room fades in
+ * Global [start, end] windows for the nine Phase-2 rooms. A room fades in
  * over [start, start+XFADE], dwells, and fades out over [end, end+XFADE]
  * (which is the next room's fade-in — one continuous walk). Booking's end
  * sits beyond 1 so the journey finishes inside it.
+ *
+ * Journey (whole-site edition): exterior → reception → studio story (About)
+ * → service bays (Services + Sectors) → soundstage → pipeline → render suite
+ * → portfolio wall (full archive) → rate card (Pricing) → story archive
+ * (Blog) → contact lobby / footer wall. The old Creative Lab beat is
+ * consolidated into the service bays so the pacing stays cinematic.
  */
 export const ZW = {
-  lab: [0.25, 0.375] as const,
-  stage: [0.375, 0.5] as const,
-  pipeline: [0.5, 0.625] as const,
-  suite: [0.625, 0.75] as const,
-  screening: [0.75, 0.875] as const,
-  booking: [0.875, 1.2] as const,
+  about: [0.19, 0.28] as const,
+  services: [0.28, 0.37] as const,
+  stage: [0.37, 0.46] as const,
+  pipeline: [0.46, 0.55] as const,
+  suite: [0.55, 0.64] as const,
+  screening: [0.64, 0.73] as const,
+  pricing: [0.73, 0.82] as const,
+  blog: [0.82, 0.91] as const,
+  booking: [0.91, 1.2] as const,
 };
 
 /** Room boundaries — used for the transit letterbox bars. */
 export const ZONE_STARTS = [
-  ZW.lab[0],
+  ZW.about[0],
+  ZW.services[0],
   ZW.stage[0],
   ZW.pipeline[0],
   ZW.suite[0],
   ZW.screening[0],
+  ZW.pricing[0],
+  ZW.blog[0],
   ZW.booking[0],
 ];
 
@@ -203,42 +219,54 @@ export type StudioZone = {
   target: number;
 };
 
-/** Persistent nav panel — all 8 zones wired in Phase 2. */
+/**
+ * The holographic Studio Map — one waypoint per destination so every room of
+ * the site is one click away (Azhar: Home, About, Services, Portfolio,
+ * Pricing, Blog, Contact — plus the cinematic production run in between).
+ * Targets land mid-dwell, where each room's overlay is fully revealed.
+ */
 export const STUDIO_ZONES: StudioZone[] = [
-  { key: 'exterior', label: 'Exterior', target: 0 },
-  { key: 'reception', label: 'Reception', target: 0.22 },
-  { key: 'lab', label: 'Lab', target: 0.33 },
-  { key: 'soundstage', label: 'Soundstage', target: 0.455 },
-  { key: 'process', label: 'Process', target: 0.58 },
-  { key: 'suite', label: 'Suite', target: 0.705 },
-  { key: 'portfolio', label: 'Portfolio', target: 0.83 },
+  { key: 'exterior', label: 'Home', target: 0 },
+  { key: 'about', label: 'About', target: 0.235 },
+  { key: 'services', label: 'Services', target: 0.325 },
+  { key: 'production', label: 'Production', target: 0.415 },
+  { key: 'portfolio', label: 'Portfolio', target: 0.685 },
+  { key: 'pricing', label: 'Pricing', target: 0.775 },
+  { key: 'blog', label: 'Blog', target: 0.865 },
   { key: 'contact', label: 'Contact', target: 0.96 },
 ];
 
-/** Where the camera currently is, for the progress rail + nav highlight. */
+/** Where the camera currently is, for the progress rail + nav highlight.
+    Boundaries sit mid-crossfade (window start + XFADE/2). The three
+    cinematic rooms (soundstage/pipeline/suite) share the 'production'
+    waypoint on the map. */
 const ZONE_AT: Array<[number, string]> = [
-  [0.15, 'exterior'],
-  [0.275, 'reception'],
-  [0.4, 'lab'],
-  [0.525, 'soundstage'],
-  [0.65, 'process'],
-  [0.775, 'suite'],
-  [0.9, 'portfolio'],
+  [0.135, 'exterior'],
+  [0.215, 'reception'],
+  [0.305, 'about'],
+  [0.395, 'services'],
+  [0.665, 'production'],
+  [0.755, 'portfolio'],
+  [0.845, 'pricing'],
+  [0.935, 'blog'],
   [Infinity, 'contact'],
 ];
 export const zoneAt = (p: number): string =>
   (ZONE_AT.find(([end]) => p < end) as [number, string])[1];
 
 const ZONE_LABEL_AT: Array<[number, string]> = [
-  [0.115, 'Exterior'],
-  [0.165, 'Entrance'],
-  [0.275, 'Reception'],
-  [0.4, 'Creative Lab'],
-  [0.525, 'Soundstage'],
-  [0.65, 'Pipeline'],
-  [0.775, 'Render Suite'],
-  [0.9, 'Screening Room'],
-  [Infinity, 'Booking'],
+  [0.088, 'Exterior'],
+  [0.125, 'Entrance'],
+  [0.215, 'Reception'],
+  [0.305, 'Studio Story'],
+  [0.395, 'Service Bays'],
+  [0.485, 'Soundstage'],
+  [0.575, 'Pipeline'],
+  [0.665, 'Render Suite'],
+  [0.755, 'Portfolio Wall'],
+  [0.845, 'Rate Card'],
+  [0.935, 'Story Archive'],
+  [Infinity, 'Contact'],
 ];
 export const zoneLabelAt = (p: number): string =>
   (ZONE_LABEL_AT.find(([end]) => p < end) as [number, string])[1];
@@ -263,16 +291,25 @@ export const PIPELINE_STEPS = [
   'Final Film',
 ];
 
-/** Zone 3 — the creative-lab service wall. */
-export const LAB_SERVICES = [
-  'AI commercials',
-  'Music videos',
-  'Brand films',
-  'Social content',
-  'Virtual production',
-];
+/** The Studio Story room — copy mirrored from /about (single source: that
+    page's approved wording; update both together). */
+export const ABOUT_ROOM = {
+  headline: 'A video studio built for the AI era.',
+  lead:
+    'Moon Gleam is a London AI video production studio serving UK businesses — from local shops and restaurants to law firms, charities and schools. 500+ served and counting.',
+  body:
+    'Broadcast production standards combined with genuine command of creative AI — one in-house pipeline from concept, script and storyboard through production, edit, grade, sound and delivery. One team, from brief to broadcast.',
+  glance: [
+    '500+ UK businesses served',
+    'Eight video formats produced in-house',
+    'Broadcast-standard, clearance-ready TVCs',
+    'AI, live-action and hybrid workflows',
+    'Full A-to-Z pipeline — no outsourcing',
+    'Based in London, working UK-wide',
+  ],
+} as const;
 
-/** Zone 6 — the render-suite proof points. */
+/** The render-suite proof points. */
 export const SUITE_PROOFS = [
   'Creative direction',
   'Cinematic post-production',

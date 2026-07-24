@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { seg, smooth } from './journey';
+import { P1_END, T, seg, smooth } from './journey';
 
 /**
  * Atmosphere canvas for the /studio journey — stars + drifting night mist
@@ -78,8 +78,12 @@ export default function ParticleField({
       const p = progressRef.current;
       // Exterior fades out through the doorway (now at ~15% of the full
       // 8-zone journey); warm dust motes carry through every interior room.
-      const extAlpha = 1 - smooth(seg(p, 0.145, 0.18));
-      const intAlpha = smooth(seg(p, 0.155, 0.195));
+      // Cross-fade around the doorway — derived from the Phase-1 crossfade
+      // window so re-pacing the journey can never strand the stars indoors.
+      const doorIn = T.cross[0] * P1_END;
+      const doorOut = T.cross[1] * P1_END;
+      const extAlpha = 1 - smooth(seg(p, doorIn - 0.005, doorOut));
+      const intAlpha = smooth(seg(p, doorIn + 0.005, doorOut + 0.012));
 
       ctx.clearRect(0, 0, w, h);
 

@@ -102,7 +102,7 @@ export default function SceneSoundstage() {
         className="pointer-events-none absolute inset-x-0 bottom-[7%] z-20 px-6 text-center opacity-0"
       >
         <p className="text-[10px] uppercase tracking-[0.5em] text-moon-soft">
-          04 · Virtual Soundstage
+          05 · Virtual Soundstage
         </p>
         <p className="mx-auto mt-3 max-w-2xl text-balance text-[clamp(1.4rem,3vw,2.4rem)] font-medium leading-snug text-white [font-family:var(--font-studio-display)] [text-shadow:0_2px_30px_rgba(0,0,0,0.8)]">
           Anything you can imagine can become a set.

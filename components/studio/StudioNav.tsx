@@ -4,65 +4,49 @@ import { STUDIO_ZONES } from './journey';
 
 /**
  * Studio waypoint selector — not a website menu but the tour's holographic
- * "studio blueprint": a vertical light-path with one waypoint per room, each
- * carrying a glyph that evokes the space (building, desk beacon, holo lab,
- * LED wall, pipeline nodes, grade timeline, film reel, contact beacon).
- * Clicking a waypoint flies the camera there (Lenis scrollTo in
- * CinematicJourney). Labels slide out on hover/focus; the active room glows.
+ * "studio blueprint": a vertical light-path with one waypoint per destination
+ * (Home, About, Services, Production, Portfolio, Pricing, Blog, Contact),
+ * each carrying a glyph that evokes the room. Clicking a waypoint flies the
+ * camera there (Lenis scrollTo in CinematicJourney). Labels slide out on
+ * hover/focus; the active room glows.
  */
 
-/** One 16×16 glyph per room — stroke inherits currentColor. */
+/** One 16×16 glyph per waypoint — stroke inherits currentColor. */
 const GLYPHS: Record<string, JSX.Element> = {
   exterior: (
-    // the studio building under the moon
+    // Home — the studio building under the moon
     <>
       <path d="M2.5 13.5V7l5-3 5 3v6.5" />
       <path d="M6 13.5v-3h3v3" />
       <circle cx="13" cy="3.5" r="1.6" />
     </>
   ),
-  reception: (
-    // concierge desk beacon
+  about: (
+    // About — a backlit gallery plate from the story hall
     <>
-      <path d="M2.5 11h11v2.5h-11z" />
-      <path d="M8 11V8.2" />
-      <circle cx="8" cy="5.8" r="1.8" />
-      <path d="M4.6 3.4 5.7 4.5M11.4 3.4 10.3 4.5" />
+      <rect x="2.5" y="3" width="11" height="10" rx="0.8" />
+      <circle cx="6" cy="6.5" r="1.2" />
+      <path d="M3.5 11.5 7 8.5l2.5 2 3-3" />
     </>
   ),
-  lab: (
-    // floating holo screens
+  services: (
+    // Services — four lit service bays
     <>
-      <rect x="2" y="3" width="7.5" height="5" rx="0.8" />
-      <rect x="6.5" y="8" width="7.5" height="5" rx="0.8" />
-      <path d="M4 5.5h3.5M8.5 10.5H12" />
+      <rect x="2.5" y="2.5" width="5" height="5" rx="0.8" />
+      <rect x="8.5" y="2.5" width="5" height="5" rx="0.8" />
+      <rect x="2.5" y="8.5" width="5" height="5" rx="0.8" />
+      <rect x="8.5" y="8.5" width="5" height="5" rx="0.8" />
     </>
   ),
-  soundstage: (
-    // LED volume + camera dot
+  production: (
+    // Production — LED volume + camera dot
     <>
       <path d="M2 4.5c4-2 8-2 12 0v7c-4-2-8-2-12 0z" />
       <circle cx="8" cy="8" r="1.4" />
     </>
   ),
-  process: (
-    // connected pipeline nodes
-    <>
-      <circle cx="3" cy="8" r="1.5" />
-      <circle cx="8" cy="8" r="1.5" />
-      <circle cx="13" cy="8" r="1.5" />
-      <path d="M4.5 8h2M9.5 8h2" />
-    </>
-  ),
-  suite: (
-    // edit timeline + playhead
-    <>
-      <rect x="2" y="4" width="12" height="8" rx="1" />
-      <path d="M4 7h4M9.5 7H12M4 9.5h2.5M8 9.5h4M6.8 4v8" />
-    </>
-  ),
   portfolio: (
-    // film reel
+    // Portfolio — film reel
     <>
       <circle cx="8" cy="8" r="5.8" />
       <circle cx="8" cy="8" r="1.2" />
@@ -72,8 +56,22 @@ const GLYPHS: Record<string, JSX.Element> = {
       <circle cx="11.4" cy="8" r="1" />
     </>
   ),
+  pricing: (
+    // Pricing — commission tag
+    <>
+      <path d="M8.6 2.5h4.9v4.9L7.4 13.5a1.1 1.1 0 0 1-1.6 0L2.6 10.3a1.1 1.1 0 0 1 0-1.6z" />
+      <circle cx="11" cy="5" r="1.1" />
+    </>
+  ),
+  blog: (
+    // Blog — an open guide in the reading lounge
+    <>
+      <path d="M8 4.2C6.8 3 4.8 2.8 2.5 3.2v9.3c2.3-.4 4.3-.2 5.5 1 1.2-1.2 3.2-1.4 5.5-1V3.2C11.2 2.8 9.2 3 8 4.2z" />
+      <path d="M8 4.2v9.3" />
+    </>
+  ),
   contact: (
-    // contact beacon signal
+    // Contact — beacon signal
     <>
       <circle cx="8" cy="10.5" r="1.5" />
       <path d="M4.8 8.2a4.5 4.5 0 0 1 6.4 0M2.8 5.8a7.4 7.4 0 0 1 10.4 0" />

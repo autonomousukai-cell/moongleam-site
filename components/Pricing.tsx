@@ -8,8 +8,20 @@ import { site, cta } from '@/lib/site';
 /**
  * Transparent £ pricing (MZ-style) with slots-left scarcity.
  * NOTE: starting prices are provisional — confirm before launch.
+ * SINGLE SOURCE OF TRUTH for prices: the homepage tour's rate-card room
+ * (components/studio/ScenePricing) imports `tiers` from here — never fork
+ * the numbers.
  */
-const tiers = [
+export type PricingTier = {
+  name: string;
+  forWho: string;
+  price: string;
+  featured: boolean;
+  features: string[];
+  meta: { duration: string; timeline: string };
+};
+
+export const tiers: PricingTier[] = [
   {
     name: 'Social Pack',
     forWho: 'Consistent social presence — shops, restaurants, services',

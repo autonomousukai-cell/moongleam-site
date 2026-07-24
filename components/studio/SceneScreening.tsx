@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { portfolio, categories, ytThumb, type WorkItem } from '@/lib/data';
+import { portfolio, categories, ytThumb, type Category, type WorkItem } from '@/lib/data';
 import SceneBackdrop from './SceneBackdrop';
 import {
   ZW,
@@ -23,6 +23,12 @@ import {
  * screen dims the room into a cinematic letterboxed lightbox and plays the
  * film BIG (youtube-nocookie — sound is fine, it's a user gesture). The
  * visitor never leaves the journey.
+ *
+ * ROOM C (whole-site edition): behind the featured wall sits the FULL
+ * archive — every one of the `portfolio[]` works from lib/data.ts on a
+ * scrollable LED wall, filterable by category. "View the full portfolio"
+ * powers it up; any screen opens the same letterboxed lightbox; Esc walks
+ * back one level; leaving the room shuts everything down (and its audio).
  *
  * Layer contract (written by renderScreening every frame):
  *   scr      — group opacity/visibility (zoneShell)
@@ -124,21 +130,44 @@ function LedScreen({
   );
 }
 
+/** Archive filter rail — All + every category that exists in the portfolio. */
+const FILTERS: Array<{ key: Category | 'all'; label: string }> = [
+  { key: 'all', label: 'All films' },
+  ...(Object.entries(categories) as Array<[Category, string]>).map(([key, label]) => ({
+    key,
+    label,
+  })),
+];
+
 export default function SceneScreening({ active }: { active: boolean }) {
   const [playing, setPlaying] = useState<WorkItem | null>(null);
+  const [archiveOpen, setArchiveOpen] = useState(false);
+  const [filter, setFilter] = useState<Category | 'all'>('all');
 
-  /* Walking out of the screening room kills playback (and its audio) instantly. */
+  const archive = useMemo(
+    () => (filter === 'all' ? portfolio : portfolio.filter((w) => w.cat === filter)),
+    [filter],
+  );
+
+  /* Walking out of the screening room shuts everything down (and its audio). */
   useEffect(() => {
-    if (!active) setPlaying(null);
+    if (!active) {
+      setPlaying(null);
+      setArchiveOpen(false);
+    }
   }, [active]);
 
-  /* Lights down: Escape leaves the screening. */
+  /* Lights down: Escape walks back one level — film first, then the archive. */
   useEffect(() => {
-    if (!playing) return;
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setPlaying(null);
+    if (!playing && !archiveOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return;
+      if (playing) setPlaying(null);
+      else setArchiveOpen(false);
+    };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [playing]);
+  }, [playing, archiveOpen]);
 
   return (
     <div
@@ -173,15 +202,82 @@ export default function SceneScreening({ active }: { active: boolean }) {
         className="pointer-events-none absolute inset-x-0 top-[4%] z-20 px-6 text-center opacity-0"
       >
         <p className="text-[10px] uppercase tracking-[0.5em] text-moon-soft">
-          07 · Screening Room
+          08 · Screening Room
         </p>
         <p className="mx-auto mt-2 max-w-2xl text-balance text-[clamp(1.2rem,2.4vw,1.9rem)] font-medium leading-snug text-white [font-family:var(--font-studio-display)] [text-shadow:0_2px_30px_rgba(0,0,0,0.8)]">
           Selected worlds we have brought to life.
         </p>
-        <Link href="/work" className="mgst-hud-btn-ghost mt-3 !px-6 !py-2.5 !text-xs">
-          View our work
-        </Link>
+        <button
+          type="button"
+          onClick={() => setArchiveOpen(true)}
+          className="mgst-hud-btn-ghost pointer-events-auto mt-3 !px-6 !py-2.5 !text-xs"
+        >
+          View the full portfolio · {portfolio.length} films
+        </button>
       </div>
+
+      {/* ---- the FULL archive: every work, filterable, on one LED wall ---- */}
+      {archiveOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Full portfolio archive"
+          className="pointer-events-auto absolute inset-0 z-30 flex flex-col bg-[#05060A]/95 backdrop-blur-sm"
+        >
+          <div className="flex flex-wrap items-center justify-between gap-3 px-[5vw] pb-3 pt-[4vh]">
+            <div>
+              <p className="text-[9px] uppercase tracking-[0.4em] text-moon-soft">
+                Portfolio Archive
+              </p>
+              <p className="mt-1 text-lg font-medium text-white [font-family:var(--font-studio-display)]">
+                Every world on the wall — {archive.length} of {portfolio.length} films
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setArchiveOpen(false)}
+              className="mgst-hud-btn-ghost !px-4 !py-1.5 !text-[10px]"
+            >
+              Close the archive
+            </button>
+          </div>
+
+          {/* filter rail — channel selector on the projection desk */}
+          <div className="flex flex-wrap items-center gap-1.5 px-[5vw] pb-3">
+            {FILTERS.map((f) => (
+              <button
+                key={f.key}
+                type="button"
+                onClick={() => setFilter(f.key)}
+                aria-pressed={filter === f.key}
+                className={
+                  'border px-3 py-1.5 text-[9px] uppercase tracking-[0.18em] transition-colors [clip-path:polygon(5px_0,100%_0,100%_calc(100%-5px),calc(100%-5px)_100%,0_100%,0_5px)] ' +
+                  (filter === f.key
+                    ? 'border-gleam/70 bg-gleam/15 text-gleam shadow-[0_0_12px_-2px_rgba(233,196,106,0.6)]'
+                    : 'border-white/15 bg-black/45 text-moon-soft hover:border-[rgba(91,227,255,0.5)] hover:text-moon')
+                }
+              >
+                {f.label}
+              </button>
+            ))}
+          </div>
+
+          {/* the wall itself — scrolls inside the room (Lenis keeps hands off) */}
+          <div data-lenis-prevent className="min-h-0 flex-1 overflow-y-auto px-[5vw] pb-[5vh]">
+            <div className="grid grid-cols-4 gap-x-[1.2vw] gap-y-[2.2vh] xl:grid-cols-5">
+              {archive.map((w) => (
+                <LedScreen key={w.id} work={w} onPlay={() => setPlaying(w)} />
+              ))}
+            </div>
+            <p className="pt-6 text-center text-[10px] text-moon-faint">
+              Prefer a standard page?{' '}
+              <Link href="/work" className="text-gleam underline-offset-4 hover:underline">
+                Browse the portfolio at /work
+              </Link>
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* ---- the screening itself: room dims, letterbox, film plays BIG ---- */}
       {playing && (

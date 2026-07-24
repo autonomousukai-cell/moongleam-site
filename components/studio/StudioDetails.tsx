@@ -1,12 +1,16 @@
 import Link from 'next/link';
 import { site } from '@/lib/site';
+import { services, sectorPages, portfolio, categories } from '@/lib/data';
+import { posts } from '@/lib/posts';
+import { ABOUT_ROOM } from './journey';
 
 /**
  * Accessible, server-rendered content beneath the tour — the homepage's
  * crawlable substance (SEO + screen readers). Carries the page's only <h1>,
- * real service copy and internal links to every main section: the classic
- * nav/footer are hidden on the immersive homepage, so search engines and
- * keyboard users find the rest of the site from here.
+ * real copy for every room of the tour (About, Services, Sectors, Portfolio,
+ * Pricing, Blog, Contact) and internal links to every main section: the
+ * classic nav/footer are hidden on the immersive homepage, so search engines
+ * and keyboard users find the rest of the site from here.
  */
 const tourZones = [
   {
@@ -21,33 +25,48 @@ const tourZones = [
   },
   {
     n: '03',
-    t: 'AI Creative Lab',
-    d: 'From an idea to a cinematic universe — concept art, storyboards and prompt-craft on floating screens.',
+    t: 'The Studio Story',
+    d: 'A video studio built for the AI era — London-based, 500+ UK businesses served across six sectors, full A-to-Z production in-house.',
   },
   {
     n: '04',
+    t: 'Service Bays',
+    d: 'Every service under one roof — AI video production, promos, TVCs, UGC, documentary, animation and more, each in its own lit bay.',
+  },
+  {
+    n: '05',
     t: 'Virtual Soundstage',
     d: 'LED walls and AI-generated sets. Anything you can imagine can become a set.',
   },
   {
-    n: '05',
+    n: '06',
     t: 'Production Pipeline',
     d: 'Concept → Script → Visual Dev → AI Generation → Voice & Sound → Edit → Final Film. AI-powered, human-directed.',
   },
   {
-    n: '06',
+    n: '07',
     t: 'Editing & Render Suite',
     d: 'Fast production, film-level detail — cinematic post-production and delivery built for every platform.',
   },
   {
-    n: '07',
-    t: 'Screening Room',
-    d: 'A private cinema for the Moon Gleam portfolio — selected worlds we have brought to life.',
+    n: '08',
+    t: 'Portfolio Wall',
+    d: `The full archive — all ${portfolio.length} films on a filterable LED wall, from broadcast TVCs to documentary series.`,
   },
   {
-    n: '08',
-    t: 'Booking',
-    d: 'Ready to create what has never been seen? Start your project from the illuminated front desk.',
+    n: '09',
+    t: 'The Rate Card',
+    d: 'Transparent pricing on holographic plinths — social videos from £499, promo videos from £1,499, broadcast TVCs from £3,999.',
+  },
+  {
+    n: '10',
+    t: 'The Story Archive',
+    d: `A reading lounge of ${posts.length} in-depth guides on AI video, pricing and what actually converts.`,
+  },
+  {
+    n: '11',
+    t: 'Contact & Exit Lobby',
+    d: 'Ready to create what has never been seen? The illuminated front desk, contact wall and social beacons.',
   },
 ];
 
@@ -83,9 +102,11 @@ export default function StudioDetails() {
         </p>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-moon-soft">
           What you just walked is our virtual studio — a scroll-driven camera
-          journey through the building where our AI films are made, from the
-          night-lit exterior to the rooftop booking desk. Every room below is
-          open; scroll back up or use the studio map to revisit any of them.
+          journey through the building where our AI films are made. The whole
+          website lives inside it: the studio story, every service bay, the
+          full portfolio wall, the rate card, the reading lounge and the
+          contact lobby. Every room below is open; scroll back up or use the
+          studio map to jump to any of them.
         </p>
 
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -104,6 +125,114 @@ export default function StudioDetails() {
               <p className="mt-2 text-sm leading-relaxed text-moon-soft">{z.d}</p>
             </div>
           ))}
+        </div>
+
+        {/* ---- the rooms' substance, crawlable ---- */}
+        <div className="mt-16 grid gap-12 border-t border-ink-line/40 pt-12 lg:grid-cols-2">
+          <div>
+            <h2 className="text-xl font-semibold text-moon">{ABOUT_ROOM.headline}</h2>
+            <p className="mt-3 text-sm leading-relaxed text-moon-soft">{ABOUT_ROOM.lead}</p>
+            <p className="mt-3 text-sm leading-relaxed text-moon-soft">{ABOUT_ROOM.body}</p>
+            <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+              {ABOUT_ROOM.glance.map((g) => (
+                <li key={g} className="flex gap-2 text-sm text-moon-soft">
+                  <span className="text-gleam">✓</span>
+                  {g}
+                </li>
+              ))}
+            </ul>
+            <Link
+              href="/about"
+              className="mt-4 inline-block text-sm font-medium text-gleam hover:text-gleam-bright"
+            >
+              About the studio <span aria-hidden>→</span>
+            </Link>
+          </div>
+
+          <div>
+            <h2 className="text-xl font-semibold text-moon">Clear pricing. Serious quality.</h2>
+            <p className="mt-3 text-sm leading-relaxed text-moon-soft">
+              Social videos from £499, promo videos from £1,499, broadcast TVCs from £3,999.
+              Every project is scoped on a free call — honest starting points, not hidden-fee
+              teasers. Documentary, kids animation, short film and monthly content engines are
+              quoted per project.
+            </p>
+            <Link
+              href="/pricing"
+              className="mt-4 inline-block text-sm font-medium text-gleam hover:text-gleam-bright"
+            >
+              Full pricing <span aria-hidden>→</span>
+            </Link>
+
+            <h2 className="mt-8 text-xl font-semibold text-moon">The full portfolio</h2>
+            <p className="mt-3 text-sm leading-relaxed text-moon-soft">
+              {portfolio.length} films on the studio's LED portfolio wall —{' '}
+              {Object.values(categories).join(', ')} — for clients across legal, accountancy,
+              charity, education, retail and travel.
+            </p>
+            <Link
+              href="/work"
+              className="mt-4 inline-block text-sm font-medium text-gleam hover:text-gleam-bright"
+            >
+              Browse our work <span aria-hidden>→</span>
+            </Link>
+          </div>
+        </div>
+
+        <div className="mt-12 grid gap-12 border-t border-ink-line/40 pt-12 lg:grid-cols-2">
+          <div>
+            <h2 className="text-xl font-semibold text-moon">Services — everything under one roof</h2>
+            <ul className="mt-4 space-y-2">
+              {services.map((s) => (
+                <li key={s.slug}>
+                  <Link
+                    href={`/services/${s.slug}`}
+                    className="text-sm text-moon-soft transition-colors hover:text-gleam"
+                  >
+                    {s.name}
+                  </Link>
+                  <span className="block text-xs text-moon-faint">{s.short}</span>
+                </li>
+              ))}
+            </ul>
+            <h2 className="mt-8 text-xl font-semibold text-moon">Six sectors, one standard</h2>
+            <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
+              {sectorPages.map((s) => (
+                <li key={s.slug}>
+                  <Link
+                    href={`/sectors/${s.slug}`}
+                    className="text-sm text-moon-soft transition-colors hover:text-gleam"
+                  >
+                    {s.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h2 className="text-xl font-semibold text-moon">
+              From the story archive — {posts.length} guides
+            </h2>
+            <ul className="mt-4 space-y-2">
+              {posts.map((post) => (
+                <li key={post.slug}>
+                  <Link
+                    href={`/blog/${post.slug}`}
+                    className="text-sm text-moon-soft transition-colors hover:text-gleam"
+                  >
+                    {post.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <Link
+              href="/blog"
+              className="mt-4 inline-block text-sm font-medium text-gleam hover:text-gleam-bright"
+            >
+              All guides <span aria-hidden>→</span>
+            </Link>
+          </div>
         </div>
 
         <div className="mt-14 flex flex-wrap items-center gap-3">

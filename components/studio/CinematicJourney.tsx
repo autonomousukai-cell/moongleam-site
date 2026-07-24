@@ -26,17 +26,20 @@ import FrameSequenceCanvas, { FrameSequence } from './FrameSequence';
 import ParticleField from './ParticleField';
 import SceneExterior from './SceneExterior';
 import SceneReception from './SceneReception';
-import SceneLab, { renderLab } from './SceneLab';
+import SceneAbout, { renderAbout } from './SceneAbout';
+import SceneServices, { renderServices } from './SceneServices';
 import SceneSoundstage, { renderSoundstage } from './SceneSoundstage';
 import ScenePipeline, { renderPipeline } from './ScenePipeline';
 import SceneSuite, { renderSuite } from './SceneSuite';
 import SceneScreening, { renderScreening } from './SceneScreening';
+import ScenePricing, { renderPricing } from './ScenePricing';
+import SceneBlog, { renderBlog } from './SceneBlog';
 import SceneBooking, { renderBooking } from './SceneBooking';
 import StudioNav from './StudioNav';
 import ProgressRail from './ProgressRail';
 
 /**
- * The cinematic engine — now the full 8-zone journey.
+ * The cinematic engine — the whole website as one continuous walk.
  *
  * One tall scroll track (TRACK_VH) + one sticky viewport. Lenis smooths the
  * wheel; a single GSAP ScrollTrigger scrubs progress 0–1; renderFrame() maps
@@ -45,11 +48,13 @@ import ProgressRail from './ProgressRail';
  *
  * Camera path: night exterior → dolly to the entrance → doors open →
  * reception (the approved Phase-1 choreography, remapped into [0, P1_END])
- * → creative lab → soundstage → pipeline → render suite → screening room →
- * rooftop booking. Each room transition shares one walk-forward grammar
- * (zoneShell) so the whole building reads as one continuous camera move.
- * When real footage exists, FRAME_MANIFEST swaps the procedural sets for a
- * scrubbed frame sequence with no other changes.
+ * → studio story (About) → service bays (Services + Sectors) → soundstage →
+ * pipeline → render suite → portfolio wall (full filterable archive) → rate
+ * card (Pricing) → story archive (Blog) → contact lobby / footer wall. Each
+ * room transition shares one walk-forward grammar (zoneShell) so the whole
+ * building reads as one continuous camera move. When real footage exists,
+ * FRAME_MANIFEST swaps the procedural sets for a scrubbed frame sequence
+ * with no other changes.
  */
 export default function CinematicJourney({ frames }: { frames: FrameSequence | null }) {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -106,8 +111,8 @@ export default function CinematicJourney({ frames }: { frames: FrameSequence | n
       el.ext.style.opacity = String(1 - cross);
       el.ext.style.visibility = cross >= 1 ? 'hidden' : 'visible';
     }
-    /* Reception hands over to the lab at the end of Phase 1. */
-    const recExit = smooth(seg(p, ZW.lab[0], ZW.lab[0] + XFADE));
+    /* Reception hands over to the studio-story room at the end of Phase 1. */
+    const recExit = smooth(seg(p, ZW.about[0], ZW.about[0] + XFADE));
     const recAlpha = cross * (1 - recExit);
     if (el.rec) {
       el.rec.style.opacity = recAlpha.toFixed(3);
@@ -152,11 +157,14 @@ export default function CinematicJourney({ frames }: { frames: FrameSequence | n
     }
 
     /* ================= PHASE 2 rooms ===================================== */
-    renderLab(el, p);
+    renderAbout(el, p);
+    renderServices(el, p);
     renderSoundstage(el, p);
     renderPipeline(el, p);
     renderSuite(el, p);
     renderScreening(el, p);
+    renderPricing(el, p);
+    renderBlog(el, p);
     renderBooking(el, p);
 
     /* ---- cinematic letterbox: Phase-1 transit + every room threshold ---- */
@@ -205,7 +213,7 @@ export default function CinematicJourney({ frames }: { frames: FrameSequence | n
           writes window.scrollTo() every frame, and CSS smooth-scrolling would
           animate each write from a barely-moved position — the net effect is
           a page frozen at the top while the wheel does nothing.
-       3. ScrollTrigger must re-measure the 2480vh track after layout settles
+       3. ScrollTrigger must re-measure the TRACK_VH-tall track after layout settles
           (fonts/loader teardown), or its start/end — and therefore progress —
           can be computed from a half-settled document. */
     const html = document.documentElement;
@@ -269,9 +277,14 @@ export default function CinematicJourney({ frames }: { frames: FrameSequence | n
     });
   }, []);
 
-  /** "Explore the studio" → the journey continues into the Creative Lab. */
+  /** "Explore the studio" → the journey continues into the Studio Story. */
   const explore = useCallback(() => {
-    goTo(STUDIO_ZONES.find((z) => z.key === 'lab')?.target ?? 0.33);
+    goTo(STUDIO_ZONES.find((z) => z.key === 'about')?.target ?? 0.235);
+  }, [goTo]);
+
+  /** "Book a call" in the rate-card room → fly to the contact lobby. */
+  const goContact = useCallback(() => {
+    goTo(STUDIO_ZONES.find((z) => z.key === 'contact')?.target ?? 0.96);
   }, [goTo]);
 
   return (
@@ -292,11 +305,14 @@ export default function CinematicJourney({ frames }: { frames: FrameSequence | n
           <>
             <SceneExterior />
             <SceneReception active={zone === 'reception'} />
-            <SceneLab />
+            <SceneAbout />
+            <SceneServices />
             <SceneSoundstage />
             <ScenePipeline />
             <SceneSuite />
             <SceneScreening active={zone === 'portfolio'} />
+            <ScenePricing onBook={goContact} />
+            <SceneBlog />
             <SceneBooking />
           </>
         )}
