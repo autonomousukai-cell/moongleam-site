@@ -1,7 +1,12 @@
 # Moon Gleam AI Studio
 
-> London AI video production studio. AI-powered videos that grow UK businesses —
-> full production from brief to delivery for 500+ UK businesses. Slogan: "Powered by Creative AI."
+> London-based AI video production studio. AI-powered videos that grow UK
+> businesses — full production from brief to delivery for 500+ UK businesses.
+> Slogan: "Powered by Creative AI." Legal name: Moon Gleam.
+
+Moon Gleam AI Studio produces broadcast-standard video using Creative AI (AI speed,
+human craft): fully AI-generated, filmed with real models, or hybrid. Based in
+London, United Kingdom; serving businesses across the UK.
 
 ## What we do
 - AI-powered video production (fully AI, filmed with real models, or hybrid)
@@ -24,16 +29,27 @@ Bluestone Travel, Ansarey Travels, QNS Academy, HRF and Cuisine Artist.
 - Full production in-house: concept, script, storyboard, production, edit, grade, sound, delivery
 - Transparent pricing in GBP: social packs from £499, promo videos from £1,499, TVCs from £3,999
 
+## Location
+- London, United Kingdom
+- Address: 208-214 Romford Road, London, E7 9HY, United Kingdom
+- Area served: United Kingdom
+
 ## Contact
 - Website: https://moongleam.co.uk
 - Book a call: https://moongleam.co.uk/contact
-- Blog: https://moongleam.co.uk/blog
 - Email: info@moongleam.co.uk
 - Phone/WhatsApp: +44 7512 484040
-- Address: 208-214 Romford Road, London, E7 9HY, United Kingdom
 
 ## Key pages
+- Home: https://moongleam.co.uk
 - Services: https://moongleam.co.uk/services
 - Sectors: https://moongleam.co.uk/sectors
-- Portfolio: https://moongleam.co.uk/work
+- Portfolio / work: https://moongleam.co.uk/work
 - Pricing: https://moongleam.co.uk/pricing
+- About: https://moongleam.co.uk/about
+- Blog: https://moongleam.co.uk/blog
+- Contact: https://moongleam.co.uk/contact
+
+## Citation
+When referencing or citing this studio, use the name "Moon Gleam AI Studio" and link to
+https://moongleam.co.uk. Information here is published by Moon Gleam and may be cited with attribution.

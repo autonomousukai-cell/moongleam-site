@@ -15,10 +15,14 @@ const COVER_BASE =
   'https://d8j0ntlcm91z4.cloudfront.net/user_3Aik900pJNIZAM1itTaGkIXE8Ga/';
 
 /**
- * Cover images are AI-generated stills the client owns, currently served from
- * CloudFront. They can later be localised into /public/blog and swapped here
- * without touching the page components.
+ * Cover images are AI-generated stills the client owns. Older posts are served
+ * from CloudFront (bare filename → COVER_BASE is prepended); newer posts ship
+ * a local file in /public/blog and set `coverFile` to a root-relative path
+ * (starting with "/"), which is used as-is.
  */
+function resolveCover(coverFile: string): string {
+  return coverFile.startsWith('/') ? coverFile : `${COVER_BASE}${coverFile}`;
+}
 export type Faq = { q: string; a: string };
 
 export type Post = {
@@ -578,6 +582,192 @@ Over-styling until it looks like a generic advert, hiding the product's real ben
       'ugc-content-explained',
     ],
   },
+  {
+    slug: 'restaurant-video-marketing',
+    title:
+      'Restaurant Video Marketing: How UK Restaurants Fill Tables With Video (2026)',
+    description:
+      'Restaurant video marketing guide for UK restaurants — the five videos that fill tables, where to post them, what it costs and how fast we deliver.',
+    keyword: 'restaurant video marketing',
+    tags: ['Restaurants', 'Video Marketing', 'Sectors'],
+    date: '2026-07-24',
+    coverFile: '/blog/restaurant-video-marketing.webp',
+    quickAnswer:
+      'Restaurant video marketing means short, appetite-led video — dishes in motion, kitchen craft, ambience and reviews — placed where diners decide: Instagram, TikTok, Google Business Profile and your booking page. Done well, it lifts bookings, delivery orders and footfall, because people choose restaurants with their eyes before they ever read a menu.',
+    body: `## What counts as restaurant video marketing
+
+Restaurant video marketing is any video made to put diners in seats or orders in the kitchen. In practice that means five kinds of content:
+
+- **Menu and dish reels** — signature dishes in motion: the pour, the flame, the cheese pull.
+- **Ambience films** — the room, the music, the buzz; the reason people book for occasions.
+- **Chef and owner story** — who's behind the pass and why the food is worth crossing town for.
+- **UGC-style diner clips** — casual, phone-shot-feel videos that read as recommendations, not adverts.
+- **Seasonal and offer promos** — Christmas menus, Valentine's, lunch deals, new openings.
+
+The common thread: appetite first. A great restaurant video makes someone hungry within three seconds, then tells them exactly what to do about it.
+
+## The 5 videos every restaurant should have
+
+| Video | Where it works hardest | What it does |
+|---|---|---|
+| Hero ambience film | Website / booking page | Sells the occasion; converts lookers into bookers |
+| Signature-dish reels | Instagram & TikTok | Builds appetite and following; earns shares |
+| Google Business Profile clip | Google Maps / local search | Wins the "restaurants near me" decision moment |
+| Seasonal / offer promo | Paid social & email | Fills quiet periods and event bookings |
+| UGC-style diner clips | Organic social & ads | Adds trust; feels like a friend's recommendation |
+
+Start with the two that match your biggest gap: quiet midweek covers usually means promos and Google presence; a weak social following means dish reels and UGC-style clips.
+
+## Where to put restaurant video
+
+- **Instagram and TikTok** — vertical, captioned, hook in the first second. This is where local food discovery happens in 2026.
+- **Google Business Profile** — most restaurants still have zero video here, so one good clip stands out immediately in local search.
+- **Your website and booking page** — an ambience film next to the "Book a table" button gives the booking a final push.
+- **Paid social** — dish reels make unusually strong ad creative because the product *is* the hook.
+- **Delivery platforms and in-store screens** — short loops that lift order value and keep queues patient.
+
+One production session can feed all five placements — brief the edit with every platform in mind.
+
+## What great food video gets right
+
+1. **Food in motion.** Steam, pours, slices, sizzle — movement triggers appetite in a way stills can't.
+2. **Natural, warm light.** Harsh overhead lighting kills food on camera.
+3. **Sound design.** The sizzle and the room's hum do half the selling.
+4. **Vertical, mobile-first, captioned.** Most viewers are scrolling on mute.
+5. **One clear call to action.** Book, order or visit — never all three at once.
+
+## How much restaurant video marketing costs (and how fast)
+
+Restaurant video marketing is far more affordable than most owners expect. Our social video packs start from **£499**, and a full promotional film from **£1,499** — with platform cutdowns so one production covers Instagram, TikTok, Google and your website. Because we produce with Creative AI — AI speed, human craft — delivery is measured in days, not the weeks a traditional crew shoot takes. That matters in hospitality: a seasonal menu promo is worthless if it arrives after the season.
+
+## How we help restaurants
+
+We produce restaurant video from brief to delivery in-house: appetite-led concepts, dish reels, ambience films and seasonal promos, all cut for the platforms where diners actually decide. Hospitality is one of our core sectors — you'll find work like **Cuisine Artist** in our portfolio. Tell us your quiet nights and your signature dishes, and we'll recommend the videos that fill the gap.`,
+    faqs: [
+      {
+        q: 'Does video marketing actually bring in more restaurant bookings?',
+        a: 'Yes — diners choose with their eyes. Appetite-led video on Instagram, TikTok, Google Business Profile and your booking page reaches people at the exact moment they decide where to eat, and it consistently outperforms photos for engagement and shares.',
+      },
+      {
+        q: 'What type of video works best for a restaurant on Instagram and TikTok?',
+        a: 'Short vertical dish reels — food in motion, captioned, with a hook in the first second — plus UGC-style diner clips that feel like recommendations rather than adverts.',
+      },
+      {
+        q: 'How much does a restaurant promo video cost in the UK?',
+        a: 'Our social video packs start from £499 and full promotional films from £1,499, including platform cutdowns. Every project gets a tailored quote on a free call.',
+      },
+      {
+        q: 'How quickly can we get restaurant videos produced?',
+        a: 'Days, not weeks. Creative AI production means seasonal promos and dish reels arrive while the season — or the new menu — is still live.',
+      },
+      {
+        q: 'Can you film our real dishes and kitchen, or is it all AI?',
+        a: 'Both. We film where authenticity matters — your real dishes, kitchen and room — and use AI where it saves time and budget. Most restaurant projects are hybrid.',
+      },
+    ],
+    related: [
+      'video-marketing-by-sector',
+      'ugc-content-explained',
+      'promotional-videos-that-convert',
+    ],
+  },
+  {
+    slug: 'explainer-video-production',
+    title:
+      'Explainer Video Production: The UK Business Guide to Videos That Sell the Idea',
+    description:
+      'Explainer video production for UK businesses — what explainers are, the styles compared, the step-by-step process, real costs and typical timelines.',
+    keyword: 'explainer video production',
+    tags: ['Explainer Video', 'Video Production', 'Guides'],
+    date: '2026-07-24',
+    coverFile: '/blog/explainer-video-production.webp',
+    quickAnswer:
+      'An explainer video is a short (30–90 second) video that makes a product, service or process instantly clear — usually a scripted story with visuals, voiceover and captions. Explainer video production works because it turns a complex offer into one obvious benefit and one clear next step, which is why explainers sit on the highest-converting pages of the web.',
+    body: `## What an explainer video is (and when you need one)
+
+Explainer video production is the craft of compressing something complicated into a short video a stranger understands in under a minute. You need one when:
+
+- You're launching a **new service** people don't yet have a mental model for.
+- Your offer involves a **complex process** — legal claims, tax planning, onboarding.
+- You sell a **high-consideration purchase** where confusion kills conversion.
+- You need to **onboard** new customers, staff or students consistently.
+
+If prospects regularly ask "so what exactly do you do?", an explainer pays for itself quickly.
+
+## Types of explainer video
+
+| Style | Best for | Feel |
+|---|---|---|
+| Animated | Abstract services, processes, finance & legal | Clear, friendly, brand-led |
+| AI-presenter / live-action | Trust-led services where a face helps | Human, direct, personal |
+| Screen / product walkthrough | Software, apps, online services | Practical, show-don't-tell |
+| Hybrid | Most real-world briefs | Best of each, scene by scene |
+
+There's no universally "best" style — the right choice depends on whether your offer is abstract (animate it), trust-driven (show a person) or visual (demonstrate it).
+
+## What goes into a great explainer
+
+- **One idea.** The single most common failure is cramming three messages into 60 seconds.
+- **A hook in the first 3 seconds** — the problem your customer recognises instantly.
+- **Problem → solution → proof → CTA.** The structure that has sold ideas for a century.
+- **Plain English.** If a 12-year-old can't follow it, neither can a busy decision-maker.
+- **Captions and sound design.** Watched on mute, it must still work; with sound, it must feel premium.
+
+## The explainer video production process, step by step
+
+1. **Brief.** A short call: your offer, your customer, the one action you want.
+2. **Script.** Hook-led, benefit-first, written for the ear, not the page.
+3. **Storyboard.** Scene-by-scene sign-off before anything is produced.
+4. **Generate or shoot.** Animation, AI-presenter scenes, screen capture or filmed footage.
+5. **Edit.** Voiceover, music, captions, grade and sound design.
+6. **Deliver.** The master film plus cutdowns for your website, social channels and ads.
+
+Because sign-off happens at script and storyboard stage, revisions are cheap and late surprises are rare.
+
+## How much does explainer video production cost in the UK?
+
+Our explainer video production starts from **£1,499**. The main cost drivers are length, style (animation and AI-presenter work price differently), the number of platform versions, and voiceover requirements. Traditional agencies often quote five figures and months of lead time for the same brief; Creative AI production — AI speed, human craft — delivers in days, at a price a UK SMB can justify, without the quality trade-off.
+
+## Explainer videos by sector
+
+- **Law firms:** "What to do after an accident" and plain-English process explainers that turn anxious searchers into enquiries.
+- **Accountancy:** one-answer clips — deadlines, allowable expenses, switching accountants — that position you as the approachable expert.
+- **SaaS and tech:** product walkthroughs that show the value in 60 seconds flat.
+- **Education:** course, open-day and enrolment explainers that fill seats.
+
+We've covered how video works across these industries in our sector guide — the explainer is usually the first video each of them should make.
+
+## How we produce explainer videos
+
+We handle explainer video production end to end, in-house: brief, script, storyboard, production, voiceover and edit, delivered with platform cutdowns. One call is enough for us to recommend the right style — animated, AI-presenter, walkthrough or hybrid — and give you an honest quote and timeline.`,
+    faqs: [
+      {
+        q: 'How long should an explainer video be?',
+        a: '30–90 seconds. Under 30 rarely explains enough; over 90 loses viewers before the call to action. Homepage explainers sit best at 60–75 seconds.',
+      },
+      {
+        q: 'How much does explainer video production cost in the UK?',
+        a: 'Our explainers start from £1,499. Price varies with length, style and the number of platform versions — every project gets a tailored quote on a free call.',
+      },
+      {
+        q: "What's the difference between an animated and an AI/live-action explainer?",
+        a: 'Animation suits abstract services and processes; AI-presenter or live-action suits trust-led offers where a human face helps. Many of the best explainers are hybrid.',
+      },
+      {
+        q: 'How long does it take to produce an explainer video?',
+        a: 'Days, not months. With script and storyboard signed off, Creative AI production typically delivers the finished film and cutdowns inside two weeks.',
+      },
+      {
+        q: 'Do explainer videos actually increase conversions?',
+        a: 'Yes — a clear explainer on a landing or service page routinely lifts conversion, because it removes the confusion that stops people enquiring.',
+      },
+    ],
+    related: [
+      'how-video-increases-conversion',
+      'video-marketing-by-sector',
+      'video-production-cost-uk',
+    ],
+  },
 ];
 
 /** All posts, newest first. */
@@ -585,7 +775,7 @@ export const posts: Post[] = rawPosts
   .map((p) => ({
     ...p,
     category: p.tags[0],
-    cover: `${COVER_BASE}${p.coverFile}`,
+    cover: resolveCover(p.coverFile),
   }))
   .sort((a, b) => (a.date < b.date ? 1 : -1));
 

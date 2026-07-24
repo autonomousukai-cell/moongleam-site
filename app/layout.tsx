@@ -40,19 +40,53 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-/** Organization + LocalBusiness structured data — site-wide. */
+/** Organization + LocalBusiness + WebSite structured data — site-wide.
+ * The full sameAs set, logo and cross-linked @ids give AI search engines and
+ * knowledge-graph systems a clean, unambiguous entity to cite (GEO). */
+const socialProfiles = [
+  site.social.youtube,
+  site.social.facebook,
+  site.social.instagram,
+  site.social.tiktok,
+  site.social.linkedin,
+];
+
 const orgJsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
     {
+      '@type': 'WebSite',
+      '@id': `${site.url}/#website`,
+      url: site.url,
+      name: site.name,
+      description: site.description,
+      publisher: { '@id': `${site.url}/#organization` },
+      inLanguage: 'en-GB',
+    },
+    {
       '@type': 'Organization',
       '@id': `${site.url}/#organization`,
       name: site.name,
+      legalName: site.legalName,
       url: site.url,
       slogan: site.slogan,
+      description: site.description,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${site.url}/mg-logo.png`,
+      },
+      image: `${site.url}/mg-logo.png`,
       email: site.contact.email,
       telephone: site.contact.phone,
-      sameAs: [site.social.youtube, site.social.facebook],
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: '208-214 Romford Road',
+        addressLocality: site.contact.addressLocality,
+        postalCode: site.contact.postalCode,
+        addressCountry: 'GB',
+      },
+      areaServed: 'GB',
+      sameAs: socialProfiles,
     },
     {
       '@type': 'LocalBusiness',
@@ -60,6 +94,8 @@ const orgJsonLd = {
       name: site.name,
       description: site.description,
       url: site.url,
+      logo: `${site.url}/mg-logo.png`,
+      image: `${site.url}/mg-logo.png`,
       email: site.contact.email,
       telephone: site.contact.phone,
       priceRange: '££',
@@ -71,13 +107,16 @@ const orgJsonLd = {
         addressCountry: 'GB',
       },
       areaServed: 'GB',
+      sameAs: socialProfiles,
       knowsAbout: [
         'AI video production',
         'TV commercials',
         'promotional videos',
+        'product videos',
         'documentary production',
         'kids animation',
         'UGC content',
+        'video marketing',
       ],
     },
   ],
