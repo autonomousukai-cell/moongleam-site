@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { portfolio, categories, ytThumb, type WorkItem } from '@/lib/data';
@@ -12,36 +12,53 @@ import {
   zoneShell,
   ovAlpha,
   setOverlay,
-  seg,
+  lerp,
 } from './journey';
 
 /**
- * ZONE 7 — placeholder "set": the private screening room. A projector beam,
- * rows of seats and one big screen playing a scrubbed slideshow of REAL
- * Moon Gleam portfolio work. Project cards along the bottom open a detail
- * panel over the screen without ever leaving the journey.
+ * ZONE 7 — Moon Gleam's private screening GALLERY. The rendered set is a
+ * cinema room whose left wall carries a receding band of LED frames and
+ * whose right wall holds the big amber-edged cinema screen; the HTML layer
+ * welds onto that geometry: a perspective bank of live monitors (one real
+ * portfolio work each) over the left wall, and a "Now Screening" beacon on
+ * the cinema screen. Selecting anything dims the room into a cinematic
+ * letterboxed lightbox and plays the film BIG (youtube-nocookie — sound is
+ * fine, it's a user gesture). The visitor never leaves the journey.
  *
  * Layer contract (written by renderScreening every frame):
- *   scr         — group opacity/visibility (zoneShell)
- *   scrInner    — walk-forward settle (zoneShell)
- *   scrShot0..N — big-screen slideshow crossfade (scroll-scrubbed)
- *   scrOv       — zone overlay
- *   scrHs       — project cards gate
+ *   scr      — group opacity/visibility (zoneShell)
+ *   scrInner — walk-forward settle (zoneShell)
+ *   scrWall  — monitor bank: perspective walk-past drift
+ *   scrOv    — zone overlay (title + CTA)
+ *   scrHs    — gallery power-on gate (opacity + pointer-events)
  */
 
-/** Selected worlds on the big screen — one per discipline. */
-const SELECTED_IDS = [
-  'x9c5L7DncWk', // Moon Gleam — brand film
-  'P1PCjWxa5Jo', // Netflix-quality ads
-  'wsVu1zJFt-k', // Lord Lucan documentary
-  'kQKz4nE7ZxM', // Bombay Jewellers TVC
-  'EIaa0ZCCyYM', // kids animation
-];
-export const SCREENING_WORKS: WorkItem[] = SELECTED_IDS.map(
-  (id) => portfolio.find((w) => w.id === id) as WorkItem,
-).filter(Boolean);
+/** The rendered screening plate is 1376×768 (1.7917:1). */
+const PLATE_AR = 1376 / 768;
 
-const N = SCREENING_WORKS.length;
+const pick = (id: string) => portfolio.find((w) => w.id === id) as WorkItem;
+
+/** The cinema screen's feature — the studio showreel film. */
+const FEATURED = pick('x9c5L7DncWk');
+
+/** The monitor wall — a strong selection across every discipline. */
+const WALL: WorkItem[] = [
+  pick('kQKz4nE7ZxM'), // TVC — Bombay Jewellers
+  pick('4HF3_eWN0sU'), // TVC — Cuisine Artist
+  pick('HtkYON-hXeU'), // TVC — Bluestone Travel
+  pick('wsVu1zJFt-k'), // Documentary — Lord Lucan
+  pick('K4yxkk8cgkE'), // Documentary — Enigma Code
+  pick('qSGqVKzREdQ'), // Short film — Time's Up
+  pick('EIaa0ZCCyYM'), // Kids animation showcase
+  pick('rJ8AD-ZHOuI'), // Kids animation story
+  pick('yubYJ8DIjRQ'), // Charity — HRF Winter Souk
+  pick('Afe2qXdodRM'), // Education — QNS Academy
+  pick('P1PCjWxa5Jo'), // Brand — Netflix-quality ads
+  pick('U6ADvdX701A'), // UGC — AI Animal Podcast
+].filter(Boolean);
+
+/** Shared with the mobile/static narrative fallback. */
+export const SCREENING_WORKS: WorkItem[] = [FEATURED, ...WALL].filter(Boolean);
 
 export function renderScreening(el: Layers, p: number) {
   const { alpha, local } = zoneShell(el, 'scr', p, ZW.screening);
@@ -52,16 +69,61 @@ export function renderScreening(el: Layers, p: number) {
     el.scrHs.style.pointerEvents = ov > 0.6 ? 'auto' : 'none';
   }
   if (alpha <= 0) return;
-  // The reel advances with the visitor: nearest shot fully lit, neighbours dim.
-  const idx = seg(local, 0.1, 0.92) * (N - 1);
-  for (let i = 0; i < N; i++) {
-    const shot = el[`scrShot${i}`];
-    if (shot) shot.style.opacity = Math.max(0, 1 - Math.abs(idx - i) * 1.5).toFixed(3);
-  }
+  // Walk-past drift: the monitor bank glides gently by as the visitor moves.
+  if (el.scrWall)
+    el.scrWall.style.transform = `perspective(1150px) rotateY(16deg) translate3d(${lerp(2.5, -2.5, local).toFixed(2)}%,0,0)`;
 }
 
-export default function SceneScreening() {
-  const [selected, setSelected] = useState<WorkItem | null>(null);
+/** One LED gallery monitor. */
+function MonitorTile({ work, onPlay }: { work: WorkItem; onPlay: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onPlay}
+      title={work.title}
+      aria-label={`Screen this film: ${work.title}`}
+      className="group relative block w-full overflow-hidden rounded-[3px] border border-[rgba(91,227,255,0.3)] bg-black text-left shadow-[0_0_26px_-8px_rgba(91,227,255,0.5)] transition-all hover:border-[rgba(91,227,255,0.75)] hover:shadow-[0_0_38px_-6px_rgba(91,227,255,0.7)]"
+    >
+      <span className="relative block aspect-video">
+        <Image
+          src={ytThumb(work.id)}
+          alt=""
+          fill
+          sizes="200px"
+          className="mgst-led object-cover opacity-85 transition-opacity group-hover:opacity-100"
+        />
+        {/* LED scanline texture + edge fall-off */}
+        <span className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(180deg,rgba(0,0,0,0.16)_0_1px,transparent_1px_3px)] mix-blend-overlay" />
+        <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(85%_65%_at_50%_45%,transparent_55%,rgba(0,0,0,0.42))]" />
+        {/* play iris on hover/focus */}
+        <span className="pointer-events-none absolute inset-0 grid place-items-center opacity-0 transition-opacity group-focus-visible:opacity-100 group-hover:opacity-100">
+          <span className="grid h-8 w-8 place-items-center rounded-full border border-gleam/80 bg-black/55 text-[10px] text-gleam shadow-[0_0_16px_rgba(233,196,106,0.6)]">
+            ▶
+          </span>
+        </span>
+      </span>
+      <span className="block truncate border-t border-white/10 bg-black/70 px-2 py-1 text-[8px] uppercase tracking-[0.16em] text-moon-soft">
+        {categories[work.cat]}
+      </span>
+    </button>
+  );
+}
+
+export default function SceneScreening({ active }: { active: boolean }) {
+  const [playing, setPlaying] = useState<WorkItem | null>(null);
+
+  /* Walking out of the gallery kills playback (and its audio) instantly. */
+  useEffect(() => {
+    if (!active) setPlaying(null);
+  }, [active]);
+
+  /* Lights down: Escape leaves the screening. */
+  useEffect(() => {
+    if (!playing) return;
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setPlaying(null);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [playing]);
 
   return (
     <div
@@ -70,70 +132,55 @@ export default function SceneScreening() {
       style={{ visibility: 'hidden' }}
     >
       <div data-mgst="scrInner" className="absolute inset-0 origin-center will-change-transform">
-        {/* the rendered set — private cinema, projector beam through haze */}
+        {/* the rendered set — LED-framed gallery wall + cinema screen */}
         <SceneBackdrop src={ZONE_BACKDROPS.screening} scrim="top" />
 
-        {/* the reel — a holographic screen floating over the auditorium */}
-        <div className="absolute left-1/2 top-[15%] h-[42%] w-[min(58vw,820px)] -translate-x-1/2 overflow-hidden rounded-md border border-[rgba(91,227,255,0.3)] bg-black shadow-[0_0_100px_-10px_rgba(91,227,255,0.35)]">
-          {SCREENING_WORKS.map((w, i) => (
-            <div key={w.id} data-mgst={`scrShot${i}`} className="absolute inset-0 opacity-0">
-              <Image
-                src={ytThumb(w.id)}
-                alt={w.title}
-                fill
-                sizes="(max-width: 1400px) 66vw, 900px"
-                className="object-cover"
-              />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent px-4 pb-3 pt-10">
-                <p className="text-[9px] uppercase tracking-[0.3em] text-gleam/90">
-                  {categories[w.cat]}
-                </p>
-                <p className="mt-0.5 text-sm font-medium text-white">{w.title}</p>
+        {/* Cover-box mirrors the backdrop's object-cover crop, welding the
+            monitors + beacon to the room's geometry at any viewport. */}
+        <div
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+          style={{
+            width: `max(100%, calc(100vh * ${PLATE_AR}))`,
+            height: `max(100%, calc(100vw / ${PLATE_AR}))`,
+          }}
+        >
+          {/* ---- the gallery powers on as the visitor settles ---- */}
+          <div data-mgst="scrHs" className="absolute inset-0 opacity-0" style={{ pointerEvents: 'none' }}>
+            {/* monitor bank over the left wall's LED frame band */}
+            <div
+              data-mgst="scrWall"
+              className="absolute left-[12.5%] top-[21%] w-[42%] origin-left"
+              style={{ transform: 'perspective(1150px) rotateY(16deg)' }}
+            >
+              <div className="grid grid-cols-6 gap-[0.55vw]">
+                {WALL.map((w) => (
+                  <MonitorTile key={w.id} work={w} onPlay={() => setPlaying(w)} />
+                ))}
               </div>
             </div>
-          ))}
-          {/* screen glass sheen */}
-          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(115deg,rgba(255,255,255,0.05),transparent_35%)]" />
 
-          {/* selected-project detail — covers the screen, journey untouched */}
-          {selected && (
-            <div className="pointer-events-auto absolute inset-0 z-10 bg-black/92 backdrop-blur-sm">
-              <Image
-                src={ytThumb(selected.id)}
-                alt={selected.title}
-                fill
-                sizes="(max-width: 1400px) 66vw, 900px"
-                className="object-cover opacity-35"
-              />
-              <div className="absolute inset-0 flex flex-col items-center justify-center px-8 text-center">
-                <p className="text-[10px] uppercase tracking-[0.4em] text-gleam">
-                  {categories[selected.cat]}
-                </p>
-                <p className="mt-3 max-w-xl text-balance text-[clamp(1.1rem,2.2vw,1.8rem)] font-medium leading-snug text-white [font-family:var(--font-studio-display)]">
-                  {selected.title}
-                </p>
-                <div className="mt-5 flex items-center gap-3">
-                  <a
-                    href={`https://www.youtube.com/watch?v=${selected.id}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mgst-hud-btn !px-5 !py-2 !text-xs"
-                  >
-                    Watch the film
-                  </a>
-                  <button
-                    type="button"
-                    onClick={() => setSelected(null)}
-                    className="mgst-hud-btn-ghost !px-5 !py-2 !text-xs"
-                  >
-                    Back to the reel
-                  </button>
-                </div>
-              </div>
+            {/* "Now Screening" beacon on the amber cinema screen */}
+            <div className="absolute left-[84%] top-[38%]">
+              <button
+                type="button"
+                onClick={() => setPlaying(FEATURED)}
+                aria-label={`Play the featured film: ${FEATURED.title}`}
+                className="group relative grid place-items-center"
+              >
+                <span
+                  aria-hidden
+                  className="mgst-flare absolute left-1/2 top-1/2 h-px w-28 -translate-x-1/2 -translate-y-1/2 bg-[linear-gradient(90deg,transparent,rgba(233,196,106,0.85),transparent)]"
+                />
+                <span className="mgst-pulse relative grid h-14 w-14 place-items-center rounded-full border border-gleam/80 bg-black/55 text-sm text-gleam shadow-[0_0_30px_rgba(233,196,106,0.7)] transition-transform group-hover:scale-110">
+                  ▶
+                </span>
+                <span className="mt-2 block whitespace-nowrap rounded-sm bg-black/60 px-2.5 py-1 text-[9px] uppercase tracking-[0.28em] text-gleam/90">
+                  Now screening · the showreel
+                </span>
+              </button>
             </div>
-          )}
+          </div>
         </div>
-
       </div>
 
       {/* ---- overlay ---- */}
@@ -142,7 +189,7 @@ export default function SceneScreening() {
         className="pointer-events-none absolute inset-x-0 top-[4%] z-20 px-6 text-center opacity-0"
       >
         <p className="text-[10px] uppercase tracking-[0.5em] text-moon-soft">
-          07 · Screening Room
+          07 · Screening Gallery
         </p>
         <p className="mx-auto mt-2 max-w-2xl text-balance text-[clamp(1.2rem,2.4vw,1.9rem)] font-medium leading-snug text-white [font-family:var(--font-studio-display)] [text-shadow:0_2px_30px_rgba(0,0,0,0.8)]">
           Selected worlds we have brought to life.
@@ -152,42 +199,49 @@ export default function SceneScreening() {
         </Link>
       </div>
 
-      {/* ---- project cards (hotspots) ---- */}
-      <div
-        data-mgst="scrHs"
-        className="absolute inset-x-0 bottom-[3%] z-30 opacity-0"
-        style={{ pointerEvents: 'none' }}
-      >
-        <div className="mgst-holo-panel pointer-events-auto mx-auto flex w-fit max-w-[92vw] items-stretch gap-2 rounded-sm p-2">
-          {SCREENING_WORKS.map((w) => (
-            <button
-              key={w.id}
-              type="button"
-              onClick={() => setSelected(w)}
-              title={w.title}
-              className={
-                'group w-[9.5vw] max-w-[132px] overflow-hidden rounded-lg border text-left transition-colors ' +
-                (selected?.id === w.id
-                  ? 'border-gleam/70'
-                  : 'border-white/10 hover:border-white/35')
-              }
-            >
-              <div className="relative aspect-video">
-                <Image
-                  src={ytThumb(w.id)}
-                  alt=""
-                  fill
-                  sizes="132px"
-                  className="object-cover opacity-75 transition-opacity group-hover:opacity-100"
-                />
-              </div>
-              <p className="truncate bg-black/60 px-2 py-1 text-[8px] uppercase tracking-[0.14em] text-moon-soft">
-                {categories[w.cat]}
+      {/* ---- the screening itself: room dims, letterbox, film plays BIG ---- */}
+      {playing && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Now screening: ${playing.title}`}
+          className="pointer-events-auto absolute inset-0 z-40 flex items-center justify-center bg-black/92 backdrop-blur-sm"
+        >
+          {/* letterbox bars — the projector takes over the room */}
+          <div aria-hidden className="absolute inset-x-0 top-0 h-[6vh] bg-black" />
+          <div aria-hidden className="absolute inset-x-0 bottom-0 h-[6vh] bg-black" />
+
+          <div className="w-[min(78vw,calc(72vh*1.7778))]">
+            <div className="flex items-baseline justify-between gap-4 pb-2.5">
+              <p className="min-w-0 truncate text-left">
+                <span className="text-[9px] uppercase tracking-[0.34em] text-gleam">
+                  Now screening · {categories[playing.cat]}
+                </span>
+                <span className="mt-0.5 block truncate text-sm font-medium text-white [font-family:var(--font-studio-display)]">
+                  {playing.title}
+                </span>
               </p>
-            </button>
-          ))}
+              <button
+                type="button"
+                onClick={() => setPlaying(null)}
+                className="mgst-hud-btn-ghost shrink-0 !px-4 !py-1.5 !text-[10px]"
+              >
+                Back to the gallery
+              </button>
+            </div>
+            <div className="relative aspect-video overflow-hidden rounded-[3px] border border-[rgba(233,196,106,0.4)] bg-black shadow-[0_0_130px_-16px_rgba(233,196,106,0.45)]">
+              <iframe
+                src={`https://www.youtube-nocookie.com/embed/${playing.id}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
+                title={`Now screening: ${playing.title}`}
+                allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+                allowFullScreen
+                className="absolute inset-0 h-full w-full"
+                style={{ border: 0 }}
+              />
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

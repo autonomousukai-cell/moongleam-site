@@ -26,14 +26,16 @@ export default function SceneBackdrop({
         decoding="async"
         className="absolute inset-0 h-full w-full select-none object-cover"
       />
+      {/* Minimal legibility gradients only — the imagery must stay crisp and
+          vivid; overlay copy carries its own text-shadow for the rest. */}
       {(scrim === 'top' || scrim === 'both') && (
-        <div className="absolute inset-x-0 top-0 h-[34%] bg-[linear-gradient(180deg,rgba(2,4,9,0.68),transparent)]" />
+        <div className="absolute inset-x-0 top-0 h-[22%] bg-[linear-gradient(180deg,rgba(2,4,9,0.32),transparent)]" />
       )}
       {(scrim === 'bottom' || scrim === 'both') && (
-        <div className="absolute inset-x-0 bottom-0 h-[38%] bg-[linear-gradient(0deg,rgba(2,4,9,0.72),transparent)]" />
+        <div className="absolute inset-x-0 bottom-0 h-[24%] bg-[linear-gradient(0deg,rgba(2,4,9,0.36),transparent)]" />
       )}
-      {/* edge vignette so every set sits in the same cinematic exposure */}
-      <div className="absolute inset-0 bg-[radial-gradient(130%_100%_at_50%_45%,transparent_55%,rgba(0,0,0,0.5)_100%)]" />
+      {/* whisper of an edge vignette — frames the set without dimming it */}
+      <div className="absolute inset-0 bg-[radial-gradient(140%_110%_at_50%_45%,transparent_72%,rgba(0,0,0,0.22)_100%)]" />
     </>
   );
 }

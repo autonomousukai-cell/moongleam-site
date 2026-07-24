@@ -291,12 +291,12 @@ export default function CinematicJourney({ frames }: { frames: FrameSequence | n
         ) : (
           <>
             <SceneExterior />
-            <SceneReception />
+            <SceneReception active={zone === 'reception'} />
             <SceneLab />
             <SceneSoundstage />
             <ScenePipeline />
             <SceneSuite />
-            <SceneScreening />
+            <SceneScreening active={zone === 'portfolio'} />
             <SceneBooking />
           </>
         )}
@@ -320,8 +320,8 @@ export default function CinematicJourney({ frames }: { frames: FrameSequence | n
           className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[7vh] translate-y-full bg-black"
         />
 
-        {/* vignette + film grain */}
-        <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(120%_90%_at_50%_45%,transparent_55%,rgba(0,0,0,0.55)_100%)]" />
+        {/* vignette + film grain — kept featherlight so the sets stay vivid */}
+        <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(130%_100%_at_50%_45%,transparent_74%,rgba(0,0,0,0.28)_100%)]" />
         <div className="mgst-grain pointer-events-none absolute inset-0 z-10 opacity-[0.05] mix-blend-overlay" />
 
         {/* ---- ZONE 1 overlay ---- */}

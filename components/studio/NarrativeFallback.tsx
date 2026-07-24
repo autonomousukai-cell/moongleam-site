@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -38,7 +39,56 @@ function Set({ src, eager = false }: { src: string; eager?: boolean }) {
         decoding="async"
         className="h-full w-full select-none object-cover"
       />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,4,9,0.72),rgba(2,4,9,0.3)_38%,rgba(2,4,9,0.35)_62%,rgba(2,4,9,0.82))]" />
+      {/* minimal legibility gradient only — the sets must read crisp + vivid */}
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,4,9,0.42),rgba(2,4,9,0.12)_38%,rgba(2,4,9,0.14)_62%,rgba(2,4,9,0.52))]" />
+    </div>
+  );
+}
+
+/** Reception LED wall, mobile edition: thumbnail facade → tap plays with
+    sound (the tap is the user gesture browsers require for audio). */
+function LiteShowreel() {
+  const [playing, setPlaying] = useState(false);
+  return (
+    <div className="relative mx-auto mt-7 w-full max-w-md overflow-hidden rounded-[3px] border border-[rgba(91,227,255,0.4)] bg-black shadow-[0_0_60px_-10px_rgba(91,227,255,0.5)]">
+      <div className="relative aspect-video">
+        {playing ? (
+          <iframe
+            src={`https://www.youtube-nocookie.com/embed/${site.showreelId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
+            title="Moon Gleam — studio showreel"
+            allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+            allowFullScreen
+            className="absolute inset-0 h-full w-full"
+            style={{ border: 0 }}
+          />
+        ) : (
+          <button
+            type="button"
+            onClick={() => setPlaying(true)}
+            aria-label="Play the Moon Gleam showreel with sound"
+            className="group absolute inset-0 block w-full"
+          >
+            <Image
+              src={ytThumb(site.showreelId)}
+              alt=""
+              fill
+              sizes="(max-width: 640px) 92vw, 448px"
+              className="object-cover opacity-90"
+            />
+            <span className="absolute inset-0 bg-[radial-gradient(70%_70%_at_50%_50%,transparent_40%,rgba(0,0,0,0.45))]" />
+            <span className="absolute inset-0 grid place-items-center">
+              <span className="mgst-pulse grid h-14 w-14 place-items-center rounded-full border border-gleam/80 bg-black/55 text-base text-gleam shadow-[0_0_30px_rgba(233,196,106,0.65)]">
+                ▶
+              </span>
+            </span>
+            <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent px-3 pb-2.5 pt-8 text-left">
+              <span className="block text-[9px] uppercase tracking-[0.26em] text-gleam/90">
+                Welcome to Moon Gleam — tap for sound
+              </span>
+            </span>
+          </button>
+        )}
+      </div>
     </div>
   );
 }
@@ -90,9 +140,10 @@ export default function NarrativeFallback({ animate }: { animate: boolean }) {
       <section className="relative flex min-h-[92svh] flex-col items-center justify-center overflow-hidden px-6 text-center">
         <Set src={ZONE_BACKDROPS.reception} />
 
-        <motion.div {...reveal()} className="relative z-10">
+        <motion.div {...reveal()} className="relative z-10 w-full">
           <p className={kicker}>Reception · AI Film Studio</p>
           <h2 className={headline}>Welcome to the future of film production.</h2>
+          <LiteShowreel />
           <p className="mt-5 text-[10px] uppercase tracking-[0.24em] text-moon-faint">
             Full cinematic tour available on desktop
           </p>
@@ -188,7 +239,8 @@ export default function NarrativeFallback({ animate }: { animate: boolean }) {
           <p className={kicker}>07 · Screening Room</p>
           <h2 className={headline}>Selected worlds we have brought to life.</h2>
           <div className="mt-7 grid grid-cols-2 gap-3">
-            {SCREENING_WORKS.slice(0, 4).map((w) => (
+            {/* skip [0] — the showreel already plays on the reception wall above */}
+            {SCREENING_WORKS.slice(1, 5).map((w) => (
               <Link
                 key={w.id}
                 href="/work"
