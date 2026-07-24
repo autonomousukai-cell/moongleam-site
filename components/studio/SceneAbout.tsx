@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import SceneBackdrop from './SceneBackdrop';
+import SceneBackdrop, { TextHalo } from './SceneBackdrop';
 import {
   ZW,
   ZONE_BACKDROPS,
@@ -63,13 +63,14 @@ export default function SceneAbout() {
         data-mgst="abtOv"
         className="pointer-events-none absolute inset-x-0 top-[7%] z-20 px-6 text-center opacity-0"
       >
-        <p className="text-[10px] uppercase tracking-[0.5em] text-moon-soft">
+        <TextHalo />
+        <p className="text-[11px] font-semibold uppercase tracking-[0.5em] text-gleam [text-shadow:0_2px_16px_rgba(0,0,0,0.95)]">
           03 · The Studio Story
         </p>
-        <h2 className="mx-auto mt-3 max-w-2xl text-balance text-[clamp(1.4rem,3vw,2.4rem)] font-medium leading-snug text-white [font-family:var(--font-studio-display)] [text-shadow:0_2px_30px_rgba(0,0,0,0.8)]">
+        <h2 className="mx-auto mt-3 max-w-2xl text-balance text-[clamp(1.5rem,3vw,2.4rem)] font-medium leading-snug text-white [font-family:var(--font-studio-display)] [text-shadow:0_2px_30px_rgba(0,0,0,0.85)]">
           {ABOUT_ROOM.headline}
         </h2>
-        <p className="mx-auto mt-3 max-w-xl text-balance text-sm leading-relaxed text-moon [text-shadow:0_2px_24px_rgba(0,0,0,0.9)]">
+        <p className="mx-auto mt-3 max-w-xl text-balance text-base leading-relaxed text-moon [text-shadow:0_2px_24px_rgba(0,0,0,0.9)]">
           {ABOUT_ROOM.lead}
         </p>
       </div>
@@ -86,7 +87,7 @@ export default function SceneAbout() {
                 <p className="text-2xl font-medium text-gleam [font-family:var(--font-studio-display)]">
                   {s.n}
                 </p>
-                <p className="mt-1 text-[9px] uppercase tracking-[0.26em] text-moon-soft">{s.l}</p>
+                <p className="mt-1 text-[10px] uppercase tracking-[0.26em] text-moon">{s.l}</p>
               </div>
             ))}
           </div>
@@ -97,7 +98,7 @@ export default function SceneAbout() {
             {ABOUT_ROOM.glance.map((g) => (
               <span
                 key={g}
-                className="border border-white/15 bg-black/45 px-3.5 py-1.5 text-[10px] uppercase tracking-[0.16em] text-moon backdrop-blur-sm [clip-path:polygon(6px_0,100%_0,100%_calc(100%-6px),calc(100%-6px)_100%,0_100%,0_6px)]"
+                className="border border-white/15 bg-black/45 px-3.5 py-1.5 text-[11px] uppercase tracking-[0.16em] text-moon backdrop-blur-sm [clip-path:polygon(6px_0,100%_0,100%_calc(100%-6px),calc(100%-6px)_100%,0_100%,0_6px)]"
               >
                 {g}
               </span>

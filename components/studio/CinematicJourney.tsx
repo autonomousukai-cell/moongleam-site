@@ -23,6 +23,7 @@ import {
   type Layers,
 } from './journey';
 import FrameSequenceCanvas, { FrameSequence } from './FrameSequence';
+import { TextHalo } from './SceneBackdrop';
 import ParticleField from './ParticleField';
 import SceneExterior from './SceneExterior';
 import SceneReception from './SceneReception';
@@ -340,24 +341,54 @@ export default function CinematicJourney({ frames }: { frames: FrameSequence | n
         <div className="pointer-events-none absolute inset-0 z-10 bg-[radial-gradient(130%_100%_at_50%_45%,transparent_74%,rgba(0,0,0,0.28)_100%)]" />
         <div className="mgst-grain pointer-events-none absolute inset-0 z-10 opacity-[0.05] mix-blend-overlay" />
 
-        {/* ---- ZONE 1 overlay ---- */}
+        {/* ---- ZONE 1 overlay: hero value proposition ----
+            Sits in the lower third so it can NEVER overlap the "MOON GLEAM
+            AI STUDIO" building signage (upper half of the plate). The name
+            itself stays on the building; the homepage's real <h1> is SSR'd
+            in StudioDetails. */}
         <div
           data-mgst="title"
-          className="pointer-events-none absolute inset-x-0 top-[13%] z-20 px-6 text-center"
+          className="pointer-events-none absolute inset-x-0 bottom-[17%] z-20 px-6 text-center"
         >
-          {/* no name title card — the studio name reads off the building
-              signage in the exterior plate; the homepage's real <h1> is
-              SSR'd in StudioDetails */}
-          <p className="mx-auto max-w-xl text-balance text-sm uppercase tracking-[0.34em] text-moon [text-shadow:0_2px_30px_rgba(0,0,0,0.85)] sm:text-base">
+          {/* soft halo so the copy stays readable over the lit doorway */}
+          <div
+            aria-hidden
+            className="absolute inset-x-0 -inset-y-10 bg-[radial-gradient(52%_100%_at_50%_50%,rgba(3,5,10,0.62),transparent_78%)]"
+          />
+          <p className="relative mx-auto max-w-xl text-balance text-xs uppercase tracking-[0.34em] text-moon-soft [text-shadow:0_2px_24px_rgba(0,0,0,0.9)] sm:text-sm">
             AI Films. Cinematic Stories. Limitless Worlds.
           </p>
+          <p className="relative mx-auto mt-3 max-w-2xl text-balance text-[clamp(1.5rem,2.6vw,2.1rem)] font-medium leading-tight text-white [font-family:var(--font-studio-display)] [text-shadow:0_2px_34px_rgba(0,0,0,0.9)]">
+            AI-Powered Cinematic Video Production
+          </p>
+          <p className="relative mx-auto mt-2.5 max-w-xl text-balance text-base leading-relaxed text-moon [text-shadow:0_2px_24px_rgba(0,0,0,0.9)] lg:text-lg">
+            Studio-quality films for 500+ UK businesses — from brief to broadcast.
+          </p>
         </div>
+        {/* scroll cue — visible on load, fades as soon as the journey starts */}
         <div
           data-mgst="hint"
-          className="pointer-events-none absolute bottom-8 left-1/2 z-20 -translate-x-1/2 text-center"
+          className="pointer-events-none absolute bottom-5 left-1/2 z-20 w-max -translate-x-1/2 text-center"
         >
-          <p className="text-[11px] uppercase tracking-[0.42em] text-moon-soft">Scroll to enter</p>
-          <div className="mgst-bob mx-auto mt-3 h-5 w-5 rotate-45 border-b border-r border-moon/60" />
+          <p className="text-xs font-semibold uppercase tracking-[0.34em] text-moon [text-shadow:0_2px_18px_rgba(0,0,0,0.9)]">
+            Scroll to enter the studio
+          </p>
+          <p className="mt-1 text-[10px] uppercase tracking-[0.24em] text-moon-soft">
+            Explore all 11 rooms — one continuous take
+          </p>
+          <svg
+            viewBox="0 0 24 24"
+            className="mgst-bob mx-auto mt-2 h-7 w-7 text-gleam"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.7"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+          >
+            <path d="M5 7.5l7 6 7-6" />
+            <path d="M5 13.5l7 6 7-6" opacity="0.45" />
+          </svg>
         </div>
 
         {/* ---- ZONE 2 overlay ---- */}
@@ -365,6 +396,7 @@ export default function CinematicJourney({ frames }: { frames: FrameSequence | n
           data-mgst="welcome"
           className="pointer-events-none absolute inset-x-0 bottom-[9%] z-20 px-6 text-center opacity-0"
         >
+          <TextHalo />
           <p className="mx-auto max-w-2xl text-balance text-[clamp(1.4rem,3vw,2.4rem)] font-medium leading-snug text-white [font-family:var(--font-studio-display)] [text-shadow:0_2px_30px_rgba(0,0,0,0.8)]">
             Welcome to the future of film production.
           </p>

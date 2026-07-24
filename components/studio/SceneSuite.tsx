@@ -1,7 +1,7 @@
 'use client';
 
 import Hotspot from './Hotspot';
-import SceneBackdrop from './SceneBackdrop';
+import SceneBackdrop, { TextHalo } from './SceneBackdrop';
 import {
   ZW,
   ZONE_BACKDROPS,
@@ -63,17 +63,22 @@ export default function SceneSuite() {
         data-mgst="suiteOv"
         className="pointer-events-none absolute inset-x-0 bottom-[6%] z-20 px-6 text-center opacity-0"
       >
-        <p className="text-[10px] uppercase tracking-[0.5em] text-moon-soft">
+        <TextHalo />
+        <p className="text-[11px] font-semibold uppercase tracking-[0.5em] text-gleam [text-shadow:0_2px_16px_rgba(0,0,0,0.95)]">
           07 · Editing &amp; Render Suite
         </p>
-        <p className="mx-auto mt-3 max-w-2xl text-balance text-[clamp(1.4rem,3vw,2.4rem)] font-medium leading-snug text-white [font-family:var(--font-studio-display)] [text-shadow:0_2px_30px_rgba(0,0,0,0.8)]">
+        <p className="mx-auto mt-3 max-w-2xl text-balance text-[clamp(1.5rem,3vw,2.4rem)] font-medium leading-snug text-white [font-family:var(--font-studio-display)] [text-shadow:0_2px_30px_rgba(0,0,0,0.85)]">
           Fast production. Film-level detail.
+        </p>
+        <p className="mx-auto mt-3 max-w-xl text-balance text-base leading-relaxed text-moon [text-shadow:0_2px_24px_rgba(0,0,0,0.9)]">
+          Edit, grade, sound and mastering in one suite — a broadcast-standard
+          finish on every delivery.
         </p>
         <div className="mx-auto mt-4 flex max-w-3xl flex-wrap items-center justify-center gap-2">
           {SUITE_PROOFS.map((s) => (
             <span
               key={s}
-              className="rounded-full border border-white/15 bg-black/40 px-3.5 py-1.5 text-[10px] uppercase tracking-[0.18em] text-moon backdrop-blur-sm"
+              className="rounded-full border border-white/15 bg-black/40 px-3.5 py-1.5 text-[11px] uppercase tracking-[0.18em] text-moon backdrop-blur-sm"
             >
               {s}
             </span>

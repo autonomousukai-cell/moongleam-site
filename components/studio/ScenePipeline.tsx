@@ -1,7 +1,7 @@
 'use client';
 
 import Hotspot from './Hotspot';
-import SceneBackdrop from './SceneBackdrop';
+import SceneBackdrop, { TextHalo } from './SceneBackdrop';
 import {
   ZW,
   ZONE_BACKDROPS,
@@ -107,10 +107,10 @@ export default function ScenePipeline() {
                     (above ? 'bottom-5' : 'top-5')
                   }
                 >
-                  <span className="text-[9px] font-semibold uppercase tracking-[0.22em] text-moon">
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-moon [text-shadow:0_1px_10px_rgba(0,0,0,0.9)]">
                     {step}
                   </span>
-                  <span className="mt-0.5 block text-[8px] tabular-nums text-moon-faint">
+                  <span className="mt-0.5 block text-[9px] tabular-nums text-moon-soft">
                     {String(i + 1).padStart(2, '0')}
                   </span>
                 </div>
@@ -125,11 +125,16 @@ export default function ScenePipeline() {
         data-mgst="pipeOv"
         className="pointer-events-none absolute inset-x-0 top-[10%] z-20 px-6 text-center opacity-0"
       >
-        <p className="text-[10px] uppercase tracking-[0.5em] text-moon-soft">
+        <TextHalo />
+        <p className="text-[11px] font-semibold uppercase tracking-[0.5em] text-gleam [text-shadow:0_2px_16px_rgba(0,0,0,0.95)]">
           06 · Production Pipeline
         </p>
-        <p className="mx-auto mt-3 max-w-2xl text-balance text-[clamp(1.4rem,3vw,2.4rem)] font-medium leading-snug text-white [font-family:var(--font-studio-display)] [text-shadow:0_2px_30px_rgba(0,0,0,0.8)]">
+        <p className="mx-auto mt-3 max-w-2xl text-balance text-[clamp(1.5rem,3vw,2.4rem)] font-medium leading-snug text-white [font-family:var(--font-studio-display)] [text-shadow:0_2px_30px_rgba(0,0,0,0.85)]">
           AI-powered. Human-directed.
+        </p>
+        <p className="mx-auto mt-3 max-w-xl text-balance text-base leading-relaxed text-moon [text-shadow:0_2px_24px_rgba(0,0,0,0.9)]">
+          Seven stations from concept to final film — a director&rsquo;s eye on
+          every frame, before and after the AI.
         </p>
       </div>
 

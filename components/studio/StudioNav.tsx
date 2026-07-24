@@ -87,9 +87,12 @@ export default function StudioNav({
   onGo: (target: number) => void;
 }) {
   return (
+    // Anchored to the lower-left so the panel can never sit over the "MOON
+    // GLEAM AI STUDIO" building signage (upper half of the exterior plate),
+    // whatever the viewport aspect.
     <nav
       aria-label="Studio tour zones"
-      className="absolute left-5 top-1/2 z-30 hidden -translate-y-1/2 lg:block"
+      className="absolute bottom-6 left-5 z-30 hidden lg:block"
     >
       <div className="mgst-holo-panel rounded-sm px-2.5 pb-3 pt-2.5">
         <p className="px-1 pb-2 text-center text-[8px] uppercase tracking-[0.4em] text-moon-faint">

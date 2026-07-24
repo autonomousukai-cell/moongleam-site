@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { services, sectorPages } from '@/lib/data';
-import SceneBackdrop from './SceneBackdrop';
+import SceneBackdrop, { TextHalo } from './SceneBackdrop';
 import {
   ZW,
   ZONE_BACKDROPS,
@@ -58,12 +58,17 @@ export default function SceneServices() {
         data-mgst="svcOv"
         className="pointer-events-none absolute inset-x-0 top-[6%] z-20 px-6 text-center opacity-0"
       >
-        <p className="text-[10px] uppercase tracking-[0.5em] text-moon-soft">
+        <TextHalo />
+        <p className="text-[11px] font-semibold uppercase tracking-[0.5em] text-gleam [text-shadow:0_2px_16px_rgba(0,0,0,0.95)]">
           04 · Service Bays
         </p>
-        <h2 className="mx-auto mt-3 max-w-2xl text-balance text-[clamp(1.3rem,2.8vw,2.2rem)] font-medium leading-snug text-white [font-family:var(--font-studio-display)] [text-shadow:0_2px_30px_rgba(0,0,0,0.8)]">
+        <h2 className="mx-auto mt-3 max-w-2xl text-balance text-[clamp(1.5rem,2.8vw,2.2rem)] font-medium leading-snug text-white [font-family:var(--font-studio-display)] [text-shadow:0_2px_30px_rgba(0,0,0,0.85)]">
           Everything under one roof.
         </h2>
+        <p className="mx-auto mt-3 max-w-xl text-balance text-base leading-relaxed text-moon [text-shadow:0_2px_24px_rgba(0,0,0,0.9)]">
+          Eight production bays — TVCs to UGC — plus six sector specialisms, all
+          produced end-to-end by one in-house team.
+        </p>
       </div>
 
       {/* ---- the bays + sector beacons ---- */}
@@ -88,10 +93,10 @@ export default function SceneServices() {
                     →
                   </span>
                 </span>
-                <span className="mt-2 block text-[13px] font-medium leading-snug text-white [font-family:var(--font-studio-display)] transition-colors group-hover:text-gleam">
+                <span className="mt-2 block text-sm font-medium leading-snug text-white [font-family:var(--font-studio-display)] transition-colors group-hover:text-gleam">
                   {s.name}
                 </span>
-                <span className="mt-1.5 line-clamp-2 block text-[10px] leading-relaxed text-moon-soft">
+                <span className="mt-1.5 line-clamp-2 block text-[11px] leading-relaxed text-moon">
                   {s.short}
                 </span>
               </Link>
@@ -103,7 +108,7 @@ export default function SceneServices() {
             data-mgst="svcB2"
             className="flex flex-col items-center gap-2.5 will-change-transform"
           >
-            <p className="text-[9px] uppercase tracking-[0.4em] text-moon-faint">
+            <p className="text-[10px] uppercase tracking-[0.4em] text-moon [text-shadow:0_2px_16px_rgba(0,0,0,0.9)]">
               Six sectors · one standard
             </p>
             <div className="flex flex-wrap items-center justify-center gap-2">
@@ -111,7 +116,7 @@ export default function SceneServices() {
                 <Link
                   key={s.slug}
                   href={`/sectors/${s.slug}`}
-                  className="pointer-events-auto border border-white/15 bg-black/45 px-3.5 py-1.5 text-[10px] uppercase tracking-[0.16em] text-moon backdrop-blur-sm transition-colors [clip-path:polygon(6px_0,100%_0,100%_calc(100%-6px),calc(100%-6px)_100%,0_100%,0_6px)] hover:border-[rgba(91,227,255,0.6)] hover:text-white"
+                  className="pointer-events-auto border border-white/15 bg-black/45 px-3.5 py-1.5 text-[11px] uppercase tracking-[0.16em] text-moon backdrop-blur-sm transition-colors [clip-path:polygon(6px_0,100%_0,100%_calc(100%-6px),calc(100%-6px)_100%,0_100%,0_6px)] hover:border-[rgba(91,227,255,0.6)] hover:text-white"
                 >
                   {s.name}
                 </Link>

@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { posts, formatDate, readingTime } from '@/lib/posts';
-import SceneBackdrop from './SceneBackdrop';
+import SceneBackdrop, { TextHalo } from './SceneBackdrop';
 import {
   ZW,
   ZONE_BACKDROPS,
@@ -57,13 +57,14 @@ export default function SceneBlog() {
         data-mgst="blgOv"
         className="pointer-events-none absolute inset-x-0 top-[5%] z-20 px-6 text-center opacity-0"
       >
-        <p className="text-[10px] uppercase tracking-[0.5em] text-moon-soft">
+        <TextHalo />
+        <p className="text-[11px] font-semibold uppercase tracking-[0.5em] text-gleam [text-shadow:0_2px_16px_rgba(0,0,0,0.95)]">
           10 · The Story Archive
         </p>
-        <h2 className="mx-auto mt-3 max-w-2xl text-balance text-[clamp(1.3rem,2.8vw,2.2rem)] font-medium leading-snug text-white [font-family:var(--font-studio-display)] [text-shadow:0_2px_30px_rgba(0,0,0,0.8)]">
+        <h2 className="mx-auto mt-3 max-w-2xl text-balance text-[clamp(1.5rem,2.8vw,2.2rem)] font-medium leading-snug text-white [font-family:var(--font-studio-display)] [text-shadow:0_2px_30px_rgba(0,0,0,0.85)]">
           Guides that grow UK businesses.
         </h2>
-        <p className="mx-auto mt-2 max-w-lg text-xs leading-relaxed text-moon [text-shadow:0_2px_20px_rgba(0,0,0,0.9)]">
+        <p className="mx-auto mt-2 max-w-xl text-[15px] leading-relaxed text-moon [text-shadow:0_2px_20px_rgba(0,0,0,0.9)]">
           {posts.length} in-depth guides on AI video, pricing, promos and what actually converts —
           written for owners, not filmmakers.
         </p>
@@ -96,13 +97,13 @@ export default function SceneBlog() {
                   </span>
                 </span>
                 <span className="mt-1.5 block px-0.5">
-                  <span className="block text-[8px] uppercase tracking-[0.2em] text-[rgba(139,124,246,0.9)]">
+                  <span className="block text-[9px] uppercase tracking-[0.2em] text-[rgba(160,148,250,0.95)]">
                     {post.category} · {readingTime(post.body)} min read
                   </span>
-                  <span className="mt-0.5 line-clamp-2 block text-[11px] leading-snug text-moon-soft transition-colors group-hover:text-moon">
+                  <span className="mt-0.5 line-clamp-2 block text-[12px] leading-snug text-moon transition-colors group-hover:text-white">
                     {post.title}
                   </span>
-                  <span className="mt-0.5 block text-[8px] text-moon-faint">
+                  <span className="mt-0.5 block text-[9px] text-moon-soft">
                     {formatDate(post.date)}
                   </span>
                 </span>

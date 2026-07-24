@@ -7,6 +7,21 @@
  * preloaded byte-for-byte by StudioTour's branded loader, so the journey
  * never pops in. Scrims keep overlay type legible over any exposure.
  */
+/**
+ * Soft radial halo behind a room's header copy — guarantees contrast over a
+ * bright/busy plate without dimming the whole set. Drop it as the first child
+ * of any positioned overlay that already creates a stacking context (z-*);
+ * the -z-10 keeps it under the text but over the scene.
+ */
+export function TextHalo() {
+  return (
+    <div
+      aria-hidden
+      className="absolute inset-x-0 -inset-y-8 -z-10 bg-[radial-gradient(46%_100%_at_50%_50%,rgba(3,5,10,0.68),transparent_80%)]"
+    />
+  );
+}
+
 export default function SceneBackdrop({
   src,
   scrim = 'both',

@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { portfolio, categories, ytThumb, type Category, type WorkItem } from '@/lib/data';
-import SceneBackdrop from './SceneBackdrop';
+import SceneBackdrop, { TextHalo } from './SceneBackdrop';
 import {
   ZW,
   ZONE_BACKDROPS,
@@ -116,13 +116,13 @@ function LedScreen({
       <span className="mt-1.5 block px-0.5">
         <span
           className={
-            'block text-[9px] uppercase tracking-[0.22em] ' +
-            (featured ? 'text-gleam/90' : 'text-[rgba(91,227,255,0.75)]')
+            'block text-[10px] uppercase tracking-[0.22em] ' +
+            (featured ? 'text-gleam/90' : 'text-[rgba(91,227,255,0.85)]')
           }
         >
           {featured ? 'Now screening · showreel' : categories[work.cat]}
         </span>
-        <span className="mt-0.5 block truncate text-[11px] text-moon-soft transition-colors group-hover:text-moon">
+        <span className="mt-0.5 block truncate text-[12px] text-moon transition-colors group-hover:text-white">
           {work.title}
         </span>
       </span>
@@ -201,11 +201,16 @@ export default function SceneScreening({ active }: { active: boolean }) {
         data-mgst="scrOv"
         className="pointer-events-none absolute inset-x-0 top-[4%] z-20 px-6 text-center opacity-0"
       >
-        <p className="text-[10px] uppercase tracking-[0.5em] text-moon-soft">
+        <TextHalo />
+        <p className="text-[11px] font-semibold uppercase tracking-[0.5em] text-gleam [text-shadow:0_2px_16px_rgba(0,0,0,0.95)]">
           08 · Screening Room
         </p>
-        <p className="mx-auto mt-2 max-w-2xl text-balance text-[clamp(1.2rem,2.4vw,1.9rem)] font-medium leading-snug text-white [font-family:var(--font-studio-display)] [text-shadow:0_2px_30px_rgba(0,0,0,0.8)]">
+        <p className="mx-auto mt-2 max-w-2xl text-balance text-[clamp(1.4rem,2.6vw,2.1rem)] font-medium leading-snug text-white [font-family:var(--font-studio-display)] [text-shadow:0_2px_30px_rgba(0,0,0,0.85)]">
           Selected worlds we have brought to life.
+        </p>
+        <p className="mx-auto mt-2 max-w-xl text-balance text-[15px] leading-relaxed text-moon [text-shadow:0_2px_20px_rgba(0,0,0,0.9)]">
+          {portfolio.length} films across commercials, documentary, animation,
+          film, social and charity — select any screen to watch.
         </p>
         <button
           type="button"
@@ -269,7 +274,7 @@ export default function SceneScreening({ active }: { active: boolean }) {
                 <LedScreen key={w.id} work={w} onPlay={() => setPlaying(w)} />
               ))}
             </div>
-            <p className="pt-6 text-center text-[10px] text-moon-faint">
+            <p className="pt-6 text-center text-xs text-moon-soft">
               Prefer a standard page?{' '}
               <Link href="/work" className="text-gleam underline-offset-4 hover:underline">
                 Browse the portfolio at /work

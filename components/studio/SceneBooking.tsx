@@ -51,13 +51,13 @@ function LobbyList({
 }) {
   return (
     <div>
-      <p className="text-[9px] font-semibold uppercase tracking-[0.3em] text-gleam">{title}</p>
-      <ul className="mt-2 space-y-1">
+      <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-gleam">{title}</p>
+      <ul className="mt-2.5 space-y-1.5">
         {items.map((i) => (
           <li key={i.href}>
             <Link
               href={i.href}
-              className="text-[11px] leading-snug text-moon-soft transition-colors hover:text-moon"
+              className="text-[13px] leading-snug text-moon transition-colors hover:text-gleam"
             >
               {i.label}
             </Link>
@@ -85,6 +85,8 @@ export default function SceneBooking() {
       <div data-mgst="bookInner" className="absolute inset-0 origin-center will-change-transform">
         {/* the rendered set — rooftop under the moon, illuminated booking desk */}
         <SceneBackdrop src={ZONE_BACKDROPS.booking} />
+        {/* the neon skyline is bright — darken it so the footer wall reads */}
+        <div className="absolute inset-0 bg-[rgba(2,4,9,0.38)]" />
         <div className="absolute bottom-[4%] left-1/2 -translate-x-1/2 text-[clamp(0.5rem,0.9vw,0.7rem)] uppercase tracking-[0.5em] text-moon-soft">
           Moon Gleam · Exit Lobby
         </div>
@@ -95,10 +97,11 @@ export default function SceneBooking() {
         data-mgst="bookOv"
         className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center px-6 opacity-0 lg:pl-28 lg:pr-16"
       >
-        <div className="grid w-full max-w-6xl items-center gap-8 lg:grid-cols-[1.35fr_1fr]">
+        {/* scrim panel keeps every footer line WCAG-readable over the skyline */}
+        <div className="grid w-full max-w-6xl items-center gap-8 rounded-2xl bg-[rgba(4,6,11,0.66)] p-6 ring-1 ring-white/10 backdrop-blur-md lg:grid-cols-[1.35fr_1fr] lg:p-8">
           {/* left — the finale + the footer wall */}
           <div>
-            <p className="text-[10px] uppercase tracking-[0.5em] text-moon-soft">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.5em] text-gleam">
               11 · Contact
             </p>
             <h2 className="mt-2 max-w-lg text-balance text-[clamp(1.4rem,2.8vw,2.2rem)] font-medium leading-snug text-white [font-family:var(--font-studio-display)] [text-shadow:0_2px_30px_rgba(0,0,0,0.8)]">
@@ -137,16 +140,16 @@ export default function SceneBooking() {
                     <p className="text-sm font-semibold text-moon [font-family:var(--font-studio-display)]">
                       Moon <span className="text-gleam">Gleam</span>
                     </p>
-                    <p className="text-[8px] font-medium uppercase tracking-[0.2em] text-moon-faint">
+                    <p className="text-[9px] font-medium uppercase tracking-[0.2em] text-moon-soft">
                       Powered by Creative AI
                     </p>
                   </div>
                 </div>
-                <p className="mt-2.5 max-w-[15rem] text-[10px] leading-relaxed text-moon-soft">
+                <p className="mt-2.5 max-w-[16rem] text-xs leading-relaxed text-moon">
                   AI-powered video production studio in London. Cinematic film for 500+ UK
                   businesses — from brief to broadcast.
                 </p>
-                <ul className="mt-3 space-y-1 text-[11px] text-moon-soft">
+                <ul className="mt-3 space-y-1.5 text-[13px] text-moon">
                   <li>
                     <a href={`mailto:${site.contact.email}`} className="transition-colors hover:text-gleam">
                       {site.contact.email}
@@ -167,7 +170,7 @@ export default function SceneBooking() {
                       WhatsApp
                     </a>
                   </li>
-                  <li className="text-moon-faint">{site.contact.address}</li>
+                  <li className="text-moon-soft">{site.contact.address}</li>
                 </ul>
               </div>
 
@@ -193,7 +196,7 @@ export default function SceneBooking() {
             {/* glowing social beacons */}
             <div className="mt-5 flex flex-wrap items-center gap-4 border-t border-white/10 pt-4">
               <SocialIcons />
-              <p className="text-[11px] text-moon-soft">
+              <p className="text-[13px] text-moon">
                 <a
                   href={site.social.youtube}
                   target="_blank"

@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -38,8 +38,19 @@ import {
  * lock or intercept the page.
  */
 
-/** A zone's rendered set as a section plate, darkened for legibility. */
-function Set({ src, eager = false, alt = '' }: { src: string; eager?: boolean; alt?: string }) {
+/** A zone's rendered set as a section plate, darkened for legibility.
+    `strong` = heavier scrim for rooms carrying dense small text (contact/footer). */
+function Set({
+  src,
+  eager = false,
+  alt = '',
+  strong = false,
+}: {
+  src: string;
+  eager?: boolean;
+  alt?: string;
+  strong?: boolean;
+}) {
   return (
     <div className="absolute inset-0" aria-hidden={alt === ''}>
       {/* eslint-disable-next-line @next/next/no-img-element -- set plates share the desktop tour's pre-optimised WebP URLs */}
@@ -52,7 +63,29 @@ function Set({ src, eager = false, alt = '' }: { src: string; eager?: boolean; a
         className="h-full w-full select-none object-cover"
       />
       {/* minimal legibility gradient only — the sets must read crisp + vivid */}
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,4,9,0.42),rgba(2,4,9,0.12)_38%,rgba(2,4,9,0.14)_62%,rgba(2,4,9,0.52))]" />
+      <div
+        className={
+          'absolute inset-0 ' +
+          (strong
+            ? 'bg-[linear-gradient(180deg,rgba(2,4,9,0.66),rgba(2,4,9,0.56)_38%,rgba(2,4,9,0.6)_62%,rgba(2,4,9,0.8))]'
+            : 'bg-[linear-gradient(180deg,rgba(2,4,9,0.42),rgba(2,4,9,0.12)_38%,rgba(2,4,9,0.14)_62%,rgba(2,4,9,0.52))]')
+        }
+      />
+    </div>
+  );
+}
+
+/** A room's header block over its plate: the radial scrim behind the text
+    guarantees contrast on any exposure (same grammar as the desktop TextHalo /
+    the round-6 footer panel) without dimming the set itself. */
+function RoomHeader({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="relative z-0">
+      <div
+        aria-hidden
+        className="absolute -inset-x-10 -inset-y-6 -z-10 bg-[radial-gradient(60%_85%_at_50%_50%,rgba(3,5,10,0.72),transparent_82%)]"
+      />
+      {children}
     </div>
   );
 }
@@ -164,10 +197,10 @@ function LitePortfolio() {
               />
             </div>
             <div className="bg-black/60 px-2.5 py-1.5">
-              <p className="text-[8px] uppercase tracking-[0.16em] text-gleam/80">
+              <p className="text-[9px] uppercase tracking-[0.16em] text-gleam/90">
                 {categories[w.cat]}
               </p>
-              <p className="truncate text-[11px] text-moon">{w.title}</p>
+              <p className="truncate text-[12px] text-moon">{w.title}</p>
             </div>
           </button>
         ))}
@@ -217,6 +250,15 @@ function LitePortfolio() {
 }
 
 export default function NarrativeFallback({ animate }: { animate: boolean }) {
+  /* The first-screen scroll cue hides as soon as the visitor starts moving. */
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   const reveal = (delay = 0) =>
     animate
       ? {
@@ -227,39 +269,78 @@ export default function NarrativeFallback({ animate }: { animate: boolean }) {
         }
       : {};
 
-  const kicker = 'text-[10px] uppercase tracking-[0.5em] text-moon-soft';
+  const kicker =
+    'text-[11px] font-semibold uppercase tracking-[0.44em] text-gleam [text-shadow:0_2px_16px_rgba(0,0,0,0.95)]';
   const headline =
-    'mt-4 text-balance text-3xl font-medium leading-snug text-white [font-family:var(--font-studio-display)] [text-shadow:0_2px_30px_rgba(0,0,0,0.8)] sm:text-4xl';
+    'mt-4 text-balance text-3xl font-medium leading-snug text-white [font-family:var(--font-studio-display)] [text-shadow:0_2px_30px_rgba(0,0,0,0.85)] sm:text-4xl';
+  const lead =
+    'mx-auto mt-4 max-w-sm text-balance text-base leading-relaxed text-moon [text-shadow:0_2px_24px_rgba(0,0,0,0.9)]';
   const chip =
-    'border border-white/15 bg-black/40 px-3 py-1.5 text-[10px] uppercase tracking-[0.16em] text-moon [clip-path:polygon(6px_0,100%_0,100%_calc(100%-6px),calc(100%-6px)_100%,0_100%,0_6px)]';
+    'border border-white/15 bg-black/40 px-3 py-1.5 text-[11px] uppercase tracking-[0.16em] text-moon [clip-path:polygon(6px_0,100%_0,100%_calc(100%-6px),calc(100%-6px)_100%,0_100%,0_6px)]';
 
   return (
     <div className="bg-[#05060A] text-moon">
       {/* -------- 01 · EXTERIOR -------- */}
-      <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6 text-center">
-        <Set
-          src={ZONE_BACKDROPS.exterior}
-          eager
-          alt="Moon Gleam AI Studio building — illuminated studio signage on the facade at night"
-        />
+      <section className="relative flex min-h-[100svh] flex-col overflow-hidden bg-[#05060A] text-center">
+        {/* establishing shot, framed on the facade so the WHOLE "MOON GLEAM
+            AI STUDIO" sign reads on a portrait screen (a full-bleed cover
+            crop can only ever show ~20% of this 2.35:1 plate) */}
+        <div className="relative w-full">
+          {/* eslint-disable-next-line @next/next/no-img-element -- shares the desktop tour's pre-optimised WebP plate */}
+          <img
+            src={ZONE_BACKDROPS.exterior}
+            alt="Moon Gleam AI Studio building — the illuminated MOON GLEAM AI STUDIO signage on the facade at night"
+            draggable={false}
+            decoding="async"
+            className="aspect-[5/4] w-full select-none object-cover [object-position:47%_36%]"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,4,9,0.32),transparent_28%,transparent_58%,#05060A_97%)]" />
+        </div>
 
-        <motion.div {...reveal()} className="relative z-10">
-          {/* no name title card — the studio name reads off the building
-              signage in the exterior plate; the homepage's real <h1> is
-              SSR'd in StudioDetails */}
-          <p className="mx-auto max-w-md text-balance text-xs uppercase tracking-[0.3em] text-moon [text-shadow:0_2px_30px_rgba(0,0,0,0.85)] sm:text-sm">
+        {/* hero value proposition — what Moon Gleam is, at first glance
+            (the name itself stays on the building signage above; the real
+            <h1> is SSR'd in StudioDetails) */}
+        <motion.div
+          {...reveal()}
+          className="relative z-10 -mt-4 flex flex-1 flex-col items-center justify-center px-6 pb-32"
+        >
+          <p className="text-[11px] uppercase tracking-[0.28em] text-moon-soft [text-shadow:0_2px_20px_rgba(0,0,0,0.9)]">
             AI Films. Cinematic Stories. Limitless Worlds.
+          </p>
+          <p className="mt-3 max-w-sm text-balance text-[1.7rem] font-medium leading-tight text-white [font-family:var(--font-studio-display)] [text-shadow:0_2px_30px_rgba(0,0,0,0.85)]">
+            AI-Powered Cinematic Video Production
+          </p>
+          <p className="mt-3 max-w-xs text-balance text-base leading-relaxed text-moon [text-shadow:0_2px_24px_rgba(0,0,0,0.9)]">
+            Studio-quality films for 500+ UK businesses — from brief to broadcast.
           </p>
         </motion.div>
 
-        <div className="absolute bottom-6 left-1/2 z-10 -translate-x-1/2 text-center">
-          <p className="text-[10px] uppercase tracking-[0.4em] text-moon-soft">Scroll to enter</p>
-          <div
-            className={
-              'mx-auto mt-2.5 h-4 w-4 rotate-45 border-b border-r border-moon/60 ' +
-              (animate ? 'mgst-bob' : '')
-            }
-          />
+        {/* scroll cue — visible on load, hides once the visitor starts scrolling */}
+        <div
+          className={
+            'absolute bottom-6 left-1/2 z-10 w-max -translate-x-1/2 text-center transition-opacity duration-500 ' +
+            (scrolled ? 'pointer-events-none opacity-0' : 'opacity-100')
+          }
+        >
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-moon [text-shadow:0_2px_18px_rgba(0,0,0,0.9)]">
+            Scroll to enter the studio
+          </p>
+          <p className="mt-1 text-[10px] uppercase tracking-[0.22em] text-moon-soft">
+            Explore all 11 rooms below
+          </p>
+          <svg
+            viewBox="0 0 24 24"
+            className={'mx-auto mt-2 h-7 w-7 text-gleam ' + (animate ? 'mgst-bob' : '')}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.7"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+          >
+            <path d="M5 7.5l7 6 7-6" />
+            <path d="M5 13.5l7 6 7-6" opacity="0.45" />
+          </svg>
         </div>
       </section>
 
@@ -268,10 +349,16 @@ export default function NarrativeFallback({ animate }: { animate: boolean }) {
         <Set src={ZONE_BACKDROPS.reception} />
 
         <motion.div {...reveal()} className="relative z-10 w-full">
-          <p className={kicker}>Reception · AI Film Studio</p>
-          <h2 className={headline}>Welcome to the future of film production.</h2>
+          <RoomHeader>
+            <p className={kicker}>Reception · AI Film Studio</p>
+            <h2 className={headline}>Welcome to the future of film production.</h2>
+            <p className={lead}>
+              The showreel is already up on the reception wall — tap it for sound
+              and see what we make for UK businesses.
+            </p>
+          </RoomHeader>
           <LiteShowreel />
-          <p className="mt-5 text-[10px] uppercase tracking-[0.24em] text-moon-faint">
+          <p className="mt-5 text-[11px] uppercase tracking-[0.24em] text-moon-soft [text-shadow:0_2px_14px_rgba(0,0,0,0.9)]">
             Full cinematic tour available on desktop
           </p>
         </motion.div>
@@ -282,11 +369,11 @@ export default function NarrativeFallback({ animate }: { animate: boolean }) {
         <Set src={ZONE_BACKDROPS.about} />
 
         <motion.div {...reveal()} className="relative z-10 max-w-md">
-          <p className={kicker}>03 · The Studio Story</p>
-          <h2 className={headline}>{ABOUT_ROOM.headline}</h2>
-          <p className="mx-auto mt-4 text-sm leading-relaxed text-moon [text-shadow:0_2px_24px_rgba(0,0,0,0.9)]">
-            {ABOUT_ROOM.lead}
-          </p>
+          <RoomHeader>
+            <p className={kicker}>03 · The Studio Story</p>
+            <h2 className={headline}>{ABOUT_ROOM.headline}</h2>
+            <p className={lead}>{ABOUT_ROOM.lead}</p>
+          </RoomHeader>
           <div className="mx-auto mt-6 flex flex-wrap items-center justify-center gap-2">
             {ABOUT_ROOM.glance.map((g) => (
               <span key={g} className={chip}>
@@ -305,8 +392,14 @@ export default function NarrativeFallback({ animate }: { animate: boolean }) {
         <Set src={ZONE_BACKDROPS.services} />
 
         <motion.div {...reveal()} className="relative z-10 w-full max-w-md">
-          <p className={kicker}>04 · Service Bays</p>
-          <h2 className={headline}>Everything under one roof.</h2>
+          <RoomHeader>
+            <p className={kicker}>04 · Service Bays</p>
+            <h2 className={headline}>Everything under one roof.</h2>
+            <p className={lead}>
+              Eight production bays — TVCs to UGC — plus six sector specialisms,
+              all produced in-house. Tap a bay to explore.
+            </p>
+          </RoomHeader>
           <div className="mt-6 grid grid-cols-2 gap-2.5 text-left">
             {services.map((s, i) => (
               <Link
@@ -314,16 +407,19 @@ export default function NarrativeFallback({ animate }: { animate: boolean }) {
                 href={`/services/${s.slug}`}
                 className="mgst-holo-panel rounded-sm p-3 transition-colors hover:border-gleam/60"
               >
-                <span className="block text-[8px] font-semibold uppercase tracking-[0.26em] text-[rgba(91,227,255,0.8)]">
+                <span className="block text-[9px] font-semibold uppercase tracking-[0.26em] text-[rgba(91,227,255,0.85)]">
                   Bay {String(i + 1).padStart(2, '0')}
                 </span>
-                <span className="mt-1 block text-[12px] font-medium leading-snug text-white [font-family:var(--font-studio-display)]">
+                <span className="mt-1 block text-sm font-medium leading-snug text-white [font-family:var(--font-studio-display)]">
                   {s.name}
+                </span>
+                <span className="mt-1 line-clamp-2 block text-[11px] leading-snug text-moon">
+                  {s.short}
                 </span>
               </Link>
             ))}
           </div>
-          <p className="mt-6 text-[9px] uppercase tracking-[0.4em] text-moon-faint">
+          <p className="mt-6 text-[10px] uppercase tracking-[0.4em] text-moon [text-shadow:0_2px_14px_rgba(0,0,0,0.9)]">
             Six sectors · one standard
           </p>
           <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
@@ -341,8 +437,14 @@ export default function NarrativeFallback({ animate }: { animate: boolean }) {
         <Set src={ZONE_BACKDROPS.soundstage} />
 
         <motion.div {...reveal()} className="relative z-10">
-          <p className={kicker}>05 · Virtual Soundstage</p>
-          <h2 className={headline}>Anything you can imagine can become a set.</h2>
+          <RoomHeader>
+            <p className={kicker}>05 · Virtual Soundstage</p>
+            <h2 className={headline}>Anything you can imagine can become a set.</h2>
+            <p className={lead}>
+              The LED volume plays AI-generated environments live behind the
+              action — any location, any era, re-dressed in minutes.
+            </p>
+          </RoomHeader>
           <a
             href={site.social.youtube}
             target="_blank"
@@ -359,9 +461,15 @@ export default function NarrativeFallback({ animate }: { animate: boolean }) {
         <Set src={ZONE_BACKDROPS.pipeline} />
 
         <motion.div {...reveal()} className="relative z-10">
-          <p className={kicker}>06 · Production Pipeline</p>
-          <h2 className={headline}>AI-powered. Human-directed.</h2>
-          <ol className="mx-auto mt-8 max-w-xs space-y-0 text-left">
+          <RoomHeader>
+            <p className={kicker}>06 · Production Pipeline</p>
+            <h2 className={headline}>AI-powered. Human-directed.</h2>
+            <p className={lead}>
+              Seven stations from concept to final film — a director&rsquo;s eye
+              on every frame, before and after the AI.
+            </p>
+          </RoomHeader>
+          <ol className="mx-auto mt-8 max-w-xs space-y-0 rounded-xl border border-white/10 bg-[rgba(4,6,11,0.68)] px-6 py-5 text-left backdrop-blur-md">
             {PIPELINE_STEPS.map((step, i) => (
               <li key={step} className="flex items-start gap-3">
                 <span className="flex flex-col items-center">
@@ -376,7 +484,9 @@ export default function NarrativeFallback({ animate }: { animate: boolean }) {
                     <span className="h-6 w-px bg-gradient-to-b from-white/25 to-white/5" />
                   )}
                 </span>
-                <span className="text-sm tracking-wide text-moon">{step}</span>
+                <span className="text-base tracking-wide text-moon [text-shadow:0_2px_14px_rgba(0,0,0,0.9)]">
+                  {step}
+                </span>
               </li>
             ))}
           </ol>
@@ -388,8 +498,14 @@ export default function NarrativeFallback({ animate }: { animate: boolean }) {
         <Set src={ZONE_BACKDROPS.suite} />
 
         <motion.div {...reveal()} className="relative z-10">
-          <p className={kicker}>07 · Editing &amp; Render Suite</p>
-          <h2 className={headline}>Fast production. Film-level detail.</h2>
+          <RoomHeader>
+            <p className={kicker}>07 · Editing &amp; Render Suite</p>
+            <h2 className={headline}>Fast production. Film-level detail.</h2>
+            <p className={lead}>
+              Edit, grade, sound and mastering in one suite — a broadcast-standard
+              finish on every delivery.
+            </p>
+          </RoomHeader>
           <div className="mx-auto mt-6 flex max-w-sm flex-wrap items-center justify-center gap-2">
             {SUITE_PROOFS.map((s) => (
               <span key={s} className={chip}>
@@ -405,12 +521,14 @@ export default function NarrativeFallback({ animate }: { animate: boolean }) {
         <Set src={ZONE_BACKDROPS.screening} />
 
         <motion.div {...reveal()} className="relative z-10 mx-auto w-full max-w-md">
-          <p className={kicker}>08 · Portfolio Wall</p>
-          <h2 className={headline}>Selected worlds we have brought to life.</h2>
-          <p className="mx-auto mt-3 max-w-sm text-xs leading-relaxed text-moon [text-shadow:0_2px_20px_rgba(0,0,0,0.9)]">
-            The full archive — {portfolio.length} films across commercials, documentary,
-            animation, film, social and charity. Tap any screen to watch.
-          </p>
+          <RoomHeader>
+            <p className={kicker}>08 · Portfolio Wall</p>
+            <h2 className={headline}>Selected worlds we have brought to life.</h2>
+            <p className={lead}>
+              The full archive — {portfolio.length} films across commercials, documentary,
+              animation, film, social and charity. Tap any screen to watch.
+            </p>
+          </RoomHeader>
           <LitePortfolio />
           <Link href="/work" className="mgst-hud-btn mt-7 inline-block !px-7 !py-3">
             Browse the portfolio page
@@ -423,56 +541,62 @@ export default function NarrativeFallback({ animate }: { animate: boolean }) {
         <Set src={ZONE_BACKDROPS.pricing} />
 
         <motion.div {...reveal()} className="relative z-10 mx-auto w-full max-w-md">
-          <p className={kicker}>09 · The Rate Card</p>
-          <h2 className={headline}>Clear pricing. Serious quality.</h2>
-          <div className="mt-7 space-y-4 text-left">
+          <RoomHeader>
+            <p className={kicker}>09 · The Rate Card</p>
+            <h2 className={headline}>Clear pricing. Serious quality.</h2>
+            <p className={lead}>
+              Honest starting points for every format — scoped on a free call, no
+              hidden fees.
+            </p>
+          </RoomHeader>
+          <div className="mt-7 space-y-5 text-left">
             {tiers.map((t) => (
               <div
                 key={t.name}
                 className={
-                  'mgst-holo-panel relative rounded-sm p-4 ' +
+                  'mgst-holo-panel relative rounded-sm p-5 ' +
                   (t.featured
                     ? '!border-gleam/50 shadow-[0_0_44px_-10px_rgba(233,196,106,0.55)]'
                     : '')
                 }
               >
                 {t.featured && (
-                  <span className="absolute -top-2.5 left-4 border border-gleam/70 bg-black/80 px-2.5 py-0.5 text-[8px] font-semibold uppercase tracking-[0.24em] text-gleam [clip-path:polygon(4px_0,100%_0,100%_calc(100%-4px),calc(100%-4px)_100%,0_100%,0_4px)]">
+                  <span className="absolute -top-3 left-4 border border-gleam/70 bg-black/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-gleam [clip-path:polygon(4px_0,100%_0,100%_calc(100%-4px),calc(100%-4px)_100%,0_100%,0_4px)]">
                     Most popular
                   </span>
                 )}
-                <p className="text-[9px] font-semibold uppercase tracking-[0.3em] text-[rgba(91,227,255,0.8)]">
+                <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[rgba(91,227,255,0.9)]">
                   {t.name}
                 </p>
-                <p className="mt-1 text-[11px] text-moon-soft">{t.forWho}</p>
-                <p className="mt-2 text-[8px] uppercase tracking-[0.2em] text-moon-faint">
+                <p className="mt-1.5 text-[15px] leading-snug text-moon">{t.forWho}</p>
+                <p className="mt-3 text-[11px] uppercase tracking-[0.2em] text-moon-soft">
                   Starting at
                 </p>
-                <p className="text-2xl font-medium text-white [font-family:var(--font-studio-display)]">
+                <p className="text-[2.6rem] font-medium leading-tight text-white [font-family:var(--font-studio-display)]">
                   {t.price}
                 </p>
-                <ul className="mt-2.5 space-y-1">
+                <ul className="mt-3 space-y-2">
                   {t.features.map((f) => (
-                    <li key={f} className="flex gap-1.5 text-[11px] leading-snug text-moon-soft">
+                    <li key={f} className="flex gap-2 text-base leading-snug text-moon">
                       <span className="text-gleam">✓</span>
                       {f}
                     </li>
                   ))}
                 </ul>
-                <div className="mt-3 flex justify-between border-t border-white/10 pt-2 text-[9px] text-moon-faint">
+                <div className="mt-4 flex justify-between border-t border-white/10 pt-3 text-xs text-moon-soft">
                   <span>
                     Duration
-                    <span className="block text-moon-soft">{t.meta.duration}</span>
+                    <span className="mt-0.5 block text-sm text-moon">{t.meta.duration}</span>
                   </span>
                   <span className="text-right">
                     Timeline
-                    <span className="block text-moon-soft">{t.meta.timeline}</span>
+                    <span className="mt-0.5 block text-sm text-moon">{t.meta.timeline}</span>
                   </span>
                 </div>
               </div>
             ))}
           </div>
-          <p className="mx-auto mt-5 max-w-sm text-[11px] leading-relaxed text-moon-soft">
+          <p className="mx-auto mt-6 max-w-sm text-sm leading-relaxed text-moon">
             Documentary, kids animation, short film and monthly content engines are quoted per
             project.
           </p>
@@ -492,12 +616,14 @@ export default function NarrativeFallback({ animate }: { animate: boolean }) {
         <Set src={ZONE_BACKDROPS.blog} />
 
         <motion.div {...reveal()} className="relative z-10 mx-auto w-full max-w-md">
-          <p className={kicker}>10 · The Story Archive</p>
-          <h2 className={headline}>Guides that grow UK businesses.</h2>
-          <p className="mx-auto mt-3 max-w-sm text-xs leading-relaxed text-moon [text-shadow:0_2px_20px_rgba(0,0,0,0.9)]">
-            {posts.length} in-depth guides on AI video, pricing, promos and what actually
-            converts — written for owners, not filmmakers.
-          </p>
+          <RoomHeader>
+            <p className={kicker}>10 · The Story Archive</p>
+            <h2 className={headline}>Guides that grow UK businesses.</h2>
+            <p className={lead}>
+              {posts.length} in-depth guides on AI video, pricing, promos and what actually
+              converts — written for owners, not filmmakers.
+            </p>
+          </RoomHeader>
           <div className="mt-6 grid grid-cols-2 gap-3 text-left">
             {posts.map((post) => (
               <Link
@@ -515,10 +641,10 @@ export default function NarrativeFallback({ animate }: { animate: boolean }) {
                   />
                 </div>
                 <div className="bg-black/60 px-2.5 py-2">
-                  <p className="text-[8px] uppercase tracking-[0.16em] text-[rgba(139,124,246,0.9)]">
+                  <p className="text-[9px] uppercase tracking-[0.16em] text-[rgba(160,148,250,0.95)]">
                     {post.category} · {formatDate(post.date)}
                   </p>
-                  <p className="mt-0.5 line-clamp-2 text-[11px] leading-snug text-moon">
+                  <p className="mt-0.5 line-clamp-2 text-[12px] leading-snug text-moon">
                     {post.title}
                   </p>
                 </div>
@@ -532,10 +658,14 @@ export default function NarrativeFallback({ animate }: { animate: boolean }) {
       </section>
 
       {/* -------- 11 · CONTACT & EXIT LOBBY (footer as a room) -------- */}
-      <section className="relative overflow-hidden px-6 py-20 sm:py-24">
-        <Set src={ZONE_BACKDROPS.booking} />
+      <section className="relative overflow-hidden px-4 py-20 sm:px-6 sm:py-24">
+        <Set src={ZONE_BACKDROPS.booking} strong />
 
-        <motion.div {...reveal()} className="relative z-10 mx-auto max-w-md text-center">
+        {/* scrim panel keeps every footer line WCAG-readable over the bright skyline */}
+        <motion.div
+          {...reveal()}
+          className="relative z-10 mx-auto max-w-md rounded-2xl bg-[rgba(4,6,11,0.72)] px-5 py-8 text-center ring-1 ring-white/10 backdrop-blur-md"
+        >
           <p className={kicker}>11 · Contact</p>
           <h2 className={headline}>Ready to create what has never been seen?</h2>
           <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
@@ -569,27 +699,27 @@ export default function NarrativeFallback({ animate }: { animate: boolean }) {
                 <p className="text-base font-semibold text-moon [font-family:var(--font-studio-display)]">
                   Moon <span className="text-gleam">Gleam</span>
                 </p>
-                <p className="text-[8px] font-medium uppercase tracking-[0.2em] text-moon-faint">
+                <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-moon-soft">
                   Powered by Creative AI
                 </p>
               </div>
             </div>
-            <p className="mt-3 text-center text-[11px] leading-relaxed text-moon-soft">
+            <p className="mt-3 text-center text-sm leading-relaxed text-moon">
               AI-powered video production studio in London. Cinematic film for 500+ UK businesses
               — from brief to broadcast.
             </p>
 
             <div className="mt-6 grid grid-cols-2 gap-6">
               <div>
-                <p className="text-[9px] font-semibold uppercase tracking-[0.3em] text-gleam">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-gleam">
                   Services
                 </p>
-                <ul className="mt-2 space-y-1">
+                <ul className="mt-2.5 space-y-2">
                   {services.slice(0, 6).map((s) => (
                     <li key={s.slug}>
                       <Link
                         href={`/services/${s.slug}`}
-                        className="text-[11px] leading-snug text-moon-soft transition-colors hover:text-moon"
+                        className="text-sm leading-snug text-moon transition-colors hover:text-gleam"
                       >
                         {s.name}
                       </Link>
@@ -598,15 +728,15 @@ export default function NarrativeFallback({ animate }: { animate: boolean }) {
                 </ul>
               </div>
               <div>
-                <p className="text-[9px] font-semibold uppercase tracking-[0.3em] text-gleam">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-gleam">
                   Sectors
                 </p>
-                <ul className="mt-2 space-y-1">
+                <ul className="mt-2.5 space-y-2">
                   {sectorPages.map((s) => (
                     <li key={s.slug}>
                       <Link
                         href={`/sectors/${s.slug}`}
-                        className="text-[11px] leading-snug text-moon-soft transition-colors hover:text-moon"
+                        className="text-sm leading-snug text-moon transition-colors hover:text-gleam"
                       >
                         {s.name}
                       </Link>
@@ -616,7 +746,7 @@ export default function NarrativeFallback({ animate }: { animate: boolean }) {
               </div>
             </div>
 
-            <div className="mt-6 space-y-1.5 text-center text-sm text-moon-soft">
+            <div className="mt-6 space-y-2 text-center text-base text-moon">
               <p>
                 <a href={site.contact.phoneHref} className="hover:text-gleam">
                   {site.contact.phone}
@@ -637,12 +767,12 @@ export default function NarrativeFallback({ animate }: { animate: boolean }) {
                   WhatsApp
                 </a>
               </p>
-              <p className="text-moon-faint">{site.contact.address}</p>
+              <p className="text-sm text-moon-soft">{site.contact.address}</p>
             </div>
 
             <div className="mt-5 flex flex-col items-center gap-3">
               <SocialIcons />
-              <p className="text-[11px] text-moon-soft">
+              <p className="text-sm text-moon">
                 <a
                   href={site.social.youtube}
                   target="_blank"
