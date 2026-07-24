@@ -10,18 +10,21 @@
 export default function SceneBackdrop({
   src,
   scrim = 'both',
+  alt = '',
 }: {
   src: string;
   /** Where overlay copy sits — darkens that edge of the frame. */
   scrim?: 'top' | 'bottom' | 'both' | 'none';
+  /** Set on SEO-bearing plates (e.g. the exterior signage); decorative otherwise. */
+  alt?: string;
 }) {
   return (
     <>
       {/* eslint-disable-next-line @next/next/no-img-element -- preloaded set plate; the optimizer would fork the URL away from the loader's preload */}
       <img
         src={src}
-        alt=""
-        aria-hidden
+        alt={alt}
+        aria-hidden={alt === ''}
         draggable={false}
         decoding="async"
         className="absolute inset-0 h-full w-full select-none object-cover"

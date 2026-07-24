@@ -27,13 +27,13 @@ import { SCREENING_WORKS } from './SceneScreening';
  */
 
 /** A zone's rendered set as a section plate, darkened for legibility. */
-function Set({ src, eager = false }: { src: string; eager?: boolean }) {
+function Set({ src, eager = false, alt = '' }: { src: string; eager?: boolean; alt?: string }) {
   return (
-    <div className="absolute inset-0" aria-hidden>
+    <div className="absolute inset-0" aria-hidden={alt === ''}>
       {/* eslint-disable-next-line @next/next/no-img-element -- set plates share the desktop tour's pre-optimised WebP URLs */}
       <img
         src={src}
-        alt=""
+        alt={alt}
         draggable={false}
         loading={eager ? 'eager' : 'lazy'}
         decoding="async"
@@ -114,13 +114,17 @@ export default function NarrativeFallback({ animate }: { animate: boolean }) {
     <div className="bg-[#05060A] text-moon">
       {/* -------- ZONE 1 · EXTERIOR -------- */}
       <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6 text-center">
-        <Set src={ZONE_BACKDROPS.exterior} eager />
+        <Set
+          src={ZONE_BACKDROPS.exterior}
+          eager
+          alt="Moon Gleam AI Studio building — illuminated studio signage on the facade at night"
+        />
 
         <motion.div {...reveal()} className="relative z-10">
-          <h1 className="text-balance text-4xl font-medium leading-tight tracking-tight text-white [font-family:var(--font-studio-display)] [text-shadow:0_2px_36px_rgba(0,0,0,0.8)] sm:text-5xl">
-            Moon Gleam AI Studio
-          </h1>
-          <p className="mx-auto mt-4 max-w-md text-xs uppercase tracking-[0.3em] text-moon sm:text-sm">
+          {/* no name title card — the studio name reads off the building
+              signage in the exterior plate; the homepage's real <h1> is
+              SSR'd in StudioDetails */}
+          <p className="mx-auto max-w-md text-balance text-xs uppercase tracking-[0.3em] text-moon [text-shadow:0_2px_30px_rgba(0,0,0,0.85)] sm:text-sm">
             AI Films. Cinematic Stories. Limitless Worlds.
           </p>
         </motion.div>

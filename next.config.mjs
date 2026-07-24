@@ -18,6 +18,14 @@ const nextConfig = {
       { protocol: 'https', hostname: 'd8j0ntlcm91z4.cloudfront.net' },
     ],
   },
+  async redirects() {
+    // The immersive studio tour became the homepage (2026-07-24) — keep the
+    // old tour URLs (QR codes / shared links) alive.
+    return [
+      { source: '/studio', destination: '/', permanent: true },
+      { source: '/experience', destination: '/', permanent: true },
+    ];
+  },
   async rewrites() {
     const rules = [];
     if (FUNNEL_ORIGIN) {

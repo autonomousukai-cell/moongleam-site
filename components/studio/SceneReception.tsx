@@ -14,8 +14,8 @@ import { site } from '@/lib/site';
  *
  * Sound honesty: browsers block autoplay WITH audio until a user gesture, so
  * the wall autoplays MUTED the moment the visitor reaches reception, and a
- * director's-console control invites the first tap — which plays the studio
- * welcome voiceover (/studio/welcome.mp3) and unmutes the showreel.
+ * director's-console control invites the first tap — which simply unmutes
+ * the showreel's own audio (no separate voiceover track).
  *
  * Layer contract (written by the engine every frame):
  *   rec        — group opacity/visibility (crossfade from exterior)
@@ -36,7 +36,6 @@ const ytCmd = (frame: HTMLIFrameElement | null, func: string, args: unknown[] = 
 
 export default function SceneReception({ active }: { active: boolean }) {
   const frameRef = useRef<HTMLIFrameElement>(null);
-  const voRef = useRef<HTMLAudioElement | null>(null);
   /** Wall powers on the first time the visitor reaches reception, then stays. */
   const [powered, setPowered] = useState(false);
   const [soundOn, setSoundOn] = useState(false);
@@ -55,30 +54,19 @@ export default function SceneReception({ active }: { active: boolean }) {
     } else {
       ytCmd(frame, 'mute');
       ytCmd(frame, 'pauseVideo');
-      voRef.current?.pause();
       setSoundOn(false);
     }
   }, [active, powered]);
 
-  /** First tap: welcome voiceover over the reel, then full showreel audio. */
+  /** First tap: unmute the showreel — its own soundtrack is the welcome. */
   const enableSound = useCallback(() => {
     const frame = frameRef.current;
     setSoundOn(true);
     ytCmd(frame, 'unMute');
-    ytCmd(frame, 'setVolume', [25]); // ducked under the voiceover
-    try {
-      const vo = voRef.current ?? new Audio('/studio/welcome.mp3');
-      voRef.current = vo;
-      vo.currentTime = 0;
-      vo.onended = () => ytCmd(frameRef.current, 'setVolume', [100]);
-      void vo.play().catch(() => ytCmd(frame, 'setVolume', [100]));
-    } catch {
-      ytCmd(frame, 'setVolume', [100]); // VO missing → straight to reel audio
-    }
+    ytCmd(frame, 'setVolume', [100]);
   }, []);
 
   const muteAgain = useCallback(() => {
-    voRef.current?.pause();
     ytCmd(frameRef.current, 'mute');
     setSoundOn(false);
   }, []);

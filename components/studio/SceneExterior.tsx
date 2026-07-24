@@ -6,8 +6,9 @@ import { ZONE_BACKDROPS } from './journey';
 
 /**
  * ZONE 1 — the Moon Gleam studio building at night: a bespoke AI-rendered
- * set (the studio's own pipeline) with the MOON GLEAM LED marquee and a
- * centred, amber-lit entrance. The engine dollies straight into that
+ * set (the studio's own pipeline) with "MOON GLEAM AI STUDIO" channel-letter
+ * signage on the facade — the name lives on the building, not in overlay
+ * copy — and a centred, amber-lit entrance. The engine dollies straight into that
  * entrance; mist banks parallax over the plate, and a pair of viewport-level
  * glass door panels materialise and slide apart as the camera crosses the
  * threshold — so the "doors open" beat lands regardless of plate geometry.
@@ -27,7 +28,11 @@ export default function SceneExterior() {
     <div data-mgst="ext" className="pointer-events-none absolute inset-0">
       {/* ---------------- the rendered set — camera dollies in ---------------- */}
       <div data-mgst="bldg" className="absolute inset-0 origin-[50%_64%] will-change-transform">
-        <SceneBackdrop src={ZONE_BACKDROPS.exterior} scrim="none" />
+        <SceneBackdrop
+          src={ZONE_BACKDROPS.exterior}
+          scrim="none"
+          alt="Moon Gleam AI Studio building — illuminated studio signage on the facade at night"
+        />
       </div>
 
       {/* ------------------------------ mist ------------------------------- */}
@@ -76,8 +81,8 @@ export default function SceneExterior() {
       {/* hotspot — LED marquee (fades once the dolly is under way) */}
       <div data-mgst="hotspotExt" className="pointer-events-auto absolute left-[64%] top-[28%] z-30">
         <Hotspot
-          label="LED marquee"
-          body="The Moon Gleam marquee — in the full tour it plays the studio showreel over the entrance, rain or shine."
+          label="Studio signage"
+          body="Our name in lights — the Moon Gleam sign above the entrance, glowing rain or shine."
         />
       </div>
     </div>

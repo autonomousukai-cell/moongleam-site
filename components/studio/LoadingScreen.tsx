@@ -75,10 +75,9 @@ export default function LoadingScreen({
         />
       </div>
 
-      <p className="mgst-sheen mt-6 bg-[linear-gradient(100deg,#8A9099_35%,#F4D889_50%,#8A9099_65%)] bg-clip-text text-xl font-medium tracking-[0.32em] text-transparent [font-family:var(--font-studio-display)]">
-        MOON&nbsp;GLEAM
-      </p>
-      <p className="mt-2 text-[10px] uppercase tracking-[0.5em] text-moon-faint">
+      {/* no name wordmark — the studio name reads off the building signage
+          in the exterior plate; the logo mark above carries the brand */}
+      <p className="mgst-sheen mt-6 bg-[linear-gradient(100deg,#8A9099_35%,#F4D889_50%,#8A9099_65%)] bg-clip-text text-[11px] uppercase tracking-[0.5em] text-transparent">
         AI Film Studio
       </p>
 

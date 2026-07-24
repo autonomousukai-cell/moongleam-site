@@ -329,10 +329,10 @@ export default function CinematicJourney({ frames }: { frames: FrameSequence | n
           data-mgst="title"
           className="pointer-events-none absolute inset-x-0 top-[13%] z-20 px-6 text-center"
         >
-          <h1 className="text-balance text-[clamp(2.2rem,5.5vw,4.6rem)] font-medium leading-[1.04] tracking-tight text-white [font-family:var(--font-studio-display)] [text-shadow:0_2px_40px_rgba(0,0,0,0.8)]">
-            Moon Gleam AI Studio
-          </h1>
-          <p className="mx-auto mt-4 max-w-xl text-sm uppercase tracking-[0.34em] text-moon sm:text-base">
+          {/* no name title card — the studio name reads off the building
+              signage in the exterior plate; the homepage's real <h1> is
+              SSR'd in StudioDetails */}
+          <p className="mx-auto max-w-xl text-balance text-sm uppercase tracking-[0.34em] text-moon [text-shadow:0_2px_30px_rgba(0,0,0,0.85)] sm:text-base">
             AI Films. Cinematic Stories. Limitless Worlds.
           </p>
         </div>

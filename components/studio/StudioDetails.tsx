@@ -2,11 +2,23 @@ import Link from 'next/link';
 import { site } from '@/lib/site';
 
 /**
- * Accessible, server-rendered content beneath the tour — the same narrative
- * in standard page form (SEO + screen readers). All eight rooms are open;
- * this section is the tour's index and landing point.
+ * Accessible, server-rendered content beneath the tour — the homepage's
+ * crawlable substance (SEO + screen readers). Carries the page's only <h1>,
+ * real service copy and internal links to every main section: the classic
+ * nav/footer are hidden on the immersive homepage, so search engines and
+ * keyboard users find the rest of the site from here.
  */
 const tourZones = [
+  {
+    n: '01',
+    t: 'The Studio',
+    d: 'A night-lit futuristic studio building — the front door of Moon Gleam AI Studio, London.',
+  },
+  {
+    n: '02',
+    t: 'Reception',
+    d: 'Welcome to the future of film production — the LED wall plays our studio showreel.',
+  },
   {
     n: '03',
     t: 'AI Creative Lab',
@@ -39,6 +51,16 @@ const tourZones = [
   },
 ];
 
+const siteLinks = [
+  { label: 'Our work', href: '/work' },
+  { label: 'Services', href: '/services' },
+  { label: 'Sectors', href: '/sectors' },
+  { label: 'Pricing', href: '/pricing' },
+  { label: 'About the studio', href: '/about' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Contact', href: '/contact' },
+];
+
 export default function StudioDetails() {
   return (
     <section
@@ -47,20 +69,26 @@ export default function StudioDetails() {
     >
       <div className="mx-auto max-w-content">
         <p className="text-xs font-medium uppercase tracking-[0.32em] text-gleam">
-          The virtual studio
+          Moon Gleam AI Studio · London
         </p>
-        <h2 className="mt-3 max-w-2xl text-3xl font-medium tracking-tight text-white [font-family:var(--font-studio-display)] sm:text-5xl">
-          You have just stepped inside Moon Gleam.
-        </h2>
+        <h1 className="mt-3 max-w-3xl text-3xl font-medium tracking-tight text-white [font-family:var(--font-studio-display)] sm:text-5xl">
+          AI Films. Cinematic Stories. Limitless Worlds.
+        </h1>
         <p className="mt-5 max-w-2xl text-base leading-relaxed text-moon-soft">
+          Moon Gleam is a London-based AI film studio producing AI-powered
+          video that grows UK businesses — TV commercials, brand films,
+          promotional and social content, documentaries, kids animation and
+          UGC — full production from brief to delivery, powered by creative
+          AI and directed by humans.
+        </p>
+        <p className="mt-4 max-w-2xl text-base leading-relaxed text-moon-soft">
           What you just walked is our virtual studio — a scroll-driven camera
           journey through the building where our AI films are made, from the
           night-lit exterior to the rooftop booking desk. Every room below is
-          open; scroll back up or use the tour navigation to revisit any of
-          them.
+          open; scroll back up or use the studio map to revisit any of them.
         </p>
 
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {tourZones.map((z) => (
             <div
               key={z.n}
@@ -72,7 +100,7 @@ export default function StudioDetails() {
                   Open
                 </span>
               </div>
-              <h3 className="mt-3 text-lg font-semibold text-moon">{z.t}</h3>
+              <h2 className="mt-3 text-lg font-semibold text-moon">{z.t}</h2>
               <p className="mt-2 text-sm leading-relaxed text-moon-soft">{z.d}</p>
             </div>
           ))}
@@ -106,6 +134,35 @@ export default function StudioDetails() {
             View our work <span aria-hidden>→</span>
           </Link>
         </div>
+
+        {/* the homepage's site index — nav/footer are hidden on this route */}
+        <nav
+          aria-label="Site sections"
+          className="mt-14 border-t border-ink-line/40 pt-8"
+        >
+          <ul className="flex flex-wrap gap-x-7 gap-y-3">
+            {siteLinks.map((l) => (
+              <li key={l.href}>
+                <Link
+                  href={l.href}
+                  className="text-sm text-moon-soft transition-colors hover:text-gleam"
+                >
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-6 text-xs text-moon-faint">
+            {site.name} · {site.contact.address} ·{' '}
+            <a href={site.contact.phoneHref} className="hover:text-gleam">
+              {site.contact.phone}
+            </a>{' '}
+            ·{' '}
+            <a href={`mailto:${site.contact.email}`} className="hover:text-gleam">
+              {site.contact.email}
+            </a>
+          </p>
+        </nav>
       </div>
     </section>
   );

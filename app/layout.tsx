@@ -1,9 +1,11 @@
-// Root layout — nav/footer site-wide, GHL chat, JSON-LD.
+// Root layout — nav/footer on content pages (hidden on the immersive
+// homepage via <Chrome>), GHL chat, JSON-LD.
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Script from 'next/script';
 import './globals.css';
 import { site } from '@/lib/site';
+import Chrome from '@/components/Chrome';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import MessengerFab from '@/components/MessengerFab';
@@ -93,9 +95,13 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
-        <Nav />
+        <Chrome>
+          <Nav />
+        </Chrome>
         {children}
-        <Footer />
+        <Chrome>
+          <Footer />
+        </Chrome>
         <MessengerFab />
         {/* GHL chat widget "Moon Gleam Chat" (LeadConnector) — site-wide.
             WhatsApp channel appears automatically once connected in GHL. */}

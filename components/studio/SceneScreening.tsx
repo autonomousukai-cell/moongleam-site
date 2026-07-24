@@ -12,47 +12,37 @@ import {
   zoneShell,
   ovAlpha,
   setOverlay,
-  lerp,
 } from './journey';
 
 /**
- * ZONE 7 — Moon Gleam's private screening GALLERY. The rendered set is a
- * cinema room whose left wall carries a receding band of LED frames and
- * whose right wall holds the big amber-edged cinema screen; the HTML layer
- * welds onto that geometry: a perspective bank of live monitors (one real
- * portfolio work each) over the left wall, and a "Now Screening" beacon on
- * the cinema screen. Selecting anything dims the room into a cinematic
- * letterboxed lightbox and plays the film BIG (youtube-nocookie — sound is
- * fine, it's a user gesture). The visitor never leaves the journey.
+ * ZONE 7 — Moon Gleam's private screening room, presented as a CLEAN LED
+ * video wall (Azhar, 2026-07-24): a tidy, evenly spaced grid of individual
+ * LED screens, each screen carrying exactly ONE portfolio work — subtle
+ * bezel, gentle glow, readable label. No perspective drift, no crowding.
+ * The showreel leads the wall on an amber-edged screen. Selecting any
+ * screen dims the room into a cinematic letterboxed lightbox and plays the
+ * film BIG (youtube-nocookie — sound is fine, it's a user gesture). The
+ * visitor never leaves the journey.
  *
  * Layer contract (written by renderScreening every frame):
  *   scr      — group opacity/visibility (zoneShell)
  *   scrInner — walk-forward settle (zoneShell)
- *   scrWall  — monitor bank: perspective walk-past drift
  *   scrOv    — zone overlay (title + CTA)
- *   scrHs    — gallery power-on gate (opacity + pointer-events)
+ *   scrHs    — video-wall power-on gate (opacity + pointer-events)
  */
-
-/** The rendered screening plate is 1376×768 (1.7917:1). */
-const PLATE_AR = 1376 / 768;
 
 const pick = (id: string) => portfolio.find((w) => w.id === id) as WorkItem;
 
-/** The cinema screen's feature — the studio showreel film. */
+/** The wall's lead screen — the studio showreel film. */
 const FEATURED = pick('x9c5L7DncWk');
 
-/** The monitor wall — a strong selection across every discipline. */
+/** Seven works, one per discipline — clean and clear beats dense. */
 const WALL: WorkItem[] = [
   pick('kQKz4nE7ZxM'), // TVC — Bombay Jewellers
-  pick('4HF3_eWN0sU'), // TVC — Cuisine Artist
-  pick('HtkYON-hXeU'), // TVC — Bluestone Travel
   pick('wsVu1zJFt-k'), // Documentary — Lord Lucan
-  pick('K4yxkk8cgkE'), // Documentary — Enigma Code
   pick('qSGqVKzREdQ'), // Short film — Time's Up
   pick('EIaa0ZCCyYM'), // Kids animation showcase
-  pick('rJ8AD-ZHOuI'), // Kids animation story
   pick('yubYJ8DIjRQ'), // Charity — HRF Winter Souk
-  pick('Afe2qXdodRM'), // Education — QNS Academy
   pick('P1PCjWxa5Jo'), // Brand — Netflix-quality ads
   pick('U6ADvdX701A'), // UGC — AI Animal Podcast
 ].filter(Boolean);
@@ -68,42 +58,67 @@ export function renderScreening(el: Layers, p: number) {
     el.scrHs.style.opacity = ov.toFixed(3);
     el.scrHs.style.pointerEvents = ov > 0.6 ? 'auto' : 'none';
   }
-  if (alpha <= 0) return;
-  // Walk-past drift: the monitor bank glides gently by as the visitor moves.
-  if (el.scrWall)
-    el.scrWall.style.transform = `perspective(1150px) rotateY(16deg) translate3d(${lerp(2.5, -2.5, local).toFixed(2)}%,0,0)`;
 }
 
-/** One LED gallery monitor. */
-function MonitorTile({ work, onPlay }: { work: WorkItem; onPlay: () => void }) {
+/** One clean LED screen: bezel → panel → label. */
+function LedScreen({
+  work,
+  featured = false,
+  onPlay,
+}: {
+  work: WorkItem;
+  featured?: boolean;
+  onPlay: () => void;
+}) {
   return (
     <button
       type="button"
       onClick={onPlay}
       title={work.title}
       aria-label={`Screen this film: ${work.title}`}
-      className="group relative block w-full overflow-hidden rounded-[3px] border border-[rgba(91,227,255,0.3)] bg-black text-left shadow-[0_0_26px_-8px_rgba(91,227,255,0.5)] transition-all hover:border-[rgba(91,227,255,0.75)] hover:shadow-[0_0_38px_-6px_rgba(91,227,255,0.7)]"
+      className="group relative block w-full text-left"
     >
-      <span className="relative block aspect-video">
-        <Image
-          src={ytThumb(work.id)}
-          alt=""
-          fill
-          sizes="200px"
-          className="mgst-led object-cover opacity-85 transition-opacity group-hover:opacity-100"
-        />
-        {/* LED scanline texture + edge fall-off */}
-        <span className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(180deg,rgba(0,0,0,0.16)_0_1px,transparent_1px_3px)] mix-blend-overlay" />
-        <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(85%_65%_at_50%_45%,transparent_55%,rgba(0,0,0,0.42))]" />
-        {/* play iris on hover/focus */}
-        <span className="pointer-events-none absolute inset-0 grid place-items-center opacity-0 transition-opacity group-focus-visible:opacity-100 group-hover:opacity-100">
-          <span className="grid h-8 w-8 place-items-center rounded-full border border-gleam/80 bg-black/55 text-[10px] text-gleam shadow-[0_0_16px_rgba(233,196,106,0.6)]">
-            ▶
+      {/* the bezel — a slim dark frame with a gentle glow */}
+      <span
+        className={
+          'block rounded-[6px] border bg-[#0B0D13] p-[3px] transition-all ' +
+          (featured
+            ? 'border-[rgba(233,196,106,0.55)] shadow-[0_0_44px_-10px_rgba(233,196,106,0.6)] group-hover:border-[rgba(233,196,106,0.9)] group-hover:shadow-[0_0_54px_-8px_rgba(233,196,106,0.75)]'
+            : 'border-[rgba(91,227,255,0.35)] shadow-[0_0_36px_-12px_rgba(91,227,255,0.55)] group-hover:border-[rgba(91,227,255,0.8)] group-hover:shadow-[0_0_48px_-10px_rgba(91,227,255,0.7)]')
+        }
+      >
+        <span className="relative block aspect-video overflow-hidden rounded-[3px] bg-black">
+          <Image
+            src={ytThumb(work.id)}
+            alt=""
+            fill
+            sizes="(max-width: 1280px) 22vw, 280px"
+            className="mgst-led object-cover opacity-90 transition-opacity group-hover:opacity-100"
+          />
+          {/* LED scanline texture + gentle edge fall-off */}
+          <span className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(180deg,rgba(0,0,0,0.14)_0_1px,transparent_1px_3px)] mix-blend-overlay" />
+          <span className="pointer-events-none absolute inset-0 bg-[radial-gradient(90%_70%_at_50%_45%,transparent_60%,rgba(0,0,0,0.35))]" />
+          {/* play iris on hover/focus */}
+          <span className="pointer-events-none absolute inset-0 grid place-items-center opacity-0 transition-opacity group-focus-visible:opacity-100 group-hover:opacity-100">
+            <span className="grid h-10 w-10 place-items-center rounded-full border border-gleam/80 bg-black/55 text-xs text-gleam shadow-[0_0_18px_rgba(233,196,106,0.6)]">
+              ▶
+            </span>
           </span>
         </span>
       </span>
-      <span className="block truncate border-t border-white/10 bg-black/70 px-2 py-1 text-[8px] uppercase tracking-[0.16em] text-moon-soft">
-        {categories[work.cat]}
+      {/* readable label under the screen */}
+      <span className="mt-1.5 block px-0.5">
+        <span
+          className={
+            'block text-[9px] uppercase tracking-[0.22em] ' +
+            (featured ? 'text-gleam/90' : 'text-[rgba(91,227,255,0.75)]')
+          }
+        >
+          {featured ? 'Now screening · showreel' : categories[work.cat]}
+        </span>
+        <span className="mt-0.5 block truncate text-[11px] text-moon-soft transition-colors group-hover:text-moon">
+          {work.title}
+        </span>
       </span>
     </button>
   );
@@ -112,7 +127,7 @@ function MonitorTile({ work, onPlay }: { work: WorkItem; onPlay: () => void }) {
 export default function SceneScreening({ active }: { active: boolean }) {
   const [playing, setPlaying] = useState<WorkItem | null>(null);
 
-  /* Walking out of the gallery kills playback (and its audio) instantly. */
+  /* Walking out of the screening room kills playback (and its audio) instantly. */
   useEffect(() => {
     if (!active) setPlaying(null);
   }, [active]);
@@ -132,52 +147,21 @@ export default function SceneScreening({ active }: { active: boolean }) {
       style={{ visibility: 'hidden' }}
     >
       <div data-mgst="scrInner" className="absolute inset-0 origin-center will-change-transform">
-        {/* the rendered set — LED-framed gallery wall + cinema screen */}
+        {/* the rendered set — the private cinema room */}
         <SceneBackdrop src={ZONE_BACKDROPS.screening} scrim="top" />
 
-        {/* Cover-box mirrors the backdrop's object-cover crop, welding the
-            monitors + beacon to the room's geometry at any viewport. */}
-        <div
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-          style={{
-            width: `max(100%, calc(100vh * ${PLATE_AR}))`,
-            height: `max(100%, calc(100vw / ${PLATE_AR}))`,
-          }}
-        >
-          {/* ---- the gallery powers on as the visitor settles ---- */}
-          <div data-mgst="scrHs" className="absolute inset-0 opacity-0" style={{ pointerEvents: 'none' }}>
-            {/* monitor bank over the left wall's LED frame band */}
-            <div
-              data-mgst="scrWall"
-              className="absolute left-[12.5%] top-[21%] w-[42%] origin-left"
-              style={{ transform: 'perspective(1150px) rotateY(16deg)' }}
-            >
-              <div className="grid grid-cols-6 gap-[0.55vw]">
-                {WALL.map((w) => (
-                  <MonitorTile key={w.id} work={w} onPlay={() => setPlaying(w)} />
-                ))}
-              </div>
-            </div>
-
-            {/* "Now Screening" beacon on the amber cinema screen */}
-            <div className="absolute left-[84%] top-[38%]">
-              <button
-                type="button"
-                onClick={() => setPlaying(FEATURED)}
-                aria-label={`Play the featured film: ${FEATURED.title}`}
-                className="group relative grid place-items-center"
-              >
-                <span
-                  aria-hidden
-                  className="mgst-flare absolute left-1/2 top-1/2 h-px w-28 -translate-x-1/2 -translate-y-1/2 bg-[linear-gradient(90deg,transparent,rgba(233,196,106,0.85),transparent)]"
+        {/* ---- the video wall powers on as the visitor settles ---- */}
+        <div data-mgst="scrHs" className="absolute inset-0 opacity-0" style={{ pointerEvents: 'none' }}>
+          <div className="absolute inset-x-0 bottom-[7%] top-[19%] flex items-center justify-center px-[6vw]">
+            <div className="grid w-full max-w-[68rem] grid-cols-4 gap-x-[1.4vw] gap-y-[2.6vh]">
+              {SCREENING_WORKS.map((w, i) => (
+                <LedScreen
+                  key={w.id}
+                  work={w}
+                  featured={i === 0}
+                  onPlay={() => setPlaying(w)}
                 />
-                <span className="mgst-pulse relative grid h-14 w-14 place-items-center rounded-full border border-gleam/80 bg-black/55 text-sm text-gleam shadow-[0_0_30px_rgba(233,196,106,0.7)] transition-transform group-hover:scale-110">
-                  ▶
-                </span>
-                <span className="mt-2 block whitespace-nowrap rounded-sm bg-black/60 px-2.5 py-1 text-[9px] uppercase tracking-[0.28em] text-gleam/90">
-                  Now screening · the showreel
-                </span>
-              </button>
+              ))}
             </div>
           </div>
         </div>
@@ -189,7 +173,7 @@ export default function SceneScreening({ active }: { active: boolean }) {
         className="pointer-events-none absolute inset-x-0 top-[4%] z-20 px-6 text-center opacity-0"
       >
         <p className="text-[10px] uppercase tracking-[0.5em] text-moon-soft">
-          07 · Screening Gallery
+          07 · Screening Room
         </p>
         <p className="mx-auto mt-2 max-w-2xl text-balance text-[clamp(1.2rem,2.4vw,1.9rem)] font-medium leading-snug text-white [font-family:var(--font-studio-display)] [text-shadow:0_2px_30px_rgba(0,0,0,0.8)]">
           Selected worlds we have brought to life.
@@ -226,7 +210,7 @@ export default function SceneScreening({ active }: { active: boolean }) {
                 onClick={() => setPlaying(null)}
                 className="mgst-hud-btn-ghost shrink-0 !px-4 !py-1.5 !text-[10px]"
               >
-                Back to the gallery
+                Back to the wall
               </button>
             </div>
             <div className="relative aspect-video overflow-hidden rounded-[3px] border border-[rgba(233,196,106,0.4)] bg-black shadow-[0_0_130px_-16px_rgba(233,196,106,0.45)]">
