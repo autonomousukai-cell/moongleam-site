@@ -768,6 +768,95 @@ We handle explainer video production end to end, in-house: brief, script, storyb
       'video-production-cost-uk',
     ],
   },
+  {
+    slug: 'estate-agent-video-marketing',
+    title:
+      'Estate Agent Video Marketing: Property Video Tours That Sell Homes Faster (2026)',
+    description:
+      'Estate agent video marketing guide for UK agencies — the five property videos that win instructions, video vs 360° tours, real costs and turnaround times.',
+    keyword: 'estate agent video marketing',
+    tags: ['Property', 'Video Marketing', 'Sectors'],
+    date: '2026-07-27',
+    coverFile: '/blog/estate-agent-video-marketing.webp',
+    quickAnswer:
+      'Estate agent video marketing means using short property tour videos, agent intro and valuation videos, and social listing reels to win more instructions and sell or let homes faster. Listings with video attract more enquiries than photo-only listings, and vendors increasingly choose the agent whose marketing looks the part — which makes video as much a pitch-winning tool as a selling one.',
+    body: `## What estate agent video marketing actually covers
+
+Estate agent video marketing is every video an agency uses to win instructions and move property: cinematic tour films for the listings themselves, "just listed" reels for social, agent and area introductions that put a face to the brand, and market updates that keep you in a vendor's mind months before they instruct anyone.
+
+The mistake most agencies make is treating video as a luxury reserved for the £1m+ listing. In 2026 it's the opposite: buyers scroll portals and social feeds the way they scroll everything else, and the listing that moves is the listing that gets the click, the share and the viewing request. The agency that shows vendors a video-led marketing pack wins the instruction over the one that shows a photo set.
+
+## The five property videos every agent needs
+
+- **Signature property tour** — a 60–90 second cinematic walkthrough of the home, led by light, flow and lifestyle rather than a room-by-room inventory. This is the film that makes a buyer book a viewing before they've read the floorplan.
+- **"Just listed" social reel** — a vertical 15–30 second cutdown for Instagram, TikTok and Facebook that announces the listing where local buyers (and watching vendors) actually scroll.
+- **Vendor valuation video** — a short film you send before or after a valuation appointment showing exactly how you'd market their home. Few agencies do this; the ones that do stand out immediately.
+- **Agent and area intro** — you, your team and your patch. Vendors instruct people, not portals, and an area film doubles as evergreen content for every listing in that postcode.
+- **Market-update explainer** — a monthly 60-second piece to camera or animated update on local prices and demand. It keeps your brand in front of would-be vendors for months before they're ready to move.
+
+Start with the two that match your biggest gap: struggling to win instructions points to valuation and agent-intro videos; listings sticking on the market points to property tours and social reels.
+
+## Why video wins more instructions, not just faster sales
+
+Selling the house is only half the job — first you have to win the right to sell it. When a vendor invites three agents to value their home, the fees and the valuations are usually within touching distance. What separates the pitches is the marketing.
+
+Turning up with a portfolio of property films — and a plan to make one for *their* home — reframes the conversation from "what will you charge?" to "look how you'll present my house". Video also compounds: every tour film you produce becomes proof in the next valuation pitch, every area film works for every future listing on that street, and every reel grows the local following that vendors quietly check before they call you.
+
+For letting agents the same logic applies with a twist: a good tour video pre-qualifies applicants, cuts wasted viewings, and lets a property go under offer to a relocating tenant who never set foot in it.
+
+## Property video vs a 360° virtual tour — what's the difference
+
+They're different tools and agencies frequently conflate them. A **360° virtual tour** is a functional, self-guided walkthrough — the buyer controls it, clicks room to room and checks the layout. It answers "does this house work for me?". A **property video** is a directed, edited, music-and-motion film — it sells the feeling of living there and works everywhere a 360° tour can't: social feeds, ads, email and the top of the listing. It answers "do I want this house?".
+
+The strongest listings use both, but if the budget covers one, the video wins more attention because it travels. A 360° tour waits to be clicked; a tour film goes out and finds buyers.
+
+## What property video costs and how fast it ships
+
+| Video type | Best use | Typical turnaround |
+|---|---|---|
+| "Just listed" social reel | Instagram, TikTok, Facebook launch | Days |
+| Signature property tour | Portals, website, email to applicants | Under two weeks |
+| Agent / area intro film | Valuation pitches, website, social | Under two weeks |
+| Market-update explainer | Monthly social and email content | Days |
+| Brand or TV-quality campaign | New developments, brand launches | Two to four weeks |
+
+On price: our social video packs start from **£499**, full promotional films from **£1,499**, and TV-quality commercial production from **£3,999** — with platform cutdowns included, so one production covers the portal listing, Instagram, TikTok and your website. Speed matters more in property than almost any sector: a tour film delivered three weeks after launch has missed the listing's most-viewed window. Our full breakdown of what drives price is in our UK video production cost guide.
+
+## Filmed, AI or hybrid — what fits property
+
+Not every video needs a shoot. The property tour itself should be filmed — buyers are rightly sceptical of anything that misrepresents a real home. But market updates, area films, valuation explainers and brand content are ideal for Creative AI production — AI speed, human craft — which is how a monthly content programme stays affordable next to a one-off shoot. Most agency programmes end up hybrid: filmed tours for the stock, AI-assisted content for the brand.
+
+## How we produce property video
+
+We handle property video end to end, in-house: brief, script, shoot or AI production, edit, and cutdowns for portals, social and your website. For agencies we build repeatable systems rather than one-offs — a consistent tour format your negotiators can brief in minutes, plus a monthly content rhythm that keeps winning instructions between listings. Tell us your patch and your average stock, and we'll recommend the package that fits.`,
+    faqs: [
+      {
+        q: 'Do property listings with video really sell faster?',
+        a: 'Listings with video consistently attract more enquiries and viewing requests than photo-only listings, and better-qualified buyers arrive at viewings already sold on the feel of the home — which shortens time on market.',
+      },
+      {
+        q: "What's the difference between a property video tour and a 360° virtual tour?",
+        a: 'A 360° tour is a self-guided layout walkthrough the buyer controls; a property video is a directed, edited film that sells the lifestyle and works on social, in ads and at the top of the listing. The best listings use both.',
+      },
+      {
+        q: 'How much does an estate agent property video cost in the UK?',
+        a: 'Our social video packs start from £499, full promotional films from £1,499 and TV-quality production from £3,999, all with platform cutdowns. Every project gets a tailored quote on a free call.',
+      },
+      {
+        q: 'Can you produce video for a whole portfolio of listings each month?',
+        a: 'Yes — that’s how we prefer to work with agencies. A repeatable tour format plus a monthly content rhythm costs far less per video than one-off commissions and keeps quality consistent across your stock.',
+      },
+      {
+        q: 'Do we need to film every property, or can some be AI or hybrid?',
+        a: 'Property tours should be filmed — buyers need to trust what they see. Market updates, area films and brand content are ideal for Creative AI production, so most agency programmes are hybrid.',
+      },
+    ],
+    related: [
+      'video-marketing-by-sector',
+      'video-production-cost-uk',
+      'how-video-increases-conversion',
+    ],
+  },
 ];
 
 /** All posts, newest first. */
