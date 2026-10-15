@@ -1,14 +1,18 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import CTABand from '@/components/CTABand';
-import { BreadcrumbJsonLd } from '@/lib/seo';
+import { BreadcrumbJsonLd, socialMeta } from '@/lib/seo';
 import { sectorPages } from '@/lib/data';
 
+const TITLE = 'Sectors — Video for Law Firms, Accountants, Charities, Retail & More';
+const DESCRIPTION =
+  'Sector-specialist video production: law firms, accountancy, charities, education, retail & jewellers, and travel. 500+ UK businesses served.';
+
 export const metadata: Metadata = {
-  title: 'Sectors — Video for Law Firms, Accountants, Charities, Retail & More',
-  description:
-    'Sector-specialist video production: law firms, accountancy, charities, education, retail & jewellers, and travel. 500+ UK businesses served.',
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: { canonical: '/sectors' },
+  ...socialMeta(TITLE, DESCRIPTION, '/sectors'),
 };
 
 export default function SectorsPage() {

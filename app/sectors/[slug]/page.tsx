@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import WorkGrid from '@/components/WorkGrid';
 import CTABand from '@/components/CTABand';
-import { BreadcrumbJsonLd } from '@/lib/seo';
+import { BreadcrumbJsonLd, metaDescription, socialMeta } from '@/lib/seo';
 import { sectorPages, portfolio } from '@/lib/data';
 import { cta } from '@/lib/site';
 
@@ -14,10 +14,14 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const sec = sectorPages.find((s) => s.slug === params.slug);
   if (!sec) return {};
+  const title = `Video Production for ${sec.name}`;
+  const description = metaDescription(sec.short, sec.desc);
+  const path = `/sectors/${sec.slug}`;
   return {
-    title: `Video Production for ${sec.name}`,
-    description: sec.short,
-    alternates: { canonical: `/sectors/${sec.slug}` },
+    title,
+    description,
+    alternates: { canonical: path },
+    ...socialMeta(title, description, path),
   };
 }
 

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import WorkGrid from '@/components/WorkGrid';
 import CTABand from '@/components/CTABand';
-import { BreadcrumbJsonLd, ServiceJsonLd } from '@/lib/seo';
+import { BreadcrumbJsonLd, ServiceJsonLd, metaDescription, socialMeta } from '@/lib/seo';
 import { services, portfolio } from '@/lib/data';
 import { cta } from '@/lib/site';
 
@@ -14,10 +14,14 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const svc = services.find((s) => s.slug === params.slug);
   if (!svc) return {};
+  const title = `${svc.name} — London & UK`;
+  const description = metaDescription(svc.short, svc.desc);
+  const path = `/services/${svc.slug}`;
   return {
-    title: `${svc.name} — London & UK`,
-    description: svc.short,
-    alternates: { canonical: `/services/${svc.slug}` },
+    title,
+    description,
+    alternates: { canonical: path },
+    ...socialMeta(title, description, path),
   };
 }
 

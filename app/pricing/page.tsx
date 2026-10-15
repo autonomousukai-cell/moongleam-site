@@ -3,14 +3,18 @@ import Link from 'next/link';
 import Pricing from '@/components/Pricing';
 import FAQ from '@/components/FAQ';
 import CTABand from '@/components/CTABand';
-import { BreadcrumbJsonLd, FaqJsonLd } from '@/lib/seo';
+import { BreadcrumbJsonLd, FaqJsonLd, socialMeta } from '@/lib/seo';
 import { faqs } from '@/lib/data';
 
+const TITLE = 'Pricing — Video Production Packages in £';
+const DESCRIPTION =
+  'Transparent UK video production pricing: social packs, promo videos and broadcast TVCs. AI-powered production means broadcast quality at prices you can plan around.';
+
 export const metadata: Metadata = {
-  title: 'Pricing — Video Production Packages in £',
-  description:
-    'Transparent UK video production pricing: social packs, promo videos and broadcast TVCs. AI-powered production means broadcast quality at prices you can plan around.',
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: { canonical: '/pricing' },
+  ...socialMeta(TITLE, DESCRIPTION, '/pricing'),
 };
 
 const pricingFaqs = faqs.slice(0, 6);

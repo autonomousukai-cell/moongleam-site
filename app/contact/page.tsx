@@ -1,14 +1,18 @@
 import type { Metadata } from 'next';
 import BookingEmbed from '@/components/BookingEmbed';
 import LeadForm from '@/components/LeadForm';
-import { BreadcrumbJsonLd } from '@/lib/seo';
+import { BreadcrumbJsonLd, socialMeta } from '@/lib/seo';
 import { site } from '@/lib/site';
 
+const TITLE = 'Book a Call — Start Your Project';
+const DESCRIPTION =
+  'Book a free 15-minute call with Moon Gleam, or send an enquiry. London AI video production — replies within one business day.';
+
 export const metadata: Metadata = {
-  title: 'Book a Call — Start Your Project',
-  description:
-    'Book a free 15-minute call with Moon Gleam, or send an enquiry. London AI video production — replies within one business day.',
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: { canonical: '/contact' },
+  ...socialMeta(TITLE, DESCRIPTION, '/contact'),
 };
 
 export default function ContactPage() {

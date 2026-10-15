@@ -1,14 +1,18 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import CTABand from '@/components/CTABand';
-import { BreadcrumbJsonLd } from '@/lib/seo';
+import { BreadcrumbJsonLd, socialMeta } from '@/lib/seo';
 import { services } from '@/lib/data';
 
+const TITLE = 'Video Production Services — TVC, Promo, Documentary, Animation';
+const DESCRIPTION =
+  'Every format, one London studio: AI-powered video production, TV commercials, business promos, UGC, documentary, kids animation and short film.';
+
 export const metadata: Metadata = {
-  title: 'Video Production Services — TVC, Promo, Documentary, Animation',
-  description:
-    'Every format, one London studio: AI-powered video production, TV commercials, business promos, UGC, documentary, kids animation and short film.',
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: { canonical: '/services' },
+  ...socialMeta(TITLE, DESCRIPTION, '/services'),
 };
 
 export default function ServicesPage() {

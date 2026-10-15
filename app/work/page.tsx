@@ -1,13 +1,17 @@
 import type { Metadata } from 'next';
 import WorkGrid from '@/components/WorkGrid';
 import CTABand from '@/components/CTABand';
-import { BreadcrumbJsonLd } from '@/lib/seo';
+import { BreadcrumbJsonLd, socialMeta } from '@/lib/seo';
+
+const TITLE = 'Our Work — AI Video Production Portfolio';
+const DESCRIPTION =
+  'TVCs aired on UK television, documentaries, kids animation and campaigns for 500+ UK businesses. Watch the Moon Gleam portfolio.';
 
 export const metadata: Metadata = {
-  title: 'Our Work — AI Video Production Portfolio',
-  description:
-    'TVCs aired on UK television, documentaries, kids animation and campaigns for 500+ UK businesses. Watch the Moon Gleam portfolio.',
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: { canonical: '/work' },
+  ...socialMeta(TITLE, DESCRIPTION, '/work'),
 };
 
 export default function WorkPage() {
