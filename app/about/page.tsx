@@ -1,14 +1,18 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import CTABand from '@/components/CTABand';
-import { BreadcrumbJsonLd } from '@/lib/seo';
+import { BreadcrumbJsonLd, socialMeta } from '@/lib/seo';
 import { services, sectorPages } from '@/lib/data';
 
+const TITLE = 'About — London AI Video Production Studio';
+const DESCRIPTION =
+  'Moon Gleam is a London video production studio built for the AI era: full A-to-Z production in-house for 500+ UK businesses across six sectors.';
+
 export const metadata: Metadata = {
-  title: 'About — London AI Video Production Studio',
-  description:
-    'Moon Gleam is a London video production studio built for the AI era: full A-to-Z production in-house for 500+ UK businesses across six sectors.',
+  title: TITLE,
+  description: DESCRIPTION,
   alternates: { canonical: '/about' },
+  ...socialMeta(TITLE, DESCRIPTION, '/about'),
 };
 
 export default function AboutPage() {

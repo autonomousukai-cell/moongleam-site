@@ -1,4 +1,32 @@
+import type { Metadata } from 'next';
 import { site } from '@/lib/site';
+
+/**
+ * Per-page Open Graph + Twitter tags. Without this, every inner page inherited the
+ * homepage's og:title/og:url from the root layout, so shared links previewed as the homepage.
+ */
+export function socialMeta(title: string, description: string, path: string): Pick<Metadata, 'openGraph' | 'twitter'> {
+  return {
+    openGraph: {
+      title,
+      description,
+      url: path,
+      siteName: site.name,
+      locale: 'en_GB',
+      type: 'website',
+    },
+    twitter: { card: 'summary_large_image', title, description },
+  };
+}
+
+/** Meta description of ~150–160 chars: the short line plus the first sentence of the long copy. */
+export function metaDescription(short: string, long: string, max = 160): string {
+  const first = (long.match(/^[^.!?]+[.!?]/)?.[0] ?? long).trim();
+  let out = `${short.trim()} ${first}`.trim();
+  if (out.length <= max) return out;
+  out = out.slice(0, max - 1);
+  return out.slice(0, out.lastIndexOf(' ')).replace(/[,;:—–-]+$/, '').trim() + '…';
+}
 
 /** JSON-LD helpers — rendered server-side on the relevant pages. */
 

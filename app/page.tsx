@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     absolute: 'Moon Gleam AI Studio — AI-Powered Video Production, London',
   },
   description:
-    'AI-powered video production for UK businesses — TV commercials, brand films, documentaries, kids animation, UGC and social content, brief to delivery. Step inside our virtual studio: a cinematic tour from the night-lit exterior to the screening room.',
+    'AI-powered video production for UK businesses — TV commercials, brand films, documentaries, animation, UGC and social content, from brief to delivery.',
   alternates: { canonical: '/' },
   openGraph: {
     title: 'Moon Gleam AI Studio',

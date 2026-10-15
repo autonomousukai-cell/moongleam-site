@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
     default: 'Moon Gleam AI Studio — AI-Powered Video Production, London',
-    template: '%s | Moon Gleam AI Studio',
+    template: '%s | Moon Gleam',
   },
   description: site.description,
   alternates: { canonical: '/' },
