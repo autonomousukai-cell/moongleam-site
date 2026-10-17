@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { fadeUp, stagger, inView } from '@/lib/motion';
 import { faqs } from '@/lib/data';
 
@@ -26,6 +26,7 @@ export default function FAQ({ items = faqs }: { items?: { q: string; a: string }
           <button
             onClick={() => setOpen(open === i ? null : i)}
             aria-expanded={open === i}
+            aria-controls={`faq-answer-${i}`}
             className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
           >
             <span className="font-display font-semibold text-moon">{f.q}</span>
@@ -37,18 +38,17 @@ export default function FAQ({ items = faqs }: { items?: { q: string; a: string }
               +
             </motion.span>
           </button>
-          <AnimatePresence initial={false}>
-            {open === i && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: 'auto', opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.25 }}
-              >
-                <p className="px-6 pb-5 text-sm leading-relaxed text-moon-soft">{f.a}</p>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {/* Answers stay in the HTML when collapsed so search engines and AI crawlers can read them. */}
+          <motion.div
+            id={`faq-answer-${i}`}
+            initial={false}
+            animate={{ height: open === i ? 'auto' : 0, opacity: open === i ? 1 : 0 }}
+            transition={{ duration: 0.25 }}
+            className="overflow-hidden"
+            aria-hidden={open !== i}
+          >
+            <p className="px-6 pb-5 text-sm leading-relaxed text-moon-soft">{f.a}</p>
+          </motion.div>
         </motion.div>
       ))}
     </motion.div>
