@@ -33,6 +33,7 @@ export type Post = {
   tags: string[];
   category: string; // first tag
   date: string; // ISO date (published)
+  updated?: string; // ISO date (last substantive update)
   cover: string; // absolute image URL
   quickAnswer: string; // answer-first lead (AEO)
   body: string; // Markdown body (H2 sections, lists, one table)
@@ -45,59 +46,120 @@ type RawPost = Omit<Post, 'category' | 'cover'> & { coverFile: string };
 const rawPosts: RawPost[] = [
   {
     slug: 'what-is-ai-video-production',
-    title: 'What Is AI Video Production? A 2026 Guide for UK Businesses',
+    title: 'What Is AI Video Production? A UK Guide',
     description:
-      'AI video production explained for UK businesses — what it is, how it works, what it costs, and how to use it to win more customers in 2026.',
+      'AI video production explained for UK businesses: how it works, where AI is used, when filming is still better, costs, rights and how to choose a studio.',
     keyword: 'AI video production',
     tags: ['AI Video', 'Video Production', 'Guides'],
     date: '2026-06-03',
+    updated: '2026-10-17',
     coverFile: 'hf_20260712_232957_78b34b4d-c0cd-4460-b8d2-87aba8b073ba.png',
     quickAnswer:
-      'AI video production is the process of creating professional video content using artificial intelligence tools — for scripting, generating footage, voiceovers, editing and localisation — usually combined with human direction. For UK businesses it means broadcast-quality video in days instead of weeks, at a fraction of traditional cost.',
+      'AI video production is making professional video with artificial intelligence tools for some or all of the work, such as generating scenes, voiceovers, music, translations and edits, while people direct the story, brand and final cut. For UK businesses it usually means faster turnaround and lower cost than a full shoot, with filming still used where real people or places matter.',
     body: `## What "AI video production" actually means
 
-AI video production doesn't mean a robot makes your advert. It means using AI at the stages where it saves the most time and money — generating scenes, creating realistic voiceovers, producing variations for different platforms — while a human team directs the story, brand and edit. At Moon Gleam we call this **Creative AI**: AI speed, human craft.
+AI video production doesn't mean a robot makes your advert. It means using AI at the stages where it saves the most time and money, while a creative team stays responsible for the idea, the script, the brand and the edit. At Moon Gleam we describe this as **Creative AI**: AI speed, human craft.
+
+In practice, a project can be:
+
+- **Fully AI-generated:** every scene is generated, then directed, edited and sound-designed by people.
+- **Hybrid:** filmed footage combined with AI-generated scenes, backgrounds, product shots or effects.
+- **AI-assisted:** a conventional production that uses AI for tasks such as captioning, translation, clean-up or versioning.
+
+## Where AI is used in the production process
+
+| Stage | What AI can do | What people still do |
+|---|---|---|
+| Concept and script | Draft ideas, variations and outlines | Decide the message, write the final script, check claims |
+| Visuals | Generate scenes, characters, products and environments | Art direction, consistency, brand fit, rejecting weak shots |
+| Voice | Synthetic voiceover and multiple languages | Choose the voice, direct the delivery, check pronunciation |
+| Music and sound | Generated music beds and effects | Sound design, mix and licensing checks |
+| Edit and versions | Cutdowns, resizing, captions, translations | Story, pacing, final grade and quality control |
 
 ## How the process works
 
 1. **Brief.** A short call to understand your business, customer and goal.
-2. **Script.** A hook-led script written to hold attention and drive action.
-3. **Generate or shoot.** AI-generated scenes, filmed footage, or a hybrid.
-4. **Edit.** Grade, sound design, captions and platform cutdowns.
-5. **Deliver.** Final video plus versions for web, social, TV and ads.
+2. **Script.** A hook-led script written to hold attention and drive one action.
+3. **Storyboard.** A scene-by-scene plan so you approve the look before production.
+4. **Generate, shoot or both.** AI-generated scenes, filmed footage, or a hybrid.
+5. **Edit.** Grade, sound design, captions and platform cutdowns.
+6. **Deliver.** Final video plus versions for web, social, TV and ads.
 
-## Why UK businesses are switching in 2026
+## Why UK businesses use AI video production
 
-- **Speed:** Most projects ship inside two weeks.
-- **Cost:** No large crew or studio-day fees, so budgets stretch further.
-- **Volume:** Easy to produce many variations for testing and different channels.
-- **Quality:** Modern AI models produce broadcast-grade results when directed properly.
+- **Speed.** Fewer shoot days to schedule means shorter timelines. Our promo videos are typically delivered in 7 to 14 days.
+- **Cost.** Less crew, kit, location and travel spend, so budgets go further.
+- **Volume.** It is practical to produce several variations for testing, audiences and channels.
+- **Flexibility.** Scenes, products or settings that would be expensive or impossible to film can be created.
 
-## When AI isn't the right tool
+## When filming is still the better choice
 
-AI is superb for concepts, explainers, product visuals and social content. For a founder's authentic testimonial or a real location shoot, filming still wins — which is why the best studios offer both.`,
+AI is excellent for concepts, explainers, product visuals and social content. Filming still wins when authenticity is the point:
+
+- Real customer testimonials and case studies.
+- Founder or team introductions, where people want to see the real person.
+- Real locations, venues and properties that buyers will visit.
+- Live events.
+
+That is why we offer AI, filmed and hybrid production, and recommend whichever suits the brief.
+
+## Quality, honesty and rights
+
+Using AI responsibly matters as much as using it well. Things to check with any studio:
+
+- **No misleading visuals.** UK advertising rules on misleading ads apply to AI-generated images just as they do to any other. A product should not be shown doing something it can't do.
+- **Real people's likenesses.** Never use a real person's face or voice without their permission.
+- **Tools and licences.** Ask which tools are used and what their terms allow for commercial use.
+- **Ownership.** Make sure the contract states who owns the final files and where you can use them. With Moon Gleam, you receive full usage rights to the final delivered files.
+- **Disclosure.** Decide with your studio whether and how to label AI-generated content, especially in sensitive sectors.
+
+## How much does AI video production cost in the UK?
+
+It depends on the scope, but removing shoot days usually lowers the cost compared with a fully filmed production. Our published starting prices are £499 for a Social Pack, £1,499 for a Promo Video and £3,999 for a TV commercial. See our [video production cost guide](/blog/video-production-cost-uk) for what drives the price, or our [pricing page](/pricing) for what each package includes.
+
+## How to choose an AI video production studio
+
+- Look at finished work, not just demo clips. Consistency across a full film is harder than one impressive shot.
+- Ask who writes the script and who directs the edit.
+- Check what is included: storyboard, revisions, voiceover, music and cutdowns.
+- Ask how they handle rights, likeness and licensing.
+- Make sure they can also film, so you are not pushed into AI when filming would be better.
+
+Read more in [how to choose a video production company](/blog/how-to-choose-video-production-company), or compare approaches in [AI vs traditional video production](/blog/ai-vs-traditional-video-production).
+
+## Work with Moon Gleam
+
+We are a creative AI studio producing promos, explainers, TV commercials and social content for UK businesses. See our [AI video production services in London](/services/ai-video-production), browse [our work](/work) or [book a free call](/contact).`,
     faqs: [
       {
         q: 'Is AI video production suitable for small businesses?',
-        a: "Yes — it's often most valuable for SMBs, because it delivers agency-quality video at a price a local shop, law firm or charity can justify.",
+        a: 'Yes. It is often most useful for small and medium-sized businesses, because it delivers professional video without the cost of a full crew and shoot.',
       },
       {
         q: 'Does AI video look fake?',
-        a: 'Not when it’s directed well. Poor prompts produce generic clips; experienced direction, grading and sound design make it look premium.',
+        a: 'It can when it is poorly directed. Strong art direction, consistent characters, careful editing, grading and sound design are what make AI video look professional.',
       },
       {
         q: 'How much does AI video production cost in the UK?',
-        a: 'It varies by scope, but it’s typically far cheaper than a traditional shoot. See our UK video pricing guide.',
+        a: 'It depends on scope. Our starting prices are £499 for a Social Pack, £1,499 for a Promo Video and £3,999 for a TV commercial, with a written quote for every project.',
       },
       {
         q: 'Who owns the finished video?',
         a: 'You do. You receive full usage rights to the final delivered files.',
       },
+      {
+        q: 'Can AI video be used for TV adverts?',
+        a: 'Yes, provided it meets broadcast technical standards and passes clearance like any other advert. Our TVC package includes broadcast-ready technical delivery.',
+      },
+      {
+        q: 'When should I film instead of using AI?',
+        a: 'Film when authenticity is the point: real testimonials, founder introductions, real locations and live events. Many projects combine both.',
+      },
     ],
     related: [
       'ai-vs-traditional-video-production',
       'video-production-cost-uk',
-      'promotional-videos-that-convert',
+      'explainer-video-production',
     ],
   },
   {
@@ -159,58 +221,110 @@ One promo becomes many assets: a website hero, a paid social ad, an email header
   },
   {
     slug: 'video-production-cost-uk',
-    title: 'How Much Does Video Production Cost in the UK? (2026 Guide)',
+    title: 'Video Production Costs UK (2026): Price Ranges',
     description:
-      'A transparent 2026 guide to video production costs in the UK — what drives price, typical ranges, and how AI production lowers the bill.',
+      'What video production costs in the UK in 2026: our published from-prices (£499, £1,499, £3,999), what drives the price, and how to get more from your budget.',
     keyword: 'video production cost UK',
     tags: ['Pricing', 'Video Production', 'Guides'],
     date: '2026-06-15',
+    updated: '2026-10-17',
     coverFile: 'hf_20260712_233028_4de2610b-265a-4109-89af-7f4d710bc5da.png',
     quickAnswer:
-      'In the UK, professional video production typically ranges from a few hundred pounds for a simple AI-generated or social video to several thousand for a filmed brand film or TV commercial. AI and hybrid production have lowered entry prices dramatically in 2026.',
-    body: `## What actually drives the price
+      'Video production in the UK can cost anything from a few hundred pounds for short social clips to many thousands for a filmed brand film or TV commercial. The price depends on production method, length, crew, post-production and how many versions you need. Moon Gleam publishes its starting prices: social packs from £499, promo and explainer videos from £1,499, and TV commercials from £3,999.',
+    body: `## Our published starting prices
 
-- **Production type:** AI-generated, filmed, or hybrid.
-- **Length and complexity:** Number of scenes, locations, actors.
-- **Crew and kit:** Camera operators, lighting, sound, studio hire.
-- **Post-production:** Editing, grading, motion graphics, voiceover.
-- **Deliverables:** How many platform versions you need.
+We publish honest starting points so you can plan a budget before the first call. Every project still gets a written quote, because scope varies.
 
-## Typical UK ranges (2026)
+| Package | From | What it is | Typical length | Typical timeline |
+|---|---|---|---|---|
+| Social Pack | £499 | 3 short-form videos for Reels, TikTok and Shorts | 15–60 sec each | Within 1 week |
+| Promo Video | £1,499 | 1 promotional or explainer video with script, storyboard, voiceover and platform cutdowns | 30–90 sec | 7–14 days |
+| TVC / Campaign | £3,999 | Broadcast-standard TV commercial with concept, script, storyboard and campaign cutdowns | 30–60 sec | 2–3 weeks |
 
-- **Social / AI-generated video:** £ hundreds.
-- **Business promo / explainer:** low £ thousands.
-- **Brand film / documentary:** mid £ thousands.
-- **TV commercial (TVC):** varies widely; AI production has cut this significantly.
+Documentaries, kids animation, short films and monthly content retainers are quoted per project. Full details are on our [pricing page](/pricing).
 
-*(Ranges are indicative — always get a tailored quote.)*
+## What actually drives the price
 
-## Why transparent pricing matters
+Whichever studio you use, the same factors decide the bill:
 
-Many UK agencies hide pricing to anchor you high. Owner-operators — law partners, accountants, shop owners — are sophisticated buyers who want a clear starting point. That's why Moon Gleam publishes honest from-prices and quotes every project on a free call.
+- **Production method.** AI-generated, filmed or hybrid. A filmed shoot adds crew, equipment, location and travel for every shoot day. AI-generated scenes remove most of those costs but still need skilled direction and editing.
+- **Length and complexity.** The number of scenes, locations, characters and visual effects matters more than running time alone.
+- **People on screen.** Actors, presenters or models bring fees, and broadcast or long-term paid use often costs more than organic social use.
+- **Script and creative development.** Concept, scriptwriting and storyboarding are where a film is won or lost. Cheap quotes often skip this step.
+- **Post-production.** Editing, colour grading, motion graphics, sound design, music licensing and captions.
+- **Voiceover.** A professional voice artist, extra languages or multiple reads.
+- **Deliverables.** Each extra aspect ratio, cutdown or language version adds editing time.
+- **Revisions.** Find out how many review rounds are included and what happens after that.
+- **Broadcast delivery.** TV commercials need technical delivery to broadcast standards and clearance before they can air.
+
+## Indicative ranges by video type
+
+Market prices vary widely by region, studio size and production method, so treat these as a guide to how budgets scale rather than a quote.
+
+- **Short social videos:** usually the most affordable format. Our Social Pack starts from £499 for three videos.
+- **Business promo or explainer:** typically in the low thousands for professional work. Ours start from £1,499.
+- **Brand film or documentary:** more scenes, interviews and editing time mean higher budgets. Usually quoted per project.
+- **TV commercial:** the widest range of all, from AI-led commercials to multi-day filmed productions. Ours start from £3,999.
+
+## AI, filmed or hybrid: how the method changes the cost
+
+| | AI-generated | Filmed | Hybrid |
+|---|---|---|---|
+| Crew and kit | Minimal | Required for every shoot day | Only where filming adds value |
+| Locations | Generated or composited | Booked, travelled to and permitted | Mixed |
+| Speed | Fastest | Slowest, depends on scheduling | In between |
+| Best for | Concepts, product visuals, explainers, social content | Real people, testimonials, real places | Most commercial briefs |
+
+AI does not make video free. Direction, scripting, editing and sound design still take skilled time, and that is where quality comes from. For a deeper comparison, read [AI vs traditional video production](/blog/ai-vs-traditional-video-production).
+
+## What should be included in a quote
+
+Before you compare prices, check each quote states:
+
+1. The deliverables: number of videos, lengths, aspect ratios and languages.
+2. Whether script and storyboard are included, and who writes them.
+3. The number of revision rounds.
+4. Music and voiceover licensing, and where you are allowed to use the video.
+5. Who owns the final files.
+6. The timeline, and what you need to provide to keep to it.
+7. Whether VAT is included.
 
 ## How to get more value from your budget
 
-1. Shoot once, cut many — get platform versions from one production.
-2. Use AI for concepts and variations, filming only where it adds authenticity.
-3. Prioritise the hook and first 10 seconds over expensive extras.`,
+1. **Shoot once, cut many.** Plan every placement at brief stage so one production gives you website, social and ad versions.
+2. **Use AI where it adds speed, film where it adds trust.** Concepts, product shots and variations suit AI; real testimonials suit filming.
+3. **Spend on the first ten seconds.** The hook decides whether anyone sees the rest.
+4. **Keep one message per video.** Two short focused films usually outperform one long one that tries to say everything.
+5. **Get feedback in one place.** Consolidated feedback from one decision-maker saves revision rounds.
+
+## How to get an accurate quote
+
+Book a free 15-minute call. We will ask about your goal, audience, where the video will be used and your timeline, then send a written quote. You can also see our [AI video production services](/services/ai-video-production) or browse [our work](/work).`,
     faqs: [
       {
-        q: 'Why is video production so expensive traditionally?',
-        a: 'Crew, kit, studio days and lengthy post-production add up. AI production removes much of that overhead.',
+        q: 'How much does a promotional video cost in the UK?',
+        a: 'Our promo videos start from £1,499, including script, storyboard, production, voiceover, music and platform cutdowns. Filmed shoots, actors and extra versions increase the price.',
+      },
+      {
+        q: 'How much does a TV commercial cost?',
+        a: 'Our TV commercials start from £3,999. The final cost depends on whether it is AI-led, filmed or hybrid, the talent involved, and the media usage you need.',
+      },
+      {
+        q: 'Why do video production quotes vary so much?',
+        a: 'Quotes reflect different production methods, crew sizes, creative development and deliverables. Compare quotes line by line: deliverables, revisions, licensing, ownership and timeline.',
       },
       {
         q: 'Can I get a professional video on a small budget?',
-        a: 'Yes — AI-generated and hybrid videos deliver professional results at SMB-friendly prices.',
+        a: 'Yes. AI-generated and hybrid production can keep costs down. Our Social Pack starts from £499 for three short-form videos.',
       },
       {
         q: 'Do you offer fixed pricing?',
-        a: 'We publish honest starting points and give a tailored quote per project — no hidden fees.',
+        a: 'We publish starting prices and give every project a written quote after a free call, so you know the cost before work begins.',
       },
     ],
     related: [
       'ai-vs-traditional-video-production',
-      'what-is-ai-video-production',
+      'explainer-video-production',
       'how-to-choose-video-production-company',
     ],
   },
@@ -673,99 +787,140 @@ We produce restaurant video from brief to delivery in-house: appetite-led concep
   },
   {
     slug: 'explainer-video-production',
-    title:
-      'Explainer Video Production: The UK Business Guide to Videos That Sell the Idea',
+    title: 'Explainer Video Production UK: Process & Costs',
     description:
-      'Explainer video production for UK businesses — what explainers are, the styles compared, the step-by-step process, real costs and typical timelines.',
+      'Explainer video production in the UK: styles compared, the six-step process, what drives cost (ours start from £1,499), timelines and how to brief a studio.',
     keyword: 'explainer video production',
     tags: ['Explainer Video', 'Video Production', 'Guides'],
     date: '2026-07-24',
+    updated: '2026-10-17',
     coverFile: '/blog/explainer-video-production.webp',
     quickAnswer:
-      'An explainer video is a short (30–90 second) video that makes a product, service or process instantly clear — usually a scripted story with visuals, voiceover and captions. Explainer video production works because it turns a complex offer into one obvious benefit and one clear next step, which is why explainers sit on the highest-converting pages of the web.',
+      'An explainer video is a short film, usually 30 to 90 seconds, that makes a product, service or process clear to someone who has never heard of it. Production follows six steps: brief, script, storyboard, production, edit and delivery. At Moon Gleam, explainer videos start from £1,499 and are typically delivered in 7 to 14 days once the script is signed off.',
     body: `## What an explainer video is (and when you need one)
 
-Explainer video production is the craft of compressing something complicated into a short video a stranger understands in under a minute. You need one when:
+Explainer video production is the craft of compressing something complicated into a short film that a stranger understands in under a minute. It is not a brand film and it is not an advert. Its only job is clarity: by the end, the viewer should know what you do, who it is for and what to do next.
 
-- You're launching a **new service** people don't yet have a mental model for.
-- Your offer involves a **complex process** — legal claims, tax planning, onboarding.
-- You sell a **high-consideration purchase** where confusion kills conversion.
-- You need to **onboard** new customers, staff or students consistently.
+You probably need one when:
 
-If prospects regularly ask "so what exactly do you do?", an explainer pays for itself quickly.
+- You are launching a **new service** that people don't yet have a mental model for.
+- Your offer involves a **multi-step process**, such as a legal claim, a tax return, onboarding or a subscription.
+- You sell a **considered purchase**, where confusion is the main reason people don't enquire.
+- You need to **onboard** customers, staff or students the same way every time.
+
+A simple test: if prospects regularly ask "so what exactly do you do?", an explainer is worth making before almost any other video.
 
 ## Types of explainer video
 
-| Style | Best for | Feel |
-|---|---|---|
-| Animated | Abstract services, processes, finance & legal | Clear, friendly, brand-led |
-| AI-presenter / live-action | Trust-led services where a face helps | Human, direct, personal |
-| Screen / product walkthrough | Software, apps, online services | Practical, show-don't-tell |
-| Hybrid | Most real-world briefs | Best of each, scene by scene |
+| Style | Best for | Feel | Watch-outs |
+|---|---|---|---|
+| Animated (2D / motion graphics) | Abstract services, processes, finance and legal | Clear, friendly, brand-led | Can feel generic without a strong visual style |
+| AI-presenter or live-action | Trust-led services where a face helps | Human, direct, personal | Needs a natural script; stiff delivery kills trust |
+| Screen or product walkthrough | Software, apps, online services | Practical, show-don't-tell | Must be re-cut when the interface changes |
+| Hybrid | Most real-world briefs | The right tool scene by scene | Needs tighter direction to stay coherent |
 
-There's no universally "best" style — the right choice depends on whether your offer is abstract (animate it), trust-driven (show a person) or visual (demonstrate it).
+There is no universally "best" style. Animate it if the offer is abstract, show a person if the offer depends on trust, and demonstrate it if the offer is visual.
 
 ## What goes into a great explainer
 
-- **One idea.** The single most common failure is cramming three messages into 60 seconds.
-- **A hook in the first 3 seconds** — the problem your customer recognises instantly.
-- **Problem → solution → proof → CTA.** The structure that has sold ideas for a century.
-- **Plain English.** If a 12-year-old can't follow it, neither can a busy decision-maker.
-- **Captions and sound design.** Watched on mute, it must still work; with sound, it must feel premium.
+- **One idea.** The most common failure is trying to fit three messages into 60 seconds. Choose the one that matters most to the buyer.
+- **A hook in the first three seconds.** Open with the problem your customer recognises, not your logo.
+- **Problem, solution, proof, call to action.** A simple structure that keeps the viewer moving towards the next step.
+- **Plain English.** Write for the ear, not the page. Short sentences, everyday words, no jargon.
+- **Captions and sound design.** Most social viewing starts on mute, so the film must work silently. With sound on, voiceover and music should feel considered.
+- **A single next step.** Book a call, get a quote, start a trial. One action, said and shown.
+
+## How long should an explainer video be?
+
+- **Social and paid ads:** 15 to 30 seconds, built around one benefit.
+- **Homepage or landing page:** 60 to 90 seconds, covering the full problem-to-solution story.
+- **Onboarding or how-to:** as long as the task needs, split into short chapters.
+
+A useful rule of thumb is that a natural speaking pace is roughly 140 to 160 words per minute, so a 60-second explainer script is about 150 words. If your draft is 300 words, either the film is two minutes long or the message needs cutting.
 
 ## The explainer video production process, step by step
 
-1. **Brief.** A short call: your offer, your customer, the one action you want.
-2. **Script.** Hook-led, benefit-first, written for the ear, not the page.
-3. **Storyboard.** Scene-by-scene sign-off before anything is produced.
-4. **Generate or shoot.** Animation, AI-presenter scenes, screen capture or filmed footage.
-5. **Edit.** Voiceover, music, captions, grade and sound design.
-6. **Deliver.** The master film plus cutdowns for your website, social channels and ads.
+1. **Brief.** A short call to agree the offer, the audience, where the video will live and the one action you want viewers to take.
+2. **Script.** A hook-led, benefit-first script, written to be heard. This is where most of the value is created, so it is signed off before anything else happens.
+3. **Storyboard.** A scene-by-scene plan showing what is on screen against each line of the script. You approve the look before production starts.
+4. **Production.** Animation, AI-generated scenes, AI-presenter footage, screen capture or filmed footage, depending on the agreed style.
+5. **Edit.** Voiceover, music, captions, colour grade and sound design, followed by a review round.
+6. **Delivery.** The master film plus cutdowns and aspect ratios for your website, social channels and ads.
 
-Because sign-off happens at script and storyboard stage, revisions are cheap and late surprises are rare.
+Because sign-off happens at script and storyboard stage, changes are made when they are cheap, and there are few surprises at the end.
+
+## How to brief an explainer video
+
+You will get a better film, faster, if you can answer these before the first call:
+
+- Who is the viewer, and what do they already know?
+- What problem are they trying to solve when they find you?
+- What is the one thing they must remember?
+- What should they do after watching?
+- Where will the video be used (website, ads, sales emails, social, events)?
+- Do you have brand guidelines, fonts, colours or existing footage?
+- Are there words, claims or visuals you must avoid, for example for regulatory reasons?
 
 ## How much does explainer video production cost in the UK?
 
-Our explainer video production starts from **£1,499**. The main cost drivers are length, style (animation and AI-presenter work price differently), the number of platform versions, and voiceover requirements. Traditional agencies often quote five figures and months of lead time for the same brief; Creative AI production — AI speed, human craft — delivers in days, at a price a UK SMB can justify, without the quality trade-off.
+Our explainer videos fall under our Promo Video package, which starts from **£1,499** (see [our pricing](/pricing)). That starting point includes script, storyboard and creative direction, AI, filmed or hybrid production, voiceover, music and sound design, and cutdowns for each platform.
+
+What moves the price up or down:
+
+- **Length and number of scenes.** More scenes means more to design, generate or film.
+- **Style.** Custom character animation, filmed presenters and location work take longer than motion graphics or AI-generated scenes.
+- **Voiceover.** A professional voice artist, multiple languages or celebrity voices change the budget.
+- **Versions.** Extra aspect ratios, languages or audience-specific edits.
+- **Usage.** Broadcast or large paid-media campaigns may need additional licensing for music or talent.
+
+For a fuller breakdown of how video budgets work, read our [UK video production cost guide](/blog/video-production-cost-uk).
+
+## How long does it take?
+
+For our Promo Video package the typical timeline is **7 to 14 days**, assuming feedback is returned promptly at script and storyboard stage. Projects with filming, multiple languages or several stakeholders take longer, and we will give you a realistic schedule on the first call.
 
 ## Explainer videos by sector
 
-- **Law firms:** "What to do after an accident" and plain-English process explainers that turn anxious searchers into enquiries.
-- **Accountancy:** one-answer clips — deadlines, allowable expenses, switching accountants — that position you as the approachable expert.
-- **SaaS and tech:** product walkthroughs that show the value in 60 seconds flat.
-- **Education:** course, open-day and enrolment explainers that fill seats.
+- **Law firms:** plain-English process explainers, such as "what happens after you instruct us", that reassure anxious searchers. See our page on [video for law firms](/sectors/law-firms).
+- **Accountants:** short one-answer clips on deadlines, allowable expenses or switching accountant. See [video for accountants](/sectors/accountants).
+- **Software and tech:** product walkthroughs that show the core value quickly.
+- **Education:** course, open-day and enrolment explainers. See [video for education](/sectors/education).
 
-We've covered how video works across these industries in our sector guide — the explainer is usually the first video each of them should make.
+For more examples across industries, read our [video marketing by sector guide](/blog/video-marketing-by-sector).
 
 ## How we produce explainer videos
 
-We handle explainer video production end to end, in-house: brief, script, storyboard, production, voiceover and edit, delivered with platform cutdowns. One call is enough for us to recommend the right style — animated, AI-presenter, walkthrough or hybrid — and give you an honest quote and timeline.`,
+We handle explainer video production end to end: brief, script, storyboard, production, voiceover and edit, delivered with platform cutdowns. We use AI where it saves time and money, and human creative direction for the story, brand and final edit. One call is usually enough for us to recommend a style and give you a written quote and timeline. You can see the full scope of our [AI video production services](/services/ai-video-production) or [book a free call](/contact).`,
     faqs: [
       {
         q: 'How long should an explainer video be?',
-        a: '30–90 seconds. Under 30 rarely explains enough; over 90 loses viewers before the call to action. Homepage explainers sit best at 60–75 seconds.',
+        a: 'Usually 30 to 90 seconds. Social versions work best at 15 to 30 seconds; homepage explainers at 60 to 90 seconds. At a natural pace, 60 seconds is roughly 150 words of script.',
       },
       {
         q: 'How much does explainer video production cost in the UK?',
-        a: 'Our explainers start from £1,499. Price varies with length, style and the number of platform versions — every project gets a tailored quote on a free call.',
+        a: 'Our explainers start from £1,499 as part of the Promo Video package. Price depends on length, style, voiceover and the number of versions. Every project gets a written quote after a free call.',
       },
       {
-        q: "What's the difference between an animated and an AI/live-action explainer?",
-        a: 'Animation suits abstract services and processes; AI-presenter or live-action suits trust-led offers where a human face helps. Many of the best explainers are hybrid.',
+        q: "What's the difference between an animated and an AI or live-action explainer?",
+        a: 'Animation suits abstract services and processes. AI-presenter or live-action suits trust-led offers where a human face helps. Many explainers are hybrid, choosing the right approach scene by scene.',
       },
       {
         q: 'How long does it take to produce an explainer video?',
-        a: 'Days, not months. With script and storyboard signed off, Creative AI production typically delivers the finished film and cutdowns inside two weeks.',
+        a: 'Typically 7 to 14 days for our Promo Video package once the script is signed off. Filming, multiple languages or many reviewers add time.',
       },
       {
-        q: 'Do explainer videos actually increase conversions?',
-        a: 'Yes — a clear explainer on a landing or service page routinely lifts conversion, because it removes the confusion that stops people enquiring.',
+        q: 'What do I need to provide?',
+        a: 'Answers to a short brief (audience, problem, key message, call to action, where it will be used), plus any brand guidelines, logos or existing footage. We write the script.',
+      },
+      {
+        q: 'Do explainer videos increase conversions?',
+        a: 'They can, when they remove the confusion that stops people enquiring. The only reliable way to know for your site is to measure it: compare enquiry rates on the page before and after adding the video.',
       },
     ],
     related: [
-      'how-video-increases-conversion',
-      'video-marketing-by-sector',
       'video-production-cost-uk',
+      'what-is-ai-video-production',
+      'video-marketing-by-sector',
     ],
   },
   {
