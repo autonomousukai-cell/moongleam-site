@@ -698,85 +698,115 @@ Over-styling until it looks like a generic advert, hiding the product's real ben
   },
   {
     slug: 'restaurant-video-marketing',
-    title:
-      'Restaurant Video Marketing: How UK Restaurants Fill Tables With Video (2026)',
+    title: 'Restaurant Video Marketing UK: 5 Videos That Fill Tables',
     description:
-      'Restaurant video marketing guide for UK restaurants — the five videos that fill tables, where to post them, what it costs and how fast we deliver.',
+      'Restaurant video marketing for UK restaurants, cafés and takeaways: the five videos to make first, where to post them, what they cost and how to brief them.',
     keyword: 'restaurant video marketing',
     tags: ['Restaurants', 'Video Marketing', 'Sectors'],
     date: '2026-07-24',
+    updated: '2026-10-26',
     coverFile: '/blog/restaurant-video-marketing.webp',
     quickAnswer:
-      'Restaurant video marketing means short, appetite-led video — dishes in motion, kitchen craft, ambience and reviews — placed where diners decide: Instagram, TikTok, Google Business Profile and your booking page. Done well, it lifts bookings, delivery orders and footfall, because people choose restaurants with their eyes before they ever read a menu.',
+      'Restaurant video marketing is short, appetite-led video (dishes in motion, kitchen craft, the room and real diners) placed where people decide where to eat: Instagram, TikTok, your Google Business Profile, delivery apps and your booking page. Start with a signature-dish reel and a short ambience film, cut them vertically with captions, and give every video one action: book, order or visit.',
     body: `## What counts as restaurant video marketing
 
-Restaurant video marketing is any video made to put diners in seats or orders in the kitchen. In practice that means five kinds of content:
+Restaurant video marketing is any video made to put diners in seats or orders through the kitchen door. For a UK restaurant, café, takeaway or bar it usually means five kinds of content:
 
-- **Menu and dish reels** — signature dishes in motion: the pour, the flame, the cheese pull.
-- **Ambience films** — the room, the music, the buzz; the reason people book for occasions.
-- **Chef and owner story** — who's behind the pass and why the food is worth crossing town for.
-- **UGC-style diner clips** — casual, phone-shot-feel videos that read as recommendations, not adverts.
-- **Seasonal and offer promos** — Christmas menus, Valentine's, lunch deals, new openings.
+- **Dish reels:** signature plates in motion, such as the pour, the flame or the slice.
+- **Ambience films:** the room, the lighting, the music and the buzz that make people book for occasions.
+- **Chef and owner stories:** who is behind the pass and why the food is worth travelling for.
+- **Diner-style clips:** casual, phone-shot-style videos that feel like a recommendation rather than an advert.
+- **Seasonal and offer promos:** Christmas menus, Valentine's Day, lunch deals, set menus and new openings.
 
-The common thread: appetite first. A great restaurant video makes someone hungry within three seconds, then tells them exactly what to do about it.
+The common thread is appetite first. A good restaurant video makes someone hungry within the first three seconds, then tells them exactly what to do about it.
 
-## The 5 videos every restaurant should have
+## The 5 videos to make first
 
-| Video | Where it works hardest | What it does |
-|---|---|---|
-| Hero ambience film | Website / booking page | Sells the occasion; converts lookers into bookers |
-| Signature-dish reels | Instagram & TikTok | Builds appetite and following; earns shares |
-| Google Business Profile clip | Google Maps / local search | Wins the "restaurants near me" decision moment |
-| Seasonal / offer promo | Paid social & email | Fills quiet periods and event bookings |
-| UGC-style diner clips | Organic social & ads | Adds trust; feels like a friend's recommendation |
+| Video | Where it works hardest | Job it does | Typical length |
+|---|---|---|---|
+| Ambience film | Website and booking page | Sells the occasion and gives the booking a final push | 30–60 sec |
+| Signature-dish reels | Instagram, TikTok, Shorts | Builds appetite, shares and a local following | 10–20 sec |
+| Google Business Profile clip | Google Search and Maps | Stands out when people search for somewhere to eat nearby | 10–30 sec |
+| Seasonal or offer promo | Paid social and email | Fills quiet nights and sells event menus | 15–30 sec |
+| Diner-style clips | Organic social and ads | Adds trust by feeling like a friend's tip | 15–30 sec |
 
-Start with the two that match your biggest gap: quiet midweek covers usually means promos and Google presence; a weak social following means dish reels and UGC-style clips.
+Start with the two that match your biggest gap. Quiet midweek covers usually call for an offer promo and a stronger Google presence. A weak social following calls for dish reels and diner-style clips.
 
-## Where to put restaurant video
+## Where to post restaurant video
 
-- **Instagram and TikTok** — vertical, captioned, hook in the first second. This is where local food discovery happens in 2026.
-- **Google Business Profile** — most restaurants still have zero video here, so one good clip stands out immediately in local search.
-- **Your website and booking page** — an ambience film next to the "Book a table" button gives the booking a final push.
-- **Paid social** — dish reels make unusually strong ad creative because the product *is* the hook.
-- **Delivery platforms and in-store screens** — short loops that lift order value and keep queues patient.
+- **Instagram and TikTok:** vertical 9:16, captioned, with the hook in the first second. Post dish reels consistently rather than one big film a year.
+- **Google Business Profile:** add short clips of the food and the room. Many independent restaurants have photos but no video, so a good clip helps you stand out.
+- **Your website and booking page:** place the ambience film next to the "Book a table" button, and keep it short and silent-friendly.
+- **Paid social:** dish reels make strong ad creative because the product is the hook. Test two or three versions rather than one.
+- **Delivery apps and in-venue screens:** short loops of best-sellers on menus, screens and window displays.
 
-One production session can feed all five placements — brief the edit with every platform in mind.
+One production session can feed all of these placements if the edit is briefed with every platform in mind.
 
-## What great food video gets right
+## What good food video gets right
 
-1. **Food in motion.** Steam, pours, slices, sizzle — movement triggers appetite in a way stills can't.
-2. **Natural, warm light.** Harsh overhead lighting kills food on camera.
-3. **Sound design.** The sizzle and the room's hum do half the selling.
-4. **Vertical, mobile-first, captioned.** Most viewers are scrolling on mute.
-5. **One clear call to action.** Book, order or visit — never all three at once.
+1. **Food in motion.** Steam, pours, slices and sizzle trigger appetite in a way still photos can't.
+2. **Warm, natural light.** Harsh overhead lighting flattens food on camera.
+3. **Sound.** The sizzle, the clink and the hum of the room do half the selling when sound is on.
+4. **Vertical, captioned and mobile-first.** Most viewers start on mute.
+5. **Honest representation.** Show dishes as they are served. Portions, ingredients and prices in the video should match the menu.
+6. **One call to action.** Book, order or visit, never all three at once.
 
-## How much restaurant video marketing costs (and how fast)
+## How to brief a restaurant video
 
-Restaurant video marketing is far more affordable than most owners expect. Our social video packs start from **£499**, and a full promotional film from **£1,499** — with platform cutdowns so one production covers Instagram, TikTok, Google and your website. Because we produce with Creative AI — AI speed, human craft — delivery is measured in days, not the weeks a traditional crew shoot takes. That matters in hospitality: a seasonal menu promo is worthless if it arrives after the season.
+Have these ready before the first call and the shoot or production day will go further:
+
+- Your three best-selling or most photogenic dishes.
+- Your quietest days or services, and what you want to fill them with.
+- The occasion you want to own: date night, family Sunday, office lunch, late-night takeaway.
+- Where the video will be used, so we can plan aspect ratios and lengths.
+- Any brand assets: logo, fonts, colours, music you like.
+- Practical details: opening hours, booking link, delivery partners and any dishes to avoid showing.
+
+## Filmed, AI or hybrid?
+
+For restaurants, real food usually matters most. We film your actual dishes, kitchen and room where authenticity is the point, and use AI where it saves time and budget: animated menu graphics, seasonal backdrops, extra versions and edits for each platform. Most restaurant projects end up hybrid. Read more in our guide to [AI vs traditional video production](/blog/ai-vs-traditional-video-production).
+
+## What restaurant video costs
+
+Our published starting prices are:
+
+- **Social Pack from £499:** three short-form videos for Reels, TikTok and Shorts, typically delivered within a week.
+- **Promo Video from £1,499:** one promotional film with script, storyboard, voiceover or music, and cutdowns for each platform, typically delivered in 7 to 14 days.
+
+Filming days, multiple locations and extra versions change the price. Every project gets a written quote after a free call. See our [pricing page](/pricing) for what each package includes, or our [UK video production cost guide](/blog/video-production-cost-uk) for what drives the price.
+
+## Measuring whether it works
+
+Pick one number per video before you post it, so you know what to keep making:
+
+- **Dish reels:** saves, shares and profile visits.
+- **Google Business Profile clips:** calls, direction requests and website clicks in your profile's performance report.
+- **Ambience film on the booking page:** bookings per visit, compared with the month before.
+- **Offer promos:** redemptions of a code or a named offer.
 
 ## How we help restaurants
 
-We produce restaurant video from brief to delivery in-house: appetite-led concepts, dish reels, ambience films and seasonal promos, all cut for the platforms where diners actually decide. Hospitality is one of our core sectors — you'll find work like **Cuisine Artist** in our portfolio. Tell us your quiet nights and your signature dishes, and we'll recommend the videos that fill the gap.`,
+We produce restaurant video from brief to delivery: appetite-led concepts, dish reels, ambience films and seasonal promos, cut for the platforms where diners decide. See our [business promo video service](/services/business-promo-videos), our [UGC-style content service](/services/ugc-content) and the guide to [why UGC-style content works](/blog/ugc-content-explained). Tell us your quiet nights and your signature dishes, and we will recommend the videos that fill the gap. [Book a free call](/contact).`,
     faqs: [
       {
-        q: 'Does video marketing actually bring in more restaurant bookings?',
-        a: 'Yes — diners choose with their eyes. Appetite-led video on Instagram, TikTok, Google Business Profile and your booking page reaches people at the exact moment they decide where to eat, and it consistently outperforms photos for engagement and shares.',
+        q: 'Does video help restaurants get more bookings?',
+        a: 'It can, when it reaches people while they are deciding where to eat: on Instagram, TikTok, Google and your booking page. Measure it: compare bookings, calls and direction requests before and after you start posting video.',
       },
       {
         q: 'What type of video works best for a restaurant on Instagram and TikTok?',
-        a: 'Short vertical dish reels — food in motion, captioned, with a hook in the first second — plus UGC-style diner clips that feel like recommendations rather than adverts.',
+        a: 'Short vertical dish reels with the food in motion, captions and a hook in the first second, plus casual diner-style clips that feel like a recommendation.',
       },
       {
         q: 'How much does a restaurant promo video cost in the UK?',
-        a: 'Our social video packs start from £499 and full promotional films from £1,499, including platform cutdowns. Every project gets a tailored quote on a free call.',
+        a: 'Our Social Pack starts from £499 for three short videos and our Promo Video from £1,499, including platform cutdowns. Every project gets a written quote after a free call.',
       },
       {
-        q: 'How quickly can we get restaurant videos produced?',
-        a: 'Days, not weeks. Creative AI production means seasonal promos and dish reels arrive while the season — or the new menu — is still live.',
+        q: 'How quickly can restaurant videos be produced?',
+        a: 'Our Social Pack is typically delivered within a week and a Promo Video in 7 to 14 days, so seasonal promos can go out while the menu is still running.',
       },
       {
         q: 'Can you film our real dishes and kitchen, or is it all AI?',
-        a: 'Both. We film where authenticity matters — your real dishes, kitchen and room — and use AI where it saves time and budget. Most restaurant projects are hybrid.',
+        a: 'Both. We film your real dishes, kitchen and room where authenticity matters, and use AI for graphics, backdrops and extra versions. Most restaurant projects are hybrid.',
       },
     ],
     related: [

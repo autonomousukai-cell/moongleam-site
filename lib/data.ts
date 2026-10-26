@@ -191,7 +191,7 @@ export const services: Service[] = [
     slug: 'kids-animation',
     name: 'Kids Animation',
     short: '3D animated stories, songs and educational content children actually watch.',
-    desc: 'Pixar-style 3D animation for education brands, publishers and channels. Characters, songs and stories crafted for young audiences — with the pace and polish of a major studio, at a fraction of the cost.',
+    desc: '3D animation for education brands, publishers and channels: characters, songs and stories made for young audiences, with AI-assisted production that keeps series budgets realistic.',
     points: ['3D character animation and songs', 'Educational storytelling for young audiences', 'Series production for channels and courses', 'Safe, values-driven content'],
     cat: 'animation',
     sector: 'education',
