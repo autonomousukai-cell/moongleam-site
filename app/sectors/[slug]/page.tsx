@@ -2,9 +2,13 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import WorkGrid from '@/components/WorkGrid';
+import FAQ from '@/components/FAQ';
+import { marked } from 'marked';
 import CTABand from '@/components/CTABand';
-import { BreadcrumbJsonLd, metaDescription, socialMeta } from '@/lib/seo';
-import { sectorPages, portfolio } from '@/lib/data';
+import { BreadcrumbJsonLd, FaqJsonLd, metaDescription, socialMeta } from '@/lib/seo';
+import { sectorPages, portfolio, services } from '@/lib/data';
+import { sectorContent } from '@/lib/sectorContent';
+import { posts } from '@/lib/posts';
 import { cta } from '@/lib/site';
 
 export function generateStaticParams() {
@@ -14,8 +18,9 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const sec = sectorPages.find((s) => s.slug === params.slug);
   if (!sec) return {};
-  const title = `Video Production for ${sec.name}`;
-  const description = metaDescription(sec.short, sec.desc);
+  const content = sectorContent[sec.slug];
+  const title = content?.title ?? `Video Production for ${sec.name}`;
+  const description = content?.description ?? metaDescription(sec.short, sec.desc);
   const path = `/sectors/${sec.slug}`;
   return {
     title,
@@ -30,9 +35,14 @@ export default function SectorPage({ params }: { params: { slug: string } }) {
   if (!sec) notFound();
 
   const examples = portfolio.filter((w) => w.sector === sec.sector).slice(0, 6);
+  const content = sectorContent[sec.slug];
+  const html = content ? (marked.parse(content.body) as string) : '';
+  const svcs = content ? content.services.map((s) => services.find((x) => x.slug === s)).filter((x): x is (typeof services)[number] => Boolean(x)) : [];
+  const guides = content ? content.guides.map((g) => posts.find((p) => p.slug === g)).filter((p): p is (typeof posts)[number] => Boolean(p)) : [];
 
   return (
     <main>
+      {content && <FaqJsonLd items={content.faqs} />}
       <BreadcrumbJsonLd
         trail={[
           { name: 'Home', path: '/' },
@@ -46,7 +56,7 @@ export default function SectorPage({ params }: { params: { slug: string } }) {
           <p className="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-glow">
             Video for {sec.name}
           </p>
-          <h1 className="max-w-3xl font-display text-display font-semibold text-moon">{sec.name}</h1>
+          <h1 className="max-w-3xl font-display text-display font-semibold text-moon">{content?.h1 ?? sec.name}</h1>
           {/* Answer-first lead for AEO */}
           <p className="mt-5 max-w-2xl text-lg leading-relaxed text-moon-soft">{sec.short}</p>
           <Link
@@ -78,6 +88,50 @@ export default function SectorPage({ params }: { params: { slug: string } }) {
           </div>
         </div>
       </section>
+
+      {content && (
+        <section className="border-t border-ink-line/60 py-16 md:py-24">
+          <div className="container-content">
+            <div className="blog-prose mx-auto max-w-3xl" dangerouslySetInnerHTML={{ __html: html }} />
+
+            {svcs.length > 0 && (
+              <div className="mx-auto mt-12 max-w-3xl">
+                <h2 className="mb-4 font-display text-lg font-semibold text-moon">Services for this sector</h2>
+                <ul className="flex flex-wrap gap-3">
+                  {svcs.map((s) => (
+                    <li key={s.slug}>
+                      <Link href={`/services/${s.slug}`} className="inline-block rounded-full border border-ink-line px-4 py-2 text-sm text-moon-soft transition-colors hover:border-gleam/50 hover:text-moon">
+                        {s.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <div className="mx-auto mt-16 max-w-3xl">
+              <h2 className="mb-6 font-display text-heading font-semibold text-moon">Frequently asked questions</h2>
+              <FAQ items={content.faqs} />
+            </div>
+
+            {guides.length > 0 && (
+              <div className="mx-auto mt-16 max-w-3xl">
+                <h2 className="mb-6 font-display text-lg font-semibold text-moon">Related guides</h2>
+                <ul className="space-y-3">
+                  {guides.map((g) => (
+                    <li key={g.slug}>
+                      <Link href={`/blog/${g.slug}`} className="group flex items-center gap-3 rounded-xl border border-ink-line bg-ink-soft px-5 py-4 transition-colors duration-200 hover:border-gleam/50">
+                        <span className="text-gleam">→</span>
+                        <span className="text-sm font-medium text-moon-soft transition-colors group-hover:text-moon">{g.title}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       {examples.length > 0 && (
         <section className="border-t border-ink-line/60 py-16 md:py-24">
