@@ -34,7 +34,7 @@ export default function Footer() {
         <div>
           <p className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-gleam">Services</p>
           <ul className="space-y-2">
-            {services.slice(0, 6).map((s) => (
+            {services.map((s) => (
               <li key={s.slug}>
                 <Link href={`/services/${s.slug}`} className="text-sm text-moon-soft transition-colors hover:text-moon">
                   {s.name}
