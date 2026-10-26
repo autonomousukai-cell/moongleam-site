@@ -91,8 +91,11 @@ export default function StudioDetails() {
           Moon Gleam AI Studio · London
         </p>
         <h1 className="mt-3 max-w-3xl text-3xl font-medium tracking-tight text-white [font-family:var(--font-studio-display)] sm:text-5xl">
-          AI Films. Cinematic Stories. Limitless Worlds.
+          Video production company in London
         </h1>
+        <p className="mt-3 max-w-3xl text-xl text-moon-soft [font-family:var(--font-studio-display)] sm:text-2xl">
+          AI Films. Cinematic Stories. Limitless Worlds.
+        </p>
         <p className="mt-5 max-w-2xl text-base leading-relaxed text-moon-soft">
           Moon Gleam is a London-based AI film studio producing AI-powered
           video that grows UK businesses — TV commercials, brand films,
