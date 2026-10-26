@@ -78,12 +78,14 @@ export function BlogPostingJsonLd({
   slug,
   cover,
   date,
+  updated,
 }: {
   title: string;
   description: string;
   slug: string;
   cover: string;
   date: string;
+  updated?: string;
 }) {
   const url = `${site.url}/blog/${slug}`;
   return (
@@ -95,7 +97,7 @@ export function BlogPostingJsonLd({
         description,
         image: cover,
         datePublished: date,
-        dateModified: date,
+        dateModified: updated ?? date,
         url,
         mainEntityOfPage: { '@type': 'WebPage', '@id': url },
         author: { '@id': `${site.url}/#organization` },

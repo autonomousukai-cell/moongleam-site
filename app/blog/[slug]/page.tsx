@@ -31,6 +31,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
       url: `/blog/${post.slug}`,
       type: 'article',
       publishedTime: post.date,
+      ...(post.updated ? { modifiedTime: post.updated } : {}),
       images: [{ url: post.cover }],
     },
     twitter: {
@@ -62,6 +63,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
         slug={post.slug}
         cover={post.cover}
         date={post.date}
+        updated={post.updated}
       />
       <FaqJsonLd items={post.faqs} />
       <BreadcrumbJsonLd
@@ -90,6 +92,11 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
               <time dateTime={post.date} className="text-moon-faint">
                 {formatDate(post.date)}
               </time>
+              {post.updated && post.updated !== post.date && (
+                <span className="text-moon-faint">
+                  · Updated <time dateTime={post.updated}>{formatDate(post.updated)}</time>
+                </span>
+              )}
               <span className="text-moon-faint">· {readingTime(post.body)} min read</span>
             </div>
 
