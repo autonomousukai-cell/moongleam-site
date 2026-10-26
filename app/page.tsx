@@ -13,10 +13,10 @@ const display = Marcellus({
 
 export const metadata: Metadata = {
   title: {
-    absolute: 'Moon Gleam AI Studio — AI-Powered Video Production, London',
+    absolute: 'Video Production Company London | Moon Gleam AI Studio',
   },
   description:
-    'AI-powered video production for UK businesses — TV commercials, brand films, documentaries, animation, UGC and social content, from brief to delivery.',
+    'London video production company using creative AI: TV commercials, brand films, explainers, animation and social video for UK businesses.',
   alternates: { canonical: '/' },
   openGraph: {
     title: 'Moon Gleam AI Studio',
