@@ -52,13 +52,13 @@ const rawPosts: RawPost[] = [
     keyword: 'AI video production',
     tags: ['AI Video', 'Video Production', 'Guides'],
     date: '2026-06-03',
-    updated: '2026-10-17',
+    updated: '2026-10-28',
     coverFile: 'hf_20260712_232957_78b34b4d-c0cd-4460-b8d2-87aba8b073ba.png',
     quickAnswer:
       'AI video production is making professional video with artificial intelligence tools for some or all of the work, such as generating scenes, voiceovers, music, translations and edits, while people direct the story, brand and final cut. For UK businesses it usually means faster turnaround and lower cost than a full shoot, with filming still used where real people or places matter.',
     body: `## What "AI video production" actually means
 
-AI video production doesn't mean a robot makes your advert. It means using AI at the stages where it saves the most time and money, while a creative team stays responsible for the idea, the script, the brand and the edit. At Moon Gleam we describe this as **Creative AI**: AI speed, human craft.
+AI video production doesn't mean a robot makes your advert. It means using AI at the stages where it saves the most time and money, while a creative team stays responsible for the idea, the script, the brand and the edit. At Moon Gleam we describe this as **Creative AI**: AI speed, human craft. (Looking for a studio rather than an explainer? See our [AI video production agency services](/services/ai-video-production).)
 
 In practice, a project can be:
 
@@ -492,54 +492,102 @@ Track conversion rate, watch-time, click-through and cost-per-lead before and af
   },
   {
     slug: 'tv-commercial-production-smb',
-    title: 'TV Commercial Production for SMBs: You No Longer Need a £100k Budget',
+    title: 'Affordable TV Commercial Production UK: What a TV Advert Costs',
     description:
-      'How AI production makes TV commercials (TVCs) affordable for UK small businesses — what’s changed, what it costs, and how to get on air.',
-    keyword: 'TV commercial production UK',
+      'What a TV advert costs to produce in the UK in 2026, how small businesses keep TV commercial production costs down, and how AI and hybrid production get you on air.',
+    keyword: 'affordable TV commercial production',
     tags: ['TVC', 'AI Video', 'Guides'],
     date: '2026-07-03',
+    updated: '2026-10-28',
     coverFile: 'hf_20260712_233003_d25cc2f8-4b70-46f5-903a-43bc8e1a3d63.png',
     quickAnswer:
-      'TV commercial production used to cost tens of thousands because of crews, studios and post-production. In 2026, AI and hybrid production let UK small businesses produce broadcast-quality TVCs for a fraction of that — and connected TV makes airtime more accessible than ever.',
-    body: `## What's changed
+      'A TV advert has two separate costs: producing the commercial and buying the airtime. With AI and hybrid production, a broadcast-standard 30 to 60-second TV commercial from Moon Gleam starts from £3,999, including concept, script, storyboard, broadcast-ready delivery and social cutdowns, typically delivered in 2 to 3 weeks from approved script. Airtime is bought separately, and connected TV and streaming now let smaller UK businesses buy targeted slots rather than national campaigns.',
+    body: `## What a TV advert costs in the UK: production vs airtime
 
-- **Production:** AI-generated scenes replace expensive shoots where suitable.
-- **Post:** Faster editing, grading and voiceover.
-- **Distribution:** Connected TV and streaming open affordable, targeted airtime.
+When people ask how much a TV advert costs, they are usually asking two questions at once.
 
-## What makes a TVC work
+- **Production** is the cost of making the commercial: concept, script, storyboard, filming or AI generation, edit, grade, sound, voiceover and the broadcast master.
+- **Airtime** is the cost of showing it. It is bought from broadcasters, streaming platforms or a media agency, and it depends on channel, region, time slot, audience and how many times the advert runs.
 
-A single memorable idea, a strong hook, brand consistency, and a clear call to action — produced to broadcast quality. The craft still matters; AI just lowers the cost of achieving it.
+The two are budgeted separately. A small business can keep production lean and start with a modest, targeted airtime test, then scale what works.
 
-## Is a TVC right for your business?
+## What affordable TV commercial production looks like in 2026
 
-TVCs build trust and reach fast. They suit growing SMBs, professional firms and local brands wanting authority. If your buyers watch streaming TV, a well-targeted TVC can punch far above its budget.
+Traditional TV commercial production was priced for big brands: large crews, studio days, location fees and weeks of post-production. AI and hybrid workflows change the maths. Scenes that once needed a set, a location or a reshoot can be generated or extended, and editing, grading and voiceover move faster.
 
-## From idea to on-air
+Our TVC / Campaign package starts from **£3,999** for a 30 to 60-second commercial. It includes:
 
-1. Concept and script.
-2. Storyboard sign-off.
-3. AI generation and/or filming.
-4. Edit, grade, sound, voiceover.
-5. Broadcast-ready delivery in the right formats.`,
+- Full concept, script and storyboard.
+- Live-action with models, fully AI-generated or hybrid production.
+- Broadcast-ready technical delivery.
+- Campaign cutdowns for social and web.
+
+The final quote depends on filming days, talent, locations and the number of versions you need. See our [pricing page](/pricing) for every package, or our [UK video production cost guide](/blog/video-production-cost-uk) for what drives price across all video types.
+
+| Option | Starts from | Typical turnaround | Best for |
+|---|---|---|---|
+| Social video pack | £499 | Within a week | Testing an idea on social before TV |
+| Promotional video | £1,499 | 7 to 14 days | Website, YouTube and paid social |
+| TVC / Campaign | £3,999 | 2 to 3 weeks from approved script | Broadcast and connected TV, plus cutdowns |
+
+## How to keep TV commercial production costs down
+
+1. **Start from one clear idea.** One message, one hook, one call to action. Every extra idea adds scenes, time and cost.
+2. **Lock the script and storyboard before production.** Changes after filming or generation are the most expensive changes.
+3. **Use AI where it adds value, film where trust matters.** Product hero shots, settings and stylised scenes suit AI. Real people, real premises and real products often suit live action. Hybrid gets the best of both. Our guide to [AI vs traditional video production](/blog/ai-vs-traditional-video-production) explains the trade-offs.
+4. **Plan every version at the start.** A 30-second master, a shorter edit and vertical social cutdowns cost far less when they are planned into one production.
+5. **Keep claims simple and provable.** Adverts must be cleared before broadcast. Claims you cannot evidence cause delays and re-edits.
+
+## Is a TV commercial right for your business?
+
+A TV commercial builds trust and reach quickly. It suits growing businesses, professional firms and local brands that want to look established next to bigger competitors. If your customers watch streaming TV, a targeted connected-TV campaign lets you reach a region or audience without paying for national coverage.
+
+It is less suitable if you have no clear offer yet, or if your budget would leave nothing for airtime. In that case, start with a [promotional video](/services/business-promo-videos) or a [social video pack](/services/ugc-content) and move to TV when the message is proven.
+
+## Can an AI-generated advert be shown on TV?
+
+Yes, provided it meets broadcast technical standards and UK advertising rules like any other advert. TV adverts in the UK must be cleared before they air, so tell us your channel and airtime plans early. We plan the script, claims and supers with clearance in mind from day one.
+
+## From idea to on air
+
+1. **Scoping call** covering objective, audience, channels and airtime plans.
+2. **Concept and script**, with one or more creative routes.
+3. **Storyboard sign-off**, so every shot is agreed before production.
+4. **Production**: filming, AI generation or both.
+5. **Post-production**: edit, grade, sound mix, voiceover and graphics.
+6. **Delivery** of the broadcast master plus social and web versions.
+
+See TV commercials we have produced for retail, travel and charity clients on our [work page](/work), or read more about our [TV commercial production service](/services/tv-commercials).`,
     faqs: [
       {
-        q: 'How much does a TV commercial cost in the UK now?',
-        a: 'Far less than the traditional tens of thousands — AI production has cut costs dramatically. Get a tailored quote.',
+        q: 'How much does a TV advert cost to produce in the UK?',
+        a: 'Our TVC / Campaign package starts from £3,999 for a 30 to 60-second commercial, including concept, script, storyboard, broadcast-ready delivery and social cutdowns. The final cost depends on filming, talent, locations and versions. Airtime is bought separately.',
+      },
+      {
+        q: 'Is airtime included in the production price?',
+        a: 'No. Production and airtime are separate costs. Airtime is bought from broadcasters, streaming platforms or a media agency and depends on channel, region, slot and frequency.',
+      },
+      {
+        q: 'How can a small business keep TV commercial production costs down?',
+        a: 'Keep to one clear idea, lock the script and storyboard before production, use AI where it adds value and film where trust matters, and plan all versions and cutdowns at the start.',
+      },
+      {
+        q: 'How long does TV commercial production take?',
+        a: 'Typically 2 to 3 weeks from approved script to delivery.',
+      },
+      {
+        q: 'Can an AI-generated advert be shown on UK TV?',
+        a: 'Yes, provided it meets broadcast technical standards and UK advertising rules and is cleared before broadcast, like any other advert.',
       },
       {
         q: 'Do I need a big brand to advertise on TV?',
-        a: 'No. Connected TV makes targeted airtime accessible to smaller budgets.',
-      },
-      {
-        q: 'How long does TVC production take?',
-        a: 'Often a couple of weeks with AI and hybrid workflows, versus months traditionally.',
+        a: 'No. Connected TV and streaming let smaller businesses buy targeted airtime by region or audience rather than national campaigns.',
       },
     ],
     related: [
-      'what-is-ai-video-production',
       'video-production-cost-uk',
       'ai-vs-traditional-video-production',
+      'what-is-ai-video-production',
     ],
   },
   {

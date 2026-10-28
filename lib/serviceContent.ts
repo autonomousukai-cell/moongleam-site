@@ -27,11 +27,21 @@ We recommend a route on the first call and explain the trade-offs in plain Engli
 
 export const serviceContent: Record<string, ServiceContent> = {
   'ai-video-production': {
-    title: 'AI Video Production Company in London',
+    title: 'AI Video Production Agency in London & the UK',
     description:
-      'AI video production from a London studio: AI-generated, filmed or hybrid brand videos, scripted and directed by people. Promo videos from £1,499.',
-    h1: 'AI Video Production Company in London',
-    body: `Moon Gleam is a London AI video production company. We use AI where it saves time and money, and human creative direction for the idea, the script, the brand and the final edit, so UK businesses get professional video in days rather than months.
+      'London AI video production agency for UK businesses: AI-generated, filmed or hybrid videos, scripted and directed by people. Social Pack from £499, promos from £1,499.',
+    h1: 'AI Video Production Company & Agency in London',
+    body: `Moon Gleam is a London AI video production company and creative agency. We use AI where it saves time and money, and human creative direction for the idea, the script, the brand and the final edit, so UK businesses get professional video in days rather than months.
+
+## AI video production services
+
+Every format below can be made fully with AI, filmed, or as a hybrid of both:
+
+- [TV commercials](/services/tv-commercials) for broadcast and connected TV.
+- [Business promo videos](/services/business-promo-videos) for your website, socials and ads.
+- [Product promotional videos](/services/product-promo-videos) that make the product the hero.
+- [UGC-style content](/services/ugc-content) for social feeds and paid social.
+- [Documentaries](/services/documentary), [kids animation](/services/kids-animation) and [short films](/services/short-film), quoted per project.
 
 ## What AI video production with us includes
 
@@ -61,6 +71,17 @@ ${HOW_WE_CHOOSE}
 
 Documentaries, kids animation, short films and monthly content are quoted per project. See [full pricing](/pricing) or our [UK video production cost guide](/blog/video-production-cost-uk).
 
+## An AI video agency, not an AI video tool
+
+AI video tools generate clips. An AI video production agency is responsible for the whole film: what it needs to say, who it is for, whether each shot is on brand and accurate, and how it is cut for each platform. With Moon Gleam you get:
+
+- **One team from brief to delivery** — script, storyboard, production, edit and versions.
+- **Human sign-off at every stage** — the script and storyboard are approved before anything is generated or filmed.
+- **The right route, not just AI** — we also film, so you are never pushed into AI when filming would serve you better.
+- **Clear ownership** — full usage rights to the final delivered files.
+
+New to the subject? Read [what AI video production is](/blog/what-is-ai-video-production) or compare [AI vs traditional video production](/blog/ai-vs-traditional-video-production).
+
 ## Who we make AI video for
 
 We work with UK businesses and organisations across retail, professional services, charities, education and travel. Browse [video by sector](/sectors) or see [our work](/work).`,
@@ -84,6 +105,14 @@ We work with UK businesses and organisations across retail, professional service
       {
         q: 'Who owns the finished video?',
         a: 'You do. You receive full usage rights to the final delivered files.',
+      },
+      {
+        q: 'Is Moon Gleam an AI video agency or a video production company?',
+        a: 'Both. We are a London video production studio that uses AI as part of the process, with people responsible for the creative direction, script and final edit.',
+      },
+      {
+        q: 'Do you only make AI-generated videos?',
+        a: 'No. We offer fully AI-generated, traditionally filmed and hybrid production, and recommend the route that suits your goal and budget on the first call.',
       },
     ],
     guides: ['what-is-ai-video-production', 'ai-vs-traditional-video-production', 'video-production-cost-uk'],
