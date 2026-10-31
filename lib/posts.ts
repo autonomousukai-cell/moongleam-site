@@ -438,56 +438,96 @@ Track conversion rate, watch-time, click-through and cost-per-lead before and af
   },
   {
     slug: 'how-to-choose-video-production-company',
-    title: 'How to Choose the Right Video Production Company (10-Point Checklist)',
+    title: 'How to Choose a Video Production Company in the UK: 10-Point Checklist',
     description:
-      'A 10-point checklist for choosing the right video production company in the UK — what to ask, red flags to avoid, and how to judge value.',
+      'How to choose a video production company in the UK: a 10-point checklist, the questions to ask on the first call, red flags, and how to compare quotes fairly.',
     keyword: 'how to choose a video production company',
     tags: ['Guides', 'Video Production'],
     date: '2026-06-30',
+    updated: '2026-10-31',
     coverFile: 'hf_20260712_233024_ff7550e0-4372-4673-84a4-32db9e165731.png',
     quickAnswer:
-      'Choose a video production company by judging its portfolio relevance, understanding of your sector, transparency on price and timelines, ownership of rights, and whether it handles the full process in-house. Avoid anyone vague on cost or unable to show results.',
-    body: `## The 10-point checklist
+      'Choose a video production company by judging its portfolio relevance, understanding of your sector, transparency on price and timelines, ownership of rights, and whether it handles the full process in-house. Avoid anyone vague on cost or unable to show relevant work.',
+    body: `## Before you contact anyone: write a one-page brief
 
-1. **Relevant portfolio** — work for businesses like yours.
-2. **Sector understanding** — do they get your customer?
-3. **Clear process** — brief to delivery, explained upfront.
-4. **Transparent pricing** — honest starting points, no hidden fees.
-5. **Realistic timelines** — and do they hit them?
-6. **In-house production** — fewer handoffs, better consistency.
-7. **Strategy, not just cameras** — do they think about conversion?
-8. **Rights and ownership** — you should own the final files.
-9. **Revisions policy** — what's included?
-10. **Proof** — named clients, reviews, measurable results.
+You will get better answers, and quotes you can compare, if every company is answering the same brief. It only needs five things:
 
-## Red flags to avoid
+- **The goal.** What should a viewer do after watching? Book a call, buy, donate, apply?
+- **The audience.** Who is it for, and what do they already know about you?
+- **Where it will run.** Your website, paid social, YouTube, TV, a trade-show screen. This decides length, shape and how many versions you need.
+- **Deadline.** A real date, and what it is tied to (a launch, a campaign, an event).
+- **Budget range.** Even a rough range saves everyone time. If you are not sure, read our [UK video production cost guide](/blog/video-production-cost-uk) first.
 
-- Won't discuss price until you're deep in the funnel.
-- A showreel with no businesses resembling yours.
-- Vague deliverables and no timeline commitment.
-- Unclear who owns the finished video.
+## The 10-point checklist
+
+1. **Relevant portfolio.** Look for work for businesses like yours, not just a polished showreel. A company that has made films for your sector already understands your customer.
+2. **Sector understanding.** Do they ask about your buyers, your competitors and what makes customers choose you? Good producers ask more questions than they answer on the first call.
+3. **A clear process.** You should be told the steps from brief to delivery upfront: discovery, script, storyboard, production, edit, delivery.
+4. **Transparent pricing.** Honest starting points and a written quote that says what is included. Vague "it depends" answers with no numbers are a warning sign.
+5. **Realistic timelines.** Ask how long each stage takes and what they need from you to hit the date.
+6. **In-house production.** Fewer handoffs between agencies, freelancers and editors usually means better consistency and fewer delays.
+7. **Strategy, not just cameras.** Do they talk about the hook, the message and the call to action, or only about kit?
+8. **Rights and ownership.** You should own the final files and be able to use them wherever you need, without extra licence fees.
+9. **Revisions policy.** How many rounds are included, and at what stage are changes cheap (script) versus expensive (after filming)?
+10. **Proof.** Named clients, published work and reviews you can check for yourself.
 
 ## Questions to ask on the first call
 
-"Can you show similar work? What's the honest starting price? How long from brief to delivery? Do I own the files? What's your revision process?"`,
+- Can you show work for a business similar to mine?
+- What is your honest starting price for what I have described, and what would push it up?
+- How long from approved brief to final delivery?
+- Will you film, use AI, or mix the two, and why?
+- Do I own the final files? Can I have the source files?
+- How many revisions are included, and when do I sign off the script and storyboard?
+- What versions will I get for each platform (16:9, 9:16, 1:1, cutdowns)?
+- Who will actually work on my project?
+
+## Red flags to avoid
+
+- Won't discuss price until you're deep in the sales process.
+- A showreel with no businesses resembling yours.
+- Vague deliverables and no timeline commitment.
+- Unclear who owns the finished video, or extra fees to use it on new platforms.
+- No script or storyboard sign-off before production starts, which is where expensive surprises come from.
+- Pushing one production method for every brief, whether it suits you or not.
+
+## How to compare quotes fairly
+
+Two quotes for "a 60-second video" can describe very different jobs. Before comparing totals, line up what each includes: scripting, storyboard, filming days or AI generation, voiceover, music licensing, editing, revision rounds and the number of platform versions. The cheaper quote is often missing cutdowns or music rights; the dearer one may include strategy you would otherwise do yourself. Judge value against your goal, not just the headline price.
+
+## Filmed, AI or hybrid: does it matter which company you choose?
+
+It matters more than it used to. Some companies only film; some only use AI tools. A company that can do both should recommend the route that fits the brief: filming for real people and places, AI for concepts, products and locations you cannot film, and hybrid for most commercial work. Our comparison of [AI vs traditional video production](/blog/ai-vs-traditional-video-production) explains the trade-offs.
+
+## How Moon Gleam answers these questions
+
+We publish our starting prices: social packs from £499, promotional videos from £1,499 and broadcast TV commercials from £3,999, with a written quote after a free 15-minute call. Typical timelines are within a week for a social pack, 7 to 14 days for a promo and 2 to 3 weeks for a TVC from approved script. You own the final files on delivery, and the script and storyboard are signed off with you before production starts. See [our pricing](/pricing), browse [our work](/work), or [book a free call](/contact).`,
     faqs: [
       {
-        q: "What's the most important factor?",
-        a: 'Relevant proof — work and results for businesses like yours beats a flashy generic reel.',
+        q: "What's the most important factor when choosing a video production company?",
+        a: 'Relevant proof — work for businesses like yours beats a flashy generic reel.',
       },
       {
-        q: 'Should I choose local or national?',
-        a: 'Location matters less than understanding your sector and delivering on time.',
+        q: 'Should I choose a local or national video production company?',
+        a: 'Location matters less than understanding your sector and delivering on time. Many projects, especially AI and hybrid productions, are run remotely; filming days are where location matters.',
       },
       {
-        q: 'How do I know if the price is fair?',
-        a: 'Compare against transparent from-prices and judge value, not just headline cost.',
+        q: 'How do I know if a video production quote is fair?',
+        a: 'Compare what each quote includes (script, storyboard, filming or AI generation, voiceover, music, revisions and platform versions) against transparent from-prices, and judge value against your goal, not just the headline cost.',
+      },
+      {
+        q: 'What should a video production brief include?',
+        a: 'The goal, the audience, where the video will run, the deadline and a budget range. One page is enough.',
+      },
+      {
+        q: 'Should I own the final video files?',
+        a: 'Yes. Make sure the contract gives you full usage rights to the final delivered files, so you can use them on any platform without extra fees.',
       },
     ],
     related: [
       'video-production-cost-uk',
       'ai-vs-traditional-video-production',
-      'video-marketing-by-sector',
+      'explainer-video-production',
     ],
   },
   {
@@ -644,18 +684,19 @@ Film the moments that must be real; generate everything else. You get authentici
   },
   {
     slug: 'video-marketing-by-sector',
-    title: 'Video Marketing by Sector: Law, Accountancy, Charity, Education & Retail',
+    title: 'Video Marketing by Sector: Ideas for 9 UK Industries',
     description:
-      'How video marketing works for UK law firms, accountants, charities, schools and shops — sector-specific ideas that build trust and win customers.',
+      'How video marketing works for UK law firms, accountants, charities, schools, shops, estate agents, dentists, travel brands and restaurants: what to make first in each sector.',
     keyword: 'video marketing for small business',
     tags: ['Sectors', 'Video Marketing', 'Guides'],
     date: '2026-07-09',
+    updated: '2026-10-31',
     coverFile: 'hf_20260712_232959_595d745f-b15a-4f46-8fd3-5f37ca11d80c.png',
     quickAnswer:
       "The best video marketing speaks to a sector's specific buyer. A law firm needs trust; a charity needs emotion; a shop needs footfall. Matching format and message to your sector is what turns views into customers.",
     body: `## Law firms
 
-Trust is everything. Use plain-English explainer videos ("What to do after an accident"), partner introductions, and client-story films (anonymised where needed). Avoid jargon; sound human.
+Trust is everything. Use plain-English explainer videos ("What to do after an accident"), partner introductions, and client-story films (anonymised where needed). Avoid jargon; sound human. Our guide to [explainer video production](/blog/explainer-video-production) covers the process, styles and costs.
 
 ## Accountancy firms
 
@@ -671,7 +712,27 @@ Recruitment and open-day videos, student stories and campus tours fill seats. Sh
 
 ## Retail, grocers and jewellers
 
-Drive footfall and online orders with product videos, UGC-style tips and seasonal promos. Show the product in motion and make the next step obvious.`,
+Drive footfall and online orders with product videos, UGC-style tips and seasonal promos. Show the product in motion and make the next step obvious.
+
+## Estate agents
+
+Property tour videos, agent introductions and valuation videos help win instructions as well as sell and let homes. Read our full guide to [estate agent video marketing](/blog/estate-agent-video-marketing).
+
+## Dental practices
+
+Choosing a dentist is a local trust decision. Meet-the-team films, treatment explainers and patient stories answer the questions people have before they book. See our [dental practice video marketing guide](/blog/dental-practice-video-marketing).
+
+## Travel and tour operators
+
+Destination films, itinerary teasers and social reels sell the feeling of a trip before anyone books. Read our guide to [tour operator video marketing](/blog/travel-tour-operator-video-marketing).
+
+## Restaurants, cafés and takeaways
+
+Short, appetite-led video of dishes, kitchen craft and the room works best where people decide where to eat: Instagram, TikTok, delivery apps and your booking page. See our guide to [restaurant video marketing](/blog/restaurant-video-marketing).
+
+## Which video to make first
+
+Whatever your sector, start with the one video that answers the question prospects ask most often, then cut it down for social. Our [video production cost guide](/blog/video-production-cost-uk) explains how budgets work, and our [pricing page](/pricing) lists our packages.`,
     faqs: [
       {
         q: 'Does video marketing work for professional services?',
@@ -687,9 +748,9 @@ Drive footfall and online orders with product videos, UGC-style tips and seasona
       },
     ],
     related: [
-      'ugc-content-explained',
-      'promotional-videos-that-convert',
-      'how-to-choose-video-production-company',
+      'estate-agent-video-marketing',
+      'dental-practice-video-marketing',
+      'explainer-video-production',
     ],
   },
   {
