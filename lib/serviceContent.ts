@@ -145,6 +145,10 @@ The Promo Video package starts from **£1,499** and is typically delivered in **
 
 Read more in [promotional videos that convert](/blog/promotional-videos-that-convert).
 
+## Explainer videos
+
+Explainer videos are produced under the same Promo Video package. An explainer has one job, clarity: by the end, a viewer who has never heard of you should know what you do, who it is for and what to do next. Read our guide to [explainer video production](/blog/explainer-video-production) for styles, the six-step process and timelines.
+
 ${HOW_WE_CHOOSE}
 
 ## Where to use your promo
@@ -171,7 +175,7 @@ ${HOW_WE_CHOOSE}
         a: 'No. We can produce the whole video with AI and graphics, film you and your team, or mix the two.',
       },
     ],
-    guides: ['promotional-videos-that-convert', 'video-production-cost-uk', 'how-video-increases-conversion'],
+    guides: ['explainer-video-production', 'promotional-videos-that-convert', 'video-production-cost-uk'],
     sectors: ['retail', 'law-firms', 'accountants'],
   },
 
