@@ -221,13 +221,13 @@ One promo becomes many assets: a website hero, a paid social ad, an email header
   },
   {
     slug: 'video-production-cost-uk',
-    title: 'Video Production Costs UK (2026): Price Ranges',
+    title: 'Video Production Costs & Prices UK (2026), Including London',
     description:
-      'What video production costs in the UK in 2026: our published from-prices (£499, £1,499, £3,999), what drives the price, and how to get more from your budget.',
+      'Video production prices in the UK and London for 2026: our published from-prices (£499, £1,499, £3,999), what drives the cost of professional video, and what a quote should include.',
     keyword: 'video production cost UK',
     tags: ['Pricing', 'Video Production', 'Guides'],
     date: '2026-06-15',
-    updated: '2026-10-17',
+    updated: '2026-11-01',
     coverFile: 'hf_20260712_233028_4de2610b-265a-4109-89af-7f4d710bc5da.png',
     quickAnswer:
       'Video production in the UK can cost anything from a few hundred pounds for short social clips to many thousands for a filmed brand film or TV commercial. The price depends on production method, length, crew, post-production and how many versions you need. Moon Gleam publishes its starting prices: social packs from £499, promo and explainer videos from £1,499, and TV commercials from £3,999.',
@@ -242,6 +242,18 @@ We publish honest starting points so you can plan a budget before the first call
 | TVC / Campaign | £3,999 | Broadcast-standard TV commercial with concept, script, storyboard and campaign cutdowns | 30–60 sec | 2–3 weeks |
 
 Documentaries, kids animation, short films and monthly content retainers are quoted per project. Full details are on our [pricing page](/pricing).
+
+## How much does professional video production cost?
+
+For professional work, the honest answer is: it depends on how the video is made and how much you need from it. As a guide to our own prices, a set of three short social videos starts from £499, a single promotional or explainer video from £1,499, and a broadcast-standard TV commercial from £3,999. Filmed shoot days, actors or presenters, extra languages and extra cutdowns are what move a project above those starting points. The sections below explain each factor, so you can see where your budget goes before you ask for a quote.
+
+## Video production prices in London
+
+Moon Gleam is a London-based studio working UK-wide, and our published starting prices are the same whether your business is in London or elsewhere in the UK. Many projects, especially AI and hybrid productions, are run remotely, so your location does not change the price.
+
+Location matters when a project needs filming. Every shoot day adds crew, equipment, location and travel costs, and filming in a busy city can also need permissions for some locations. That is one reason AI-generated and hybrid production can keep a London brief within budget: scenes that would otherwise need a location shoot can be generated or composited, and filming is kept for the moments where real people or real places matter.
+
+If you are comparing London video production companies, compare quotes line by line rather than on the headline price. Our guide to [how to choose a video production company](/blog/how-to-choose-video-production-company) lists the questions to ask.
 
 ## What actually drives the price
 
@@ -321,6 +333,14 @@ Book a free 15-minute call. We will ask about your goal, audience, where the vid
         q: 'Do you offer fixed pricing?',
         a: 'We publish starting prices and give every project a written quote after a free call, so you know the cost before work begins.',
       },
+      {
+        q: 'How much does video production cost in London?',
+        a: 'Our published starting prices are the same in London as across the rest of the UK: social packs from £499, promo videos from £1,499 and TV commercials from £3,999. Filmed shoot days add crew, equipment, location and travel costs, which is where London projects can cost more.',
+      },
+      {
+        q: 'How much does professional video production cost?',
+        a: 'It depends on the production method, length, people on screen, post-production and how many versions you need. Our professional work starts from £499 for three social videos, £1,499 for a promo or explainer video and £3,999 for a TV commercial, with a written quote for every project.',
+      },
     ],
     related: [
       'ai-vs-traditional-video-production',
@@ -382,58 +402,96 @@ AI now generates realistic UGC-style presenters and voiceovers, so you can produ
   },
   {
     slug: 'how-video-increases-conversion',
-    title: 'How Video Increases Conversion Rates: The Numbers That Matter',
+    title: 'Does Video Increase Conversion Rates? Product Pages, Landing Pages & Ads',
     description:
-      'How video boosts conversion rates on landing pages, ads and emails — the mechanisms, best practices and where to place video for maximum ROI.',
-    keyword: 'video marketing conversion',
+      'Does video increase conversion rates? Why it works on product pages, landing pages, ads and email, what to put in the video, and how to test the lift yourself.',
+    keyword: 'video conversion rate',
     tags: ['Conversion', 'Video Marketing', 'Guides'],
     date: '2026-06-25',
+    updated: '2026-11-01',
     coverFile: 'hf_20260712_233026_f95067d9-5001-43ed-8848-446659e0000b.png',
     quickAnswer:
-      'Video increases conversion because it builds trust faster, explains value more clearly, and holds attention longer than text or images. Placing a relevant video on a landing page, product page or ad routinely lifts conversion rates and time-on-page.',
+      'Video can increase conversion rates because it builds trust faster, shows value more clearly and holds attention longer than text or still images. It works best where a visitor is close to a decision: product pages, landing pages, paid ads and booking or checkout steps. The lift is not guaranteed, so the reliable way to know is to test the same page with and without the video and compare conversion rates.',
     body: `## Why video converts
 
-- **Faster trust:** Faces, voices and motion feel human.
-- **Clearer value:** Show the product working instead of describing it.
-- **Emotion:** Story and sound create feeling that drives action.
-- **Attention:** A good hook keeps people watching to the CTA.
+- **Faster trust:** Faces, voices and motion feel human, and people buy from businesses they trust.
+- **Clearer value:** Showing the product working answers questions a paragraph of copy cannot.
+- **Emotion:** Story, music and sound design create feeling, and feeling drives action.
+- **Attention:** A strong hook keeps people watching long enough to reach the call to action.
 
-## Where to place video for maximum impact
+## Does video on product pages increase conversion rate?
 
-1. **Landing page hero** — communicate value in 30–60 seconds.
-2. **Product pages** — demonstrate the product in use.
-3. **Paid ads** — stop the scroll and qualify the click.
-4. **Email** — a thumbnail with a play button lifts click-through.
-5. **Checkout / booking** — a reassurance video reduces drop-off.
+Often, yes — product pages are where video tends to earn its keep, because the visitor is already interested and is looking for reasons to be confident. A short product video helps when:
+
+- **The product is hard to judge from photos** — scale, texture, movement, how it fits or how it is used.
+- **The buyer has an objection** — "will it work for me?", "is it good quality?", "how big is it really?".
+- **The price needs justifying** — seeing craftsmanship or results in motion makes the price easier to accept.
+
+It helps less when the product is a simple commodity the buyer already understands, or when the video slows the page down. Keep it short, put it near the product images, make sure it loads quickly on mobile, and test it rather than assuming.
+
+## What to put in a product page video
+
+1. **The product in use within the first few seconds** — no logo intro.
+2. **The one or two details that win the sale** — close-ups of finish, size in the hand, the feature people ask about.
+3. **Answers to the most common questions** — the same ones your customer service team hears.
+4. **Captions and no reliance on sound** — many people browse with sound off.
+5. **A clear next step** — add to basket, book, or get a quote.
+
+## Where else to place video
+
+1. **Landing page hero** — communicate the offer in 30–60 seconds.
+2. **Paid ads** — stop the scroll and qualify the click before someone lands.
+3. **Email** — a thumbnail with a play button gives people a reason to click through.
+4. **Checkout or booking** — a short reassurance video can reduce drop-off at the last step.
+5. **Service pages** — for services, a short explainer often does the job a product demo does for products. See our [explainer video guide](/blog/explainer-video-production).
+
+## How to measure video's effect on conversion rate
+
+Conversion rate is the number of people who complete your goal (a purchase, enquiry or booking) divided by the number of visitors, shown as a percentage. To see what video does to it:
+
+1. **Pick one page and one goal.** Mixing pages or goals muddies the result.
+2. **Run a fair test.** Show half of visitors the page with the video and half without, over the same period. Most website and ecommerce platforms, or an A/B testing tool, can split traffic for you.
+3. **Wait for enough data.** A handful of sales either way proves nothing; low-traffic pages need longer.
+4. **Look beyond the headline number.** Check play rate, how much of the video people watch, click-through to the next step and cost per lead on ads.
+5. **Test the video itself.** If it is not helping, try a shorter cutdown, a different first frame or a different hook before giving up on video.
 
 ## Best practices that actually move the needle
 
 - Lead with the hook, not the intro.
-- Keep it to one message and one CTA.
-- Add captions — most social video is watched on mute.
-- Test multiple cutdowns and let the data pick the winner.
+- Keep to one message and one call to action.
+- Add captions.
+- Compress the file and lazy-load the player so the page stays fast.
+- Make several cutdowns (for example 15, 30 and 60 seconds) and let the results pick the winner.
 
-## Measuring video ROI
+## Getting conversion-focused video made
 
-Track conversion rate, watch-time, click-through and cost-per-lead before and after adding video. Small improvements compound across every visitor.`,
+Moon Gleam makes [product promotional videos](/services/product-promo-videos), [business promo videos](/services/business-promo-videos) and social cutdowns designed around a single action. Social video packs start from £499, promotional videos from £1,499 and broadcast TV commercials from £3,999 — see [pricing](/pricing) — and every project gets a written quote after a free 15-minute call. For budgets in more detail, read our [UK video production cost guide](/blog/video-production-cost-uk).`,
     faqs: [
       {
         q: 'Does adding video really increase conversions?',
-        a: 'Yes — relevant, well-placed video consistently improves conversion and engagement metrics.',
+        a: 'Relevant, well-placed video often improves conversion and engagement, especially on product and landing pages, but it is not guaranteed. Test the page with and without the video to see the effect on your own audience.',
+      },
+      {
+        q: 'Does video on product pages increase conversion rate?',
+        a: 'It often does, particularly for products that are hard to judge from photos or that need their price justified. Keep the video short, place it with the product images, make sure it loads fast on mobile and A/B test it.',
+      },
+      {
+        q: 'How do I measure the conversion rate of a video?',
+        a: 'Divide the number of people who complete your goal by the number of visitors to the page, then compare that rate for visitors who saw the version with video against those who saw it without, over the same period.',
       },
       {
         q: 'Where does video have the biggest impact?',
-        a: 'Usually landing pages, product pages and paid social ads.',
+        a: 'Usually product pages, landing pages and paid social ads — places where the viewer is close to a decision.',
       },
       {
         q: 'How long should a conversion video be?',
-        a: 'Short — 30 to 60 seconds for most pages, 15 to 30 for ads.',
+        a: 'Short — 30 to 60 seconds for most pages, 15 to 30 seconds for ads. Make several cutdowns and test them.',
       },
     ],
     related: [
-      'promotional-videos-that-convert',
-      'ugc-content-explained',
       'product-promotional-videos',
+      'promotional-videos-that-convert',
+      'explainer-video-production',
     ],
   },
   {
