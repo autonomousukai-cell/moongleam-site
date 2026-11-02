@@ -1301,12 +1301,13 @@ The most effective way to work with us isn't a one-off film but a rhythm: flagsh
   {
     slug: 'dental-practice-video-marketing',
     title:
-      'Dental Practice Video Marketing: How UK Practices Win More New Patients With Video (2026)',
+      'Dental Video Marketing UK: Video Marketing for Dentists & Practices (2026)',
     description:
-      'Dental practice video marketing guide for UK practices — the five videos that win new patients, filmed vs AI treatment explainers, GDC/ASA compliance and real costs.',
+      'Dental video marketing for UK practices: the five videos that win new patients, filmed vs AI explainers, compliance basics and costs from £499.',
     keyword: 'dental practice video marketing',
     tags: ['Dental', 'Video Marketing', 'Sectors'],
     date: '2026-07-31',
+    updated: '2026-11-02',
     coverFile: '/blog/dental-practice-video-marketing.webp',
     quickAnswer:
       'Dental practice video marketing works because choosing a dentist is a trust decision made locally: before anyone books a consultation, they want to see the practice, the faces and what treatment is really like. Meet-the-team films, treatment explainers, patient stories and social reels answer those questions faster than any web page — and because a single implant or Invisalign patient is worth thousands of pounds to a practice, even a modest lift in enquiries pays for the videos many times over.',
@@ -1316,7 +1317,7 @@ Dental practice video marketing is every video a practice uses to win and keep p
 
 The commercial logic is stronger in dentistry than in almost any local sector. A practice competing on Invisalign, implants and cosmetic work is competing for patients whose treatment plans run into the thousands — so the practice whose marketing builds the most trust before the first phone call wins cases the others never even hear about. Most practices already pay for Google Ads and local SEO; video is what makes that traffic convert once it lands.
 
-## The five videos every UK dental practice needs
+## Video marketing for dentists: the five videos every UK practice needs
 
 - **Meet-the-team and practice tour** — the faces, the rooms, the atmosphere. Dental anxiety is real, and the single most reassuring thing you can show a prospective patient is that your practice is calm, modern and run by approachable people. This film belongs on your homepage and your Google Business Profile.
 - **New-patient welcome ("what to expect")** — a short walkthrough of the first visit: where to park, who greets you, what the examination involves. It removes the unknowns that stop anxious patients booking, and it cuts front-desk questions too.
@@ -1330,7 +1331,7 @@ Start with the gap that costs you most. If the phones are quiet, the team film a
 
 The team, the practice and the patients should be filmed. Trust is the product, and a prospective patient needs to see the real reception desk and the real dentist who'll treat them — a half-day shoot covers the tour, the welcome video and team pieces in one visit without disrupting a clinical day.
 
-Treatment explainers are the opposite case. Filming chairside is disruptive, consent-heavy and rarely flattering — and what patients actually want is a clear picture of the process, not close-up clinical footage. AI-generated and animated explainers show how an implant or aligner works cleanly and calmly, are clearance-safe with no patient identifiable, and ship in days. We produce these with Creative AI — AI speed, human craft — then cut ad-length versions from the same material, so one explainer covers your treatment page, your consultation room and your Meta campaigns.
+Treatment explainers are the opposite case. Filming chairside is disruptive, consent-heavy and rarely flattering — and what patients actually want is a clear picture of the process, not close-up clinical footage. AI-generated and animated [explainer videos](/blog/explainer-video-production) show how an implant or aligner works cleanly and calmly, are clearance-safe with no patient identifiable, and ship in days. We produce these with Creative AI — AI speed, human craft — then cut ad-length versions from the same material, so one explainer covers your treatment page, your consultation room and your Meta campaigns.
 
 Most practice programmes end up hybrid: one filmed day for the human content, AI production for the explainers and the ongoing ad creative.
 
@@ -1354,7 +1355,7 @@ None of this makes video harder than any other marketing — it just needs to be
 | Patient story | Website, remarketing | Under two weeks |
 | Brand / TV-quality film | Multi-site groups, campaigns | Two to four weeks |
 
-On price: our social video packs start from **£499**, full promotional films from **£1,499**, and TV-quality commercial production from **£3,999** — with platform cutdowns included, so one production covers your website, Instagram, TikTok and your ad accounts. The full breakdown of what drives price is in our UK video production cost guide.
+On price: our social video packs start from **£499**, full promotional films from **£1,499**, and TV-quality commercial production from **£3,999** — with platform cutdowns included, so one production covers your website, Instagram, TikTok and your ad accounts. The full breakdown of what drives price is in our [UK video production cost guide](/blog/video-production-cost-uk), and every package is listed on our [pricing page](/pricing).
 
 The maths is unusually kind to dentists. A single accepted implant or Invisalign plan is commonly worth more than an entire starter video package — so the question isn't whether video pays for itself, but how many high-value consultations it needs to influence per year to do so. For most practices the honest answer is: one or two.
 
@@ -1367,11 +1368,15 @@ You don't need a content strategy to start — you need one good production deci
 3. **Add an AI treatment explainer** for that money treatment, with ad cutdowns.
 4. **Put the films where decisions happen** — homepage, treatment page, Google Business Profile, and one always-on social ad.
 
-We handle all of it in-house, from brief and script to filming, AI production, edit and cutdowns. Tell us your practice, your patient mix and the treatment you most want to grow, and we'll recommend the package that fits.`,
+We handle all of it in-house, from brief and script to filming, [AI video production](/services/ai-video-production), edit and cutdowns. For ideas in other sectors, see [video marketing by sector](/blog/video-marketing-by-sector). Tell us your practice, your patient mix and the treatment you most want to grow, and we'll recommend the package that fits.`,
     faqs: [
       {
         q: 'How much does dental video marketing cost in the UK?',
         a: 'Our social video packs start from £499, full promotional films from £1,499 and TV-quality production from £3,999, all with platform cutdowns included. Every project gets a tailored quote on a free call — see our UK video production cost guide for what drives price.',
+      },
+      {
+        q: 'Is video marketing worth it for dentists?',
+        a: 'Usually, yes. Choosing a dentist is a local trust decision, and video shows the practice, the team and what treatment involves before anyone books. Because a single accepted implant or Invisalign plan is commonly worth more than a starter video package, a practice typically needs only one or two extra high-value consultations a year for video to pay for itself.',
       },
       {
         q: 'What type of video gets a dental practice the most new patients?',
