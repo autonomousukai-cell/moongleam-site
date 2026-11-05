@@ -984,13 +984,13 @@ We produce restaurant video from brief to delivery: appetite-led concepts, dish 
   },
   {
     slug: 'explainer-video-production',
-    title: 'Explainer Video Production UK: Process & Costs',
+    title: 'Explainer Video Production UK: Corporate Explainers, Process & Costs',
     description:
-      'Explainer video production in the UK: styles compared, the six-step process, what drives cost (ours start from £1,499), timelines and how to brief a studio.',
+      'Explainer video production in the UK for businesses: corporate and product explainers, styles compared, the six-step process, costs (ours start from £1,499) and how to choose a studio.',
     keyword: 'explainer video production',
     tags: ['Explainer Video', 'Video Production', 'Guides'],
     date: '2026-07-24',
-    updated: '2026-10-17',
+    updated: '2026-11-04',
     coverFile: '/blog/explainer-video-production.webp',
     quickAnswer:
       'An explainer video is a short film, usually 30 to 90 seconds, that makes a product, service or process clear to someone who has never heard of it. Production follows six steps: brief, script, storyboard, production, edit and delivery. At Moon Gleam, explainer videos start from £1,499 and are typically delivered in 7 to 14 days once the script is signed off.',
@@ -1017,6 +1017,20 @@ A simple test: if prospects regularly ask "so what exactly do you do?", an expla
 | Hybrid | Most real-world briefs | The right tool scene by scene | Needs tighter direction to stay coherent |
 
 There is no universally "best" style. Animate it if the offer is abstract, show a person if the offer depends on trust, and demonstrate it if the offer is visual.
+
+## Corporate explainer video production
+
+A corporate explainer is an explainer made for an organisation rather than a single product. It might explain how a service works for clients, what a new process means for staff, or how a partnership or programme fits together. The audience is often busy, senior or sceptical, so the brief is the same as any explainer but the bar for clarity is higher.
+
+Common uses for corporate explainer videos:
+
+- **Client-facing service explainers** — how you work, what happens at each stage and what the client needs to do.
+- **Internal communications** — a new system, policy or process explained once, consistently, for every team.
+- **Onboarding and training** — short chapters that new starters can watch at their own pace.
+- **Sales and pitch support** — a 60-second film that opens a sales email or a proposal deck.
+- **Investor and stakeholder updates** — a complex model or plan made easy to follow.
+
+Corporate explainers usually need extra care with sign-off, so we agree who approves the script and storyboard on the first call. That keeps review rounds short and stops late changes from multiple stakeholders.
 
 ## What goes into a great explainer
 
@@ -1085,6 +1099,18 @@ For our Promo Video package the typical timeline is **7 to 14 days**, assuming f
 
 For more examples across industries, read our [video marketing by sector guide](/blog/video-marketing-by-sector).
 
+## How to choose an explainer video production company
+
+When you compare studios, look past the showreel and ask:
+
+- **Who writes the script?** Clarity is created at script stage, so the studio should write it, not just animate yours.
+- **Do they work in more than one style?** A studio that only offers one style will recommend it for every brief.
+- **What is included in the price?** Script, storyboard, voiceover, music, captions and cutdowns should be listed in writing.
+- **When do you sign off?** Script and storyboard approval before production keeps changes cheap.
+- **What will you receive?** The master file plus versions for each platform, and clarity on usage rights.
+
+Our guide on [how to choose a video production company](/blog/how-to-choose-video-production-company) has a fuller checklist of questions to ask before you commission.
+
 ## How we produce explainer videos
 
 We handle explainer video production end to end: brief, script, storyboard, production, voiceover and edit, delivered with platform cutdowns. We use AI where it saves time and money, and human creative direction for the story, brand and final edit. One call is usually enough for us to recommend a style and give you a written quote and timeline. You can see the full scope of our [AI video production services](/services/ai-video-production) or [book a free call](/contact).`,
@@ -1108,6 +1134,10 @@ We handle explainer video production end to end: brief, script, storyboard, prod
       {
         q: 'What do I need to provide?',
         a: 'Answers to a short brief (audience, problem, key message, call to action, where it will be used), plus any brand guidelines, logos or existing footage. We write the script.',
+      },
+      {
+        q: 'What is a corporate explainer video?',
+        a: 'A short film that explains how an organisation, service or process works, for clients, staff or stakeholders. Typical uses are client-facing service explainers, internal communications, onboarding and sales support.',
       },
       {
         q: 'Do explainer videos increase conversions?',
