@@ -279,7 +279,7 @@ ${PRICES}`,
 
 ${PRICES}
 
-Read our guides to [product promotional videos](/blog/product-promotional-videos) and [restaurant video marketing](/blog/restaurant-video-marketing).`,
+Read our guides to [product promotional videos](/blog/product-promotional-videos) and [restaurant video marketing](/blog/restaurant-video-marketing-uk).`,
     faqs: [
       {
         q: 'Can a local shop afford a TV advert?',
@@ -295,6 +295,6 @@ Read our guides to [product promotional videos](/blog/product-promotional-videos
       },
     ],
     services: ['product-promo-videos', 'tv-commercials', 'ugc-content'],
-    guides: ['product-promotional-videos', 'restaurant-video-marketing'],
+    guides: ['product-promotional-videos', 'restaurant-video-marketing-uk'],
   },
 };
