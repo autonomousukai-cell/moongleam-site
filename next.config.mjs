@@ -24,6 +24,9 @@ const nextConfig = {
     return [
       { source: '/studio', destination: '/', permanent: true },
       { source: '/experience', destination: '/', permanent: true },
+      // 7 Nov 2026: restaurant guide moved to a fresh URL — Google had tied the old
+      // URL to an unrelated duplicate and had not recrawled it since Aug.
+      { source: '/blog/restaurant-video-marketing', destination: '/blog/restaurant-video-marketing-uk', permanent: true },
     ];
   },
   async rewrites() {

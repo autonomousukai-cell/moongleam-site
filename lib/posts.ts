@@ -806,7 +806,7 @@ Destination films, itinerary teasers and social reels sell the feeling of a trip
 
 ## Restaurants, cafés and takeaways
 
-Short, appetite-led video of dishes, kitchen craft and the room works best where people decide where to eat: Instagram, TikTok, delivery apps and your booking page. See our guide to [restaurant video marketing](/blog/restaurant-video-marketing).
+Short, appetite-led video of dishes, kitchen craft and the room works best where people decide where to eat: Instagram, TikTok, delivery apps and your booking page. See our guide to [restaurant video marketing](/blog/restaurant-video-marketing-uk).
 
 ## Which video to make first
 
@@ -884,7 +884,7 @@ Over-styling until it looks like a generic advert, hiding the product's real ben
     ],
   },
   {
-    slug: 'restaurant-video-marketing',
+    slug: 'restaurant-video-marketing-uk',
     title: 'Restaurant Video Marketing UK: 5 Videos That Fill Tables',
     description:
       'Restaurant video marketing for UK restaurants, cafés and takeaways: the five videos to make first, where to post them, what they cost and how to brief them.',
