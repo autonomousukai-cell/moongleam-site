@@ -592,11 +592,11 @@ We publish our starting prices: social packs from £499, promotional videos from
     slug: 'tv-commercial-production-smb',
     title: 'Affordable TV Commercial Production UK: What a TV Advert Costs',
     description:
-      'What a TV advert costs to produce in the UK in 2026, how small businesses keep TV commercial production costs down, and how AI and hybrid production get you on air.',
+      'What a TV advert costs to produce in the UK in 2026, how TV airtime is priced, how small businesses keep TV commercial production costs down, and how AI and hybrid production get you on air.',
     keyword: 'affordable TV commercial production',
     tags: ['TVC', 'AI Video', 'Guides'],
     date: '2026-07-03',
-    updated: '2026-10-28',
+    updated: '2026-11-05',
     coverFile: 'hf_20260712_233003_d25cc2f8-4b70-46f5-903a-43bc8e1a3d63.png',
     quickAnswer:
       'A TV advert has two separate costs: producing the commercial and buying the airtime. With AI and hybrid production, a broadcast-standard 30 to 60-second TV commercial from Moon Gleam starts from £3,999, including concept, script, storyboard, broadcast-ready delivery and social cutdowns, typically delivered in 2 to 3 weeks from approved script. Airtime is bought separately, and connected TV and streaming now let smaller UK businesses buy targeted slots rather than national campaigns.',
@@ -608,6 +608,18 @@ When people ask how much a TV advert costs, they are usually asking two question
 - **Airtime** is the cost of showing it. It is bought from broadcasters, streaming platforms or a media agency, and it depends on channel, region, time slot, audience and how many times the advert runs.
 
 The two are budgeted separately. A small business can keep production lean and start with a modest, targeted airtime test, then scale what works.
+
+## How TV advertising airtime is priced in the UK
+
+Airtime does not have a fixed price list in the way production packages do. Broadcasters and media agencies quote it campaign by campaign, and the cost of advertising on TV depends on a handful of factors:
+
+- **Audience size and type.** Airtime is traded on the number of viewers in your target audience who see the advert, often expressed as a cost per thousand (CPT) viewers. A slot in a popular programme watched by your audience costs more than a quiet daytime slot.
+- **Channel and platform.** Linear channels such as ITV, Channel 4 and Sky, and their streaming services, each sell their own airtime. Connected TV and streaming platforms can target by region, household or interest.
+- **Region.** A regional or local campaign costs far less than national coverage, which is why it is the usual starting point for a smaller UK business.
+- **Advert length.** The 30-second spot is the standard reference length. Shorter and longer adverts are priced relative to it, so a 20-second advert is not simply two-thirds of the price.
+- **Timing and frequency.** Peak time, seasonal demand (for example the run-up to Christmas) and how many times the advert runs all change the total.
+
+Because of this, nobody can honestly quote "the cost of a 30-second TV advert" without knowing the audience, region, channel and dates. Our packages cover production: the commercial and the versions each platform needs. Airtime is bought separately, by you or your media agency. If you are new to TV, ask a broadcaster's sales team or a media agency for a regional or connected-TV test quote before you commit to a full campaign.
 
 ## What affordable TV commercial production looks like in 2026
 
@@ -660,6 +672,14 @@ See TV commercials we have produced for retail, travel and charity clients on ou
       {
         q: 'How much does a TV advert cost to produce in the UK?',
         a: 'Our TVC / Campaign package starts from £3,999 for a 30 to 60-second commercial, including concept, script, storyboard, broadcast-ready delivery and social cutdowns. The final cost depends on filming, talent, locations and versions. Airtime is bought separately.',
+      },
+      {
+        q: 'How much does a 30-second TV advert cost in the UK?',
+        a: 'There are two parts. Producing a 30 to 60-second TV commercial with Moon Gleam starts from £3,999. Airtime is quoted separately by broadcasters or media agencies and depends on audience, channel, region, timing and how often the advert runs, so there is no single price for a 30-second slot. A regional or connected-TV test is the usual low-cost starting point.',
+      },
+      {
+        q: 'How is TV advertising airtime priced?',
+        a: 'Airtime is usually priced on the audience it reaches, often as a cost per thousand viewers in your target audience, and varies by channel, platform, region, advert length, time of year and frequency. The 30-second spot is the standard reference length.',
       },
       {
         q: 'Is airtime included in the production price?',

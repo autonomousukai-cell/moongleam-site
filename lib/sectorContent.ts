@@ -22,7 +22,7 @@ export const sectorContent: Record<string, SectorContent> = {
   education: {
     title: 'Educational Video Production Company, London',
     description:
-      'Educational video production for schools, academies, tutors and training providers: course promos, explainers, brand films and 3D animation for learners.',
+      'Educational video production company in London for schools, online academies, tutors and training providers: course promos, explainers, brand films and 3D animation.',
     h1: 'Educational Video Production',
     body: `We produce video for schools, online academies, tuition centres and training providers: films that sell the institution, promos that fill courses, and teaching content that keeps learners watching.
 
@@ -40,6 +40,28 @@ export const sectorContent: Record<string, SectorContent> = {
 2. **Plain language and captions**, so content works on mute and for every learner.
 3. **Visuals that show, not tell** — animation or AI-generated scenes where filming is impractical.
 4. **Accessible delivery** — subtitles and versions for your platform or VLE.
+
+## Education video we have produced
+
+Examples on this page include a brand film and an online-university film for QNS Academy, promos for children's courses, a book promo and a series of 3D animated stories and songs for young learners. Browse more in [our work](/work).
+
+## How an education video project works
+
+1. **Free call** — your audience (pupils, parents, adult learners or staff), the course or message and where the video will be shown.
+2. **Script and plan** — one clear learning or enrolment goal, written in plain language and checked by you before production.
+3. **Production** — filming on site where real people and places matter, animation or AI-generated scenes where filming is impractical or too costly.
+4. **Edit and delivery** — captions included, with versions sized for your website, VLE, YouTube and social channels.
+
+## Choosing an educational video production company
+
+When you compare educational video production companies, look for:
+
+- **Work for learners, not only marketing** — can they make a lesson clear as well as make a promo look good?
+- **Animation and live action under one roof** — so a course promo and its teaching content feel like one brand.
+- **Accessibility as standard** — captions and plain language should not be extras.
+- **A written quote and timeline** before you commit, with clear revision rounds.
+
+Our guide on [how to choose a video production company](/blog/how-to-choose-video-production-company) covers the questions to ask any studio.
 
 ${PRICES}`,
     faqs: [
@@ -59,9 +81,17 @@ ${PRICES}`,
         q: 'Do videos include subtitles?',
         a: 'Yes. Captions are included so videos work on mute and for every learner.',
       },
+      {
+        q: 'How long does an educational video take to produce?',
+        a: 'A Promo Video is typically delivered in 7 to 14 days after the brief is agreed. Animated series and longer teaching content are scheduled per project in your written quote.',
+      },
+      {
+        q: 'Can you make videos for online courses and VLEs?',
+        a: 'Yes. We produce course promos, explainers and lesson videos with captions, delivered in versions sized for your website, VLE, YouTube and social channels.',
+      },
     ],
     services: ['kids-animation', 'business-promo-videos', 'ai-video-production'],
-    guides: ['explainer-video-production', 'video-marketing-by-sector'],
+    guides: ['explainer-video-production', 'how-to-choose-video-production-company', 'video-marketing-by-sector'],
   },
 
   travel: {
