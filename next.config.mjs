@@ -19,14 +19,47 @@ const nextConfig = {
     ],
   },
   async redirects() {
-    // The immersive studio tour became the homepage (2026-07-24) — keep the
-    // old tour URLs (QR codes / shared links) alive.
+    // 16 Nov 2026: Moon Gleam moved to https://moongleam.ai (founder-approved full
+    // migration). Every legacy URL 301s to its closest moongleam.ai page; the blog
+    // guides were ported to moongleam.ai/insights. /go (GHL funnel proxy), /api and the
+    // IndexNow key file stay on this domain.
+    const AI = 'https://moongleam.ai';
+    const map = [
+      ['/', '/'],
+      ['/studio', '/'],
+      ['/experience', '/'],
+      ['/work', '/films'],
+      ['/services', '/services'],
+      ['/services/ai-video-production', '/productions'],
+      ['/services/business-promo-videos', '/services/brand-films'],
+      ['/services/product-promo-videos', '/services/product-films'],
+      ['/services/tv-commercials', '/services/tv-commercials'],
+      ['/services/ugc-content', '/productions/ai-ugc-ads'],
+      ['/services/documentary', '/services/documentaries'],
+      ['/services/kids-animation', '/services/animation'],
+      ['/services/short-film', '/services/original-films'],
+      ['/sectors', '/insights/video-marketing-by-sector'],
+      ['/sectors/law-firms', '/insights/explainer-video-production'],
+      ['/sectors/accountants', '/insights/explainer-video-production'],
+      ['/sectors/charities', '/services/cause-campaigns'],
+      ['/sectors/education', '/services/animation'],
+      ['/sectors/retail', '/insights/product-promotional-videos'],
+      ['/sectors/travel', '/insights/travel-tour-operator-video-marketing'],
+      ['/pricing', '/productions'],
+      ['/about', '/about'],
+      ['/contact', '/contact'],
+      ['/blog', '/insights'],
+      ['/blog/restaurant-video-marketing', '/insights/restaurant-video-marketing-uk'],
+      ['/blog/:slug', '/insights/:slug'],
+    ];
     return [
-      { source: '/studio', destination: '/', permanent: true },
-      { source: '/experience', destination: '/', permanent: true },
-      // 7 Nov 2026: restaurant guide moved to a fresh URL — Google had tied the old
-      // URL to an unrelated duplicate and had not recrawled it since Aug.
-      { source: '/blog/restaurant-video-marketing', destination: '/blog/restaurant-video-marketing-uk', permanent: true },
+      ...map.map(([source, dest]) => ({ source, destination: AI + dest, permanent: true })),
+      // Anything else (old assets, unknown paths) goes to the same path on moongleam.ai.
+      {
+        source: '/:path((?!go/|api/|_next/|fc0e57b8019748ed90ac6c4d2dfea206\\.txt).*)',
+        destination: AI + '/:path',
+        permanent: true,
+      },
     ];
   },
   async rewrites() {
